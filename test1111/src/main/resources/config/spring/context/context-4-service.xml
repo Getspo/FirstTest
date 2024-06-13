@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<!-- 서비스 객체 만들면서 dao 참조하기 -->
+	<bean id="test_serviceBean" class="com.kh.aop.service.TestService">
+		<property name="test_dao" ref="test_daoBean"></property>
+	</bean>
+	
+		
+</beans>
