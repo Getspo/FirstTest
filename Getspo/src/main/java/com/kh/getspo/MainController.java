@@ -34,4 +34,9 @@ public class MainController {
 		this.category_dao = category_dao;
 	}
 	
+	@RequestMapping(value={"/", "main.do"})
+	   public String Main() {
+	      return Common.Main.VIEW_PATH + "main.jsp";
+	}
+	
 }

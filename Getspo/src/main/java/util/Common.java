@@ -16,6 +16,11 @@ public class Common {
 		public final static int BLOCKPAGE = 3;
 	}
 	
+	public static class Main{
+	      
+	      public static final String VIEW_PATH = "/WEB-INF/views/";
+	      
+	   }
 	
 	/*
 	 * //QnA 페이징 관련 public static class Comment{ public static final String
