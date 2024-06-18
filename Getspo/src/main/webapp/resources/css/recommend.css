@@ -1,0 +1,11 @@
+@charset "UTF-8";
+* {	
+	margin:0;
+	padding:0;
+}
+.recommend {
+	font-family: "Noto Sans KR";
+	align-items: center;
+	width: 1200px;
+	margin: 110px auto;
+}
