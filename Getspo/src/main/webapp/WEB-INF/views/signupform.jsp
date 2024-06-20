@@ -15,12 +15,12 @@
 	
 	            authenticateBtn.addEventListener("click", function() {
 	            	let pattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-	            	let emailInput = document.getElementById("email").value;
-	            	if(pattern.test(emailInput)){
+	            	let emailInput = document.getElementById("email");
+	            	if(pattern.test(emailInput.value)){
 	            		verificationGroup.classList.add("show");
-	            		let userEmail = emailInput;
+	            		let userEmail = emailInput.value;
 	    				let url = "mailCheck.do";
-	    				let param = "email="+userEmail;
+	    				let param = "email="+ encodeURIComponent(userEmail);
 	    				sendRequest(url, param, resultMail, "post");
 	            	}else{
 	            		alert("올바른 이메일주소를 입력하세요");
