@@ -11,9 +11,11 @@
 	<typeAliases>
 		<typeAlias type="vo.CategoryVO" alias="category"/>
 		<typeAlias type="vo.EventVO" alias="event"/>
+		<typeAlias type="vo.UserVO" alias="user"/>
 	</typeAliases>
 	
 	<mappers>
 		<mapper resource="config/mybatis/mapper/getspomain.xml" />
+		<mapper resource="config/mybatis/mapper/user.xml" />
 	</mappers>
 </configuration>

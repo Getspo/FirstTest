@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%> 
 <!DOCTYPE html>
-<html>
-	<head>
+<html> 
+	<head>  
 		<meta charset="UTF-8">
 		<title>Insert title here</title>
 		
@@ -46,6 +46,8 @@
 					arrows: true, /* 화살표 보여주기 */
 					prevArrow: "<button type='button' class='slick-prev'>&lt;</button>",
 					nextArrow: "<button type='button' class='slick-next'>&gt;</button>",
+					draggable: true,
+					pauseOnFocus: true,
 					dots: false, /* 밑에점보여주는거 */
 					responsive: [ /* 반응형동작 */
 						{
@@ -62,6 +64,40 @@
 						}
 					]
 				});
+				
+				 slider.on('afterChange', function(event, slick, currentSlide){
+				      var totalSlides = slick.slideCount;
+				      var currentSlideIndex = currentSlide + 1;
+
+				      // 첫 번째 슬라이드일 때 왼쪽 버튼 숨기기
+				      if (currentSlideIndex === 1) {
+				        $('.slick-prev').hide();
+				      } else {
+				        $('.slick-prev').show();
+				      }
+
+				      // 마지막 슬라이드일 때 오른쪽 버튼 숨기기
+				      if (currentSlideIndex === totalSlides) {
+				        $('.slick-next').hide();
+				      } else {
+				        $('.slick-next').show();
+				      }
+				    });
+
+				    // 초기에 첫 번째 슬라이드일 경우 왼쪽 버튼 숨기기
+				    if (slider.slick('slickCurrentSlide') === 0) {
+				      $('.slick-prev').hide();
+				    }
+
+				    // 버튼 클릭으로 이전/다음 슬라이드로 이동
+				    $('.slick-prev').click(function(){
+				      slider.slick('slickPrev');
+				    });
+				    $('.slick-next').click(function(){
+				      slider.slick('slickNext');
+				    });
+				
+				
 			});
 		</script>
 		

@@ -10,5 +10,9 @@
 	<bean id="event_daoBean" class="dao.EventDAO">
 		<constructor-arg ref="sqlSessionBean"/>
 	</bean>
+
+	<bean id="user_daoBean" class="dao.UserDAO">
+		<constructor-arg ref="sqlSessionBean"/>
+	</bean>
 	
 </beans>

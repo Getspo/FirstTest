@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="u">
+	<insert id="insert_user" parameterType="user">
+		insert into getspo_user values(seq_user_idx.nextVal, #{name}, #{pwd}, #{birth}, #{tel}, #{email}, #{addr})
+	</insert>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
