@@ -18,4 +18,10 @@ public class UserDAO {
 		return res;
 	}
 	
+	//이메일 중복확인
+	public String selectemail(String email) {
+		String res = sqlSession.selectOne("u.select_email", email);
+		return res;
+	}
+	
 }

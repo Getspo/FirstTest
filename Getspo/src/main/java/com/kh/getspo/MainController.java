@@ -67,15 +67,23 @@ public class MainController {
 		return res;
 	}
 	
-	/*
-	 * //이메일중복체크
-	 * 
-	 * @RequestMapping("dualmail.do")
-	 * 
-	 * @ResponseBody public String dualmail(String email) {
-	 * 
-	 * }
-	 */
+	
+	//이메일중복체크
+	
+	 @RequestMapping("checkDuplicate.do")
+	 @ResponseBody 
+	 public String dualmail(String email) {
+		 System.out.println("email: " + email);
+		 String result = user_dao.selectemail(email);
+		 String res = "";
+		 if (result != null) {
+	            res = "true"; // 이메일이 이미 존재할 경우
+	        } else {
+	        	res = "false"; // 이메일이 존재하지 않을 경우
+	        }
+		 return res;
+	 }
+	 
 	
 	//회원가입
 	@RequestMapping("signupInsert.do")
@@ -84,6 +92,8 @@ public class MainController {
 		user_dao.userInsert(vo);
 		return "redirect:main.do";
 	}
+	
+
 	
 	
 	
