@@ -67,12 +67,25 @@ public class MainController {
 		return res;
 	}
 	
+	/*
+	 * //이메일중복체크
+	 * 
+	 * @RequestMapping("dualmail.do")
+	 * 
+	 * @ResponseBody public String dualmail(String email) {
+	 * 
+	 * }
+	 */
+	
+	//회원가입
 	@RequestMapping("signupInsert.do")
 	public String signupInsert(UserVO vo) {
 		System.out.println("e:"+ vo.getEmail());
 		user_dao.userInsert(vo);
 		return "redirect:main.do";
 	}
+	
+	
 	
 	
 	

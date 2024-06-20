@@ -67,6 +67,17 @@
 				let tel = f.tel.value;
 				let addr = f.addr.value;
 				
+				//유효성 검사
+				// 최소 8자 이상, 최대 15자 이하, 영문 대소문자 포함, 숫자, 특수문자 포함
+			    let pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{}|;:',.<>/?]).{8,15}$/;
+			    				
+				if(!pattern.test(pwd)) {
+			            passwordWarning.textContent = "띄어쓰기 없는 8~15자의 영문 대/소문자 숫자 및 특수문자 조합으로 입력";
+			            return;
+			        } else {
+			            passwordWarning.textContent = ""; // 경고 메시지 초기화
+			        }
+				
 				
 				f.method="post";
 				f.action = "signupInsert.do?email="+encodeURIComponent(email);
@@ -91,7 +102,8 @@
             	</div>
 				<div class="form-group">
 					<label for="password">비밀번호</label> 
-					<input type="password" id="pwd" name="pwd" required>
+					<input type="password" id="pwd" name="pwd" placeholder="비밀번호입력 6~15자의 영문 대/소문자 숫자 및 특수문자 조합" required>
+					<span id="passwordWarning"></span>
 				</div>
 				<div class="form-group">
 					<label for="name">이름</label>
