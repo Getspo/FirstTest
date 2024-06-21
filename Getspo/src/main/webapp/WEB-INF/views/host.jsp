@@ -13,7 +13,24 @@
 	<jsp:include page="hostCenterBar.jsp"/><br>
 	
 	<div class="host_content">
-		<p>호스트페이지 입니다.</p>
+		<h4>개최 이벤트 리스트</h4>
+		<table border="1">
+		<tr>
+			<th>이벤트번호</th>
+			<th>조회수</th>
+			<th>이벤트명</th>
+			<th>이벤트일시</th>
+			<th>이벤트개설일</th>
+		</tr>
+		<tr>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+		
+		</table>
 	</div>	
 	</body>
 </html>
