@@ -1,9 +1,17 @@
 package vo;
 
 public class UserVO {
-	private String name, pwd, birth, tel, email, addr, addrcode, addrdetail;
+	private String id, name, pwd, birth, tel, email, addr, addrcode, addrdetail;
+		
 	
-	
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
 	public String getAddrcode() {
 		return addrcode;
 	}

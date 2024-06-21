@@ -6,13 +6,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <!-- 회원가입 -->
 	<insert id="insert_user" parameterType="user">
-		insert into getspo_user values(seq_user_idx.nextVal, #{name}, #{pwd}, #{birth}, #{tel}, #{email}, #{addr}, #{addrcode}, #{addrdetail})
+		insert into getspo_user values(seq_user_idx.nextVal, #{name}, #{id}, #{pwd}, #{birth}, #{tel}, #{email}, #{addrcode}, #{addr}, #{addrdetail})
 	</insert>
 	
 <!-- 이메일 중복확인 -->
 
 <select id="select_email" resultType="String" parameterType="String">
-select * from getspo_user where email = #{email}
+select * from getspo_user where user_id = #{id}
 </select>
 </mapper>
 

@@ -18,9 +18,9 @@ public class UserDAO {
 		return res;
 	}
 	
-	//이메일 중복확인
-	public String selectemail(String email) {
-		String res = sqlSession.selectOne("u.select_email", email);
+	//아이디 중복확인
+	public String selectId(String id) {
+		String res = sqlSession.selectOne("u.select_email", id);
 		return res;
 	}
 	

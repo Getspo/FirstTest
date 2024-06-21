@@ -47,16 +47,36 @@ public class MainController {
 	      return Common.Main.VIEW_PATH + "main.jsp";
 	}
 	
+	//로그인페이지이동
 	@RequestMapping("/signinform.do")
 	   public String sign_form() {
-	      return Common.Main.VIEW_PATH + "signinform.jsp";
+	      return Common.Sign.VIEW_PATH + "signinform.jsp";
+	}
+	
+	//비회원페이지이동
+	@RequestMapping("/nonmemberconfirm.do")
+	public String nonmem_form() {
+		return Common.Sign.VIEW_PATH + "nonmembersignin.jsp";
 	}
 	
 	//회원가입폼
 	@RequestMapping("/signupform.do")
 	  public String signUpForm() {
-	      return Common.Main.VIEW_PATH + "signupform.jsp";
+	      return Common.Sign.VIEW_PATH + "signupform.jsp";
 	   }
+	
+	// 아이디 찾기 폼
+		@RequestMapping("/forgotid.do")
+		public String forgotId() {
+			return Common.Sign.VIEW_PATH + "forgotid.jsp";
+		}
+
+		// 비밀번호 찾기 폼
+		@RequestMapping("/forgotpassword.do")
+		public String forgotPassword() {
+			return Common.Sign.VIEW_PATH + "forgotpassword.jsp";
+		}
+	
 	
 	//Ajax로 요청받은 인증처리 메서드
 	@RequestMapping("/mailCheck.do")
@@ -68,18 +88,17 @@ public class MainController {
 	}
 	
 	
-	//이메일중복체크
-	
+	//아이디중복체크
 	 @RequestMapping("checkDuplicate.do")
 	 @ResponseBody 
-	 public String dualmail(String email) {
-		 System.out.println("email: " + email);
-		 String result = user_dao.selectemail(email);
+	 public String dualmail(String id) {
+		 System.out.println("id: " + id);
+		 String result = user_dao.selectId(id);
 		 String res = "";
 		 if (result != null) {
-	            res = "true"; // 이메일이 이미 존재할 경우
+	            res = "true"; // 아이디가 이미 존재할 경우
 	        } else {
-	        	res = "false"; // 이메일이 존재하지 않을 경우
+	        	res = "false"; // 아이디가 존재하지 않을 경우
 	        }
 		 return res;
 	 }

@@ -5,9 +5,20 @@
 	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<title>회원가입 페이지</title>
+		<title>회원가입</title>
+		
+		<!-- css -->
 		<link rel="stylesheet" href="/getspo/resources/css/signup.css">
+		
+		<!-- 폰트 설정 -->
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap"
+			rel="stylesheet">
+		
 		<script src="/vs/resources/js/httpRequest.js"></script>
+		
+		<!-- 우편번호 API -->
 		<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 		<script>		
 	        document.addEventListener("DOMContentLoaded", function() {
@@ -24,42 +35,14 @@
 	            		alert("올바른 이메일주소를 입력하세요");
 	            		return;	
 	            	}
-	            	
-	            	// 서버에 이메일 중복 확인 요청을 보내는 함수 호출
-	            	checkDuplicateEmail(emailInput.value);	    
-	            	
+	            	            	
 	            	verificationGroup.classList.add("show");
             		let userEmail = emailInput.value;
     				let url = "mailCheck.do";
     				let param = "email="+ encodeURIComponent(userEmail);
-    				sendRequest(url, param, resultMail, "post");
-	            		
-	            		                               
+    				sendRequest(url, param, resultMail, "post");		                               
 	            });
-	            
-	         	// 서버에 이메일 중복 확인 요청을 보내는 함수
-	         	let emailInput = document.getElementById("email").value;
-	            function checkDuplicateEmail(emailInput){
-	               	    let url = "checkDuplicate.do"; // 서버의 확인 URL
-	            	    let param = "email=" + encodeURIComponent(emailInput);
-	               	    sendRequest(url, param, dupMail, "post");
-	            }
-	            
-	            function dupMail(){
-	            	if(xhr.readyState == 4 && xhr.status == 200){
-	            		let data = xhr.responseText;
-	            		if (data === "true") {
-	            	           alert("이미 사용 중인 이메일입니다.");
-	            	           // 사용자가 이미 사용 중인 이메일임을 알리는 추가적인 처리
-	            	       } else {
-	            	           alert("사용할 수 있는 이메일입니다.");
-	            	           // 사용자가 없어 사용할 수 있는 이메일
-	            	           return;
-	            	    }
-	            	}
-	            }
-	            
-	            
+	            	             
 	            let res;
 				function resultMail(){
 					if(xhr.readyState == 4 && xhr.status == 200){
@@ -70,7 +53,6 @@
 					}
 				}
 				      
-	
 	            const verifyBtn = document.querySelector(".btn-verify");
 	
 	            verifyBtn.addEventListener("click", function() {
@@ -86,6 +68,39 @@
 					}
 	            });
 	        }); 
+	        
+	        function checkDul(){
+	        	let id = document.getElementById("id").value;
+	        	
+				//유효성 검사
+				//아이디
+				//알파벳 소문자로 시작하고, 그 다음에는 알파벳 소문자나 숫자가 6자에서 20자까지
+				let idpattern = /^[a-z][a-z0-9]{5,19}$/;
+				if(!idpattern.test(id)){
+					idWarning.textContent = "6~20자의 영문 소문자와 숫자만 사용 가능합니다"
+					return;					
+				}else{
+					idWarning.textContent = ""; //경고 메세지 초기화
+				}
+				
+			    let url = "checkDuplicate.do"; // 서버의 확인 URL
+         	    let param = "id=" + id;
+            	sendRequest(url, param, dupId, "post");				        	
+	        } 
+	        function dupId(){
+            	if(xhr.readyState == 4 && xhr.status == 200){
+            		let data = xhr.responseText;
+            		if (data === "true") {
+            	           alert("이미 사용 중인 아이디입니다.");
+            	           // 사용자가 이미 사용 중인 아이디임을 알리는 추가적인 처리
+            	       } else {
+            	           alert("사용할 수 있는 아이디입니다.");
+            	           // 사용자가 없어 사용할 수 있는 아이디
+            	           return;
+            	    }
+            	}
+            }
+	        
 	        	        
 	    </script>
 	    
@@ -98,10 +113,16 @@
 				let tel = f.tel.value;
 				let addr = f.addr.value;
 				
-				//유효성 검사
-				// 최소 8자 이상, 최대 15자 이하, 영문 대소문자 포함, 숫자, 특수문자 포함
 				
+				console.log("t:"+id);
+				console.log("p:"+tel);
+				console.log("t:"+name);
+				console.log("a:"+addr);
+				
+				//유효성 검사
+												
 				// 비밀번호
+				// 최소 8자 이상, 최대 15자 이하, 영문 대소문자 포함, 숫자, 특수문자 포함
 			    let pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{}|;:',.<>/?]).{8,15}$/;			
 				if(!pattern.test(pwd)) {
 			            passwordWarning.textContent = "띄어쓰기 없는 8~15자의 영문 대/소문자 숫자 및 특수문자 조합으로 입력";
@@ -120,7 +141,7 @@
 		        }
 				
 				f.method="post";
-				f.action = "signupInsert.do?email="+encodeURIComponent(email);
+				f.action = "signupInsert.do?email=" + encodeURIComponent(email);
 				f.submit();
 			}
 		    function sample6_execDaumPostcode() {
@@ -156,67 +177,90 @@
 		                        extraAddr = ' (' + extraAddr + ')';
 		                    }
 		                    // 조합된 참고항목을 해당 필드에 넣는다.
-		                    document.getElementById("sample6_detailAddress").value = extraAddr;
+		                    document.getElementById("addrdetail").value = extraAddr;
 		                
 		                } else {
-		                    document.getElementById("sample6_detailAddress").value = '';
+		                    document.getElementById("addrdetail").value = '';
 		                }
 
 		                // 우편번호와 주소 정보를 해당 필드에 넣는다.
-		                document.getElementById('sample6_postcode').value = data.zonecode;
-		                document.getElementById("sample6_address").value = addr;
+		                document.getElementById('addrcode').value = data.zonecode;
+		                document.getElementById("addr").value = addr;
 		                // 커서를 상세주소 필드로 이동한다.
-		                document.getElementById("sample6_detailAddress").focus();
+		                document.getElementById("addrdetail").focus();
 		            }
 		        }).open();
 		    }
 	    </script>
-	    
-						
 	</head>
+	
 	<body>
 		<div class="signup-form">
-			<h2>회원가입</h2>
 			<form>
+				<h3>회원가입</h3>
 				<div class="form-group">
-					<label for="email">이메일</label> 
-					<input type="email" id="email" name="email" required>
-					<button type="button" class="btn-dul">중복확인</button>
-					<button type="button" class="btn-authenticate">본인인증</button>
+					<p>이름</p>
+					<input type="text" id="name" name="name" required>
 				</div>
+				
+				<div class="form-group">
+	               <p>아이디
+	               <button type="button" onclick="checkDul();">중복확인</button>
+	               </p> 
+	               <input type="text" id="id" name="id" maxlength="20" required>
+	               <span id="idWarning"></span>
+          	  </div> 
+				
+            	
+				<div class="form-group">
+					<p>비밀번호</p> 
+					<input type="password" id="pwd" name="pwd" placeholder="6~15자의 영문 대/소문자 숫자 및 특수문자 조합" required>
+					<span id="passwordWarning"></span>
+				</div>
+				
+				<div class="form-group">
+					<p>이메일
+					<button type="button" class="btn-authenticate">본인인증</button>
+					</p> 
+					<input type="email" id="email" name="email" required>
+				</div>
+				
 				 <div class="verification-group" id="verificationGroup">
                 	<input type="text" id="verificationCode" name="verificationCode" placeholder="인증번호6자리" required>
                 	<button type="button" class="btn-verify">인증번호 확인</button>
             	</div>
+            	
 				<div class="form-group">
-					<label for="password">비밀번호</label> 
-					<input type="password" id="pwd" name="pwd" placeholder="비밀번호입력 6~15자의 영문 대/소문자 숫자 및 특수문자 조합" required>
-					<span id="passwordWarning"></span>
-				</div>
-				<div class="form-group">
-					<label for="name">이름</label>
-					<input type="text" id="name" name="name" required>
-				</div>
-				<div class="form-group">
-					<label for="birthdate">생년월일</label>
-					<input type="date" id="birth" name="birth" required>
-				</div>
-				<div class="form-group">
-					<label for="phone">전화번호</label>
+					<p>전화번호</p>
 					<input type="tel" id="tel" name="tel" placeholder="(010)-0000-0000" required>
 					<span id="telWarning"></span>
 				</div>
+				
 				<div class="form-group">
-					<label for="address">주소</label>
-					<input type="text" id="sample6_postcode" name="addrcode" placeholder="우편번호">
-					<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
-					<input type="text" id="sample6_address" name="addr" placeholder="주소"><br>
-					<input type="text" id="sample6_detailAddress" name="addrdetail" placeholder="상세주소">					
+					<p>생년월일</p>
+					<input type="date" id="birth" name="birth" required>
 				</div>
+				
+				<div class="form-group">
+					<p>주소
+					<input type="button" class="addr_btn" onclick="sample6_execDaumPostcode()" value="주소 찾기"><br>
+					</p>
+					
+					<input type="text" id="addrcode" name="addrcode" placeholder="우편번호">
+					<input type="text" id="addr" name="addr" placeholder="주소"><br>
+					<input type="text" id="addrdetail" name="addrdetail" placeholder="상세주소">
+				</div>
+				
 				<div class="form-group">
 					<input type="button" class="submit" value="회원가입" onclick="send(this.form);">
 				</div>
 			</form>
+			
+			<hr>
+	             
+	        <a href="javascript:" onclick="location.href='main.do'">
+	       		<img src="/getspo/resources/img/logo/가로로고.png">
+	        </a>	
 		</div>
 	
 	</body>
