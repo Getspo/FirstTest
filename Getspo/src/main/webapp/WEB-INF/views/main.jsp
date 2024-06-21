@@ -26,15 +26,7 @@
 			<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 		<!-- 개최행사관련 -->
 		<style>
-			.marketing_title{font-size:20px; font-weight:bold;}
-			.marketing_subTitle{color:grey; font-size:15px;}
-			.thumbnail {width:279px;
-						height:150px;}
-			.gutter{width:30px;}
-			.event_date{color:grey;	font-size:15px;}
-			.event_name{font-size:20px; font-weight:bold;}
-			.price{color:#0099bc; font-size:15px; font-weight:bold; float: left;}
-			.view{color:grey; font-size:10px; float: right; }
+			
 		</style>
 		
 		<script>
@@ -250,42 +242,61 @@
 		<!-- 대회썸네일 -->
 			<tr>
 				<td>
-					<img class="thumbnail" src="/getspo/resources/img/thumbnail/thumbnail1.jpg"><br>
-					<a class="event_date">2024년 8월 17일 / 경기 하남</a><br>
-					<a class="event_name">썸머나이트런</a><br>
-					<a class="price">10,000</a>
-					<a class="view">조회수 100</a>
-				</td>
-				
-				<td class="gutter"></td>
-				
-				<td>
-					<img class="thumbnail" src="/getspo/resources/img/thumbnail/thumbnail1.jpg"><br>
-					<a class="event_date">2024년 8월 17일 / 경기 하남</a><br>
-					<a class="event_name">썸머나이트런</a><br>
-					<a class="price">10,000</a>
-					<a class="view">조회수 100</a>
-				</td>
-			
-				<td class="gutter"></td>
-				 
-				<td>
-					<img class="thumbnail" src="/getspo/resources/img/thumbnail/thumbnail1.jpg"><br>
-					<a class="event_date">2024년 8월 17일 / 경기 하남</a><br>
-					<a class="event_name">썸머나이트런</a><br>
-					<a class="price">10,000</a>
-					<a class="view">조회수 100</a>
-				</td>
-				
-				<td class="gutter"></td>
-				
-				<td>
-					<img class="thumbnail" src="/getspo/resources/img/thumbnail/thumbnail1.jpg"><br>
-					<a class="event_date">2024년 8월 17일 / 경기 하남</a><br>
-					<a class="event_name">썸머나이트런</a><br>
-					<a class="price">무료</a>
-					<a class="view">조회수 100</a>
-				</td>  
+					<div class="container">
+					    <img class="thumbnail" src="/getspo/resources/img/thumbnail/thumbnail1.jpg" alt="">
+					    <div class="overlay">
+					       <p class="hover_text">참가신청</p>
+					    </div>
+					    <a class="event_date">2024년 8월 17일 / 경기 하남</a><br>
+						<a class="event_name">썸머나이트런</a><br>
+						<a class="price">10,000</a>
+						<a class="view">조회수 100</a>	
+					</div>
+					
+					<td class="gutter"></td>
+					
+					<td>
+					<div class="container">
+					    <img class="thumbnail" src="/getspo/resources/img/thumbnail/thumbnail1.jpg" alt="">
+					    <div class="overlay">
+					       <p class="hover_text">참가신청</p>
+					    </div>
+					    <a class="event_date">2024년 8월 17일 / 경기 하남</a><br>
+						<a class="event_name">썸머나이트런</a><br>
+						<a class="price">10,000</a>
+						<a class="view">조회수 100</a>	
+					</div>
+					
+					<td class="gutter"></td>				
+					
+					
+					<td>
+					<div class="container">
+					    <img class="thumbnail" src="/getspo/resources/img/thumbnail/thumbnail1.jpg" alt="">
+					    <div class="overlay">
+					       <p class="hover_text">참가신청</p>
+					    </div>
+					    <a class="event_date">2024년 8월 17일 / 경기 하남</a><br>
+						<a class="event_name">썸머나이트런</a><br>
+						<a class="price">10,000</a>
+						<a class="view">조회수 100</a>	
+					</div>
+					
+					<td class="gutter"></td>				
+					
+					
+					<td>
+					<div class="container">
+					    <img class="thumbnail" src="/getspo/resources/img/thumbnail/thumbnail1.jpg" alt="">
+					    <div class="overlay">
+					       <p class="hover_text">참가신청</p>
+					    </div>
+					    <a class="event_date">2024년 8월 17일 / 경기 하남</a><br>
+						<a class="event_name">썸머나이트런</a><br>
+						<a class="price">10,000</a>
+						<a class="view">조회수 100</a>	
+					</div>
+											
 			</tr>
 			
 		</table>
