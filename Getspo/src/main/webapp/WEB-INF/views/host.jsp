@@ -5,11 +5,15 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>Insert title here</title>
+		
+	<link rel="stylesheet" href="/getspo/resources/css/hostPage.css">
 	</head>
 	
 	<body>
 	<jsp:include page="hostCenterBar.jsp"/><br>
 	
-		
+	<div class="host_content">
+		<p>호스트페이지 입니다.</p>
+	</div>	
 	</body>
 </html>
