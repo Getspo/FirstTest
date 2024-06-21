@@ -74,7 +74,11 @@ public class MainController {
 		return "redirect:main.do";
 	}
 	
-	
+	//호스트폼
+	@RequestMapping("/hostform.do")
+	  public String hostForm() {
+	      return Common.Main.VIEW_PATH + "host.jsp";
+	   }
 	
 }
 

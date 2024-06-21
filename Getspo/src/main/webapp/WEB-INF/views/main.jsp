@@ -6,7 +6,7 @@
 		<meta charset="UTF-8">
 		<title>Insert title here</title>
 		
-		<!-- sport,loc 파트 css -->
+		<!-- sport,loc, recommend 파트 css -->
 		<link rel="stylesheet" href="/getspo/resources/css/sport.css">
 		<link rel="stylesheet" href="/getspo/resources/css/recommend.css">
 		<link rel="stylesheet" href="/getspo/resources/css/loc.css">

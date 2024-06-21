@@ -63,7 +63,7 @@
 		<nav class="navibar">
 		<div class="resolution">
 			<div class="logo">
-				<img src="/getspo/resources/img/logo/logo2.png">
+				<img class="spononiverse" src="/getspo/resources/img/logo/logo2.png">
 			</div>
 			<div class="left">
 				<input type="text" id="search_text"
