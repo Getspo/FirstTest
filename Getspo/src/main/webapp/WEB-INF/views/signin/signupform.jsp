@@ -61,7 +61,6 @@
 	                // 여기에 실제 인증번호 확인 로직을 추가하면 됩니다.
 	            	if( check_input.value == res ){
 						alert("인증되었습니다");
-						email_input.disabled = true;
 					}else{
 						alert("인증번호 불일치");
 						return;
@@ -70,17 +69,18 @@
 	        }); 
 	        
 	        function checkDul(){
-	        	let id = document.getElementById("id").value;
+	        	let id = document.getElementById("id");
 	        	
 				//유효성 검사
 				//아이디
 				//알파벳 소문자로 시작하고, 그 다음에는 알파벳 소문자나 숫자가 6자에서 20자까지
 				let idpattern = /^[a-z][a-z0-9]{5,19}$/;
-				if(!idpattern.test(id)){
+				if(!idpattern.test(id.value)){
 					idWarning.textContent = "6~20자의 영문 소문자와 숫자만 사용 가능합니다"
 					return;					
 				}else{
 					idWarning.textContent = ""; //경고 메세지 초기화
+					id.readOnly = true
 				}
 				
 			    let url = "checkDuplicate.do"; // 서버의 확인 URL
@@ -141,7 +141,7 @@
 		        }
 				
 				f.method="post";
-				f.action = "signupInsert.do?email=" + encodeURIComponent(email);
+				f.action = "signupInsert.do";
 				f.submit();
 			}
 		    function sample6_execDaumPostcode() {
