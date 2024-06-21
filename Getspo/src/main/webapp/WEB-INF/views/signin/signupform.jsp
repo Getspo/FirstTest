@@ -21,8 +21,9 @@
 		<!-- 우편번호 API -->
 		<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 		
-		<!-- 회원가입 javascript  -->
-		<script src="/getspo/resources/js/signup.js"></script>
+		<!-- <!-- 회원가입 javascript  -->
+		<script src="/getspo/resources/js/signup.js"></script> 
+		
 		
 	</head>
 	

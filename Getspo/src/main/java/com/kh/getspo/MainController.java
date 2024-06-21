@@ -109,7 +109,7 @@ public class MainController {
 	public String signupInsert(UserVO vo) {
 		System.out.println("e:"+ vo.getEmail());
 		user_dao.userInsert(vo);
-		return "redirect:main.do";
+		return "redirect:signinform.do";
 	}
 	
 
