@@ -2,66 +2,11 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-   <head>
-      <meta charset="UTF-8"> 
-      <title>SPONIVERSE</title>
+   <head> 
+      <meta charset="UTF-8">
+      <title>지역 메뉴</title>
       
-      <!-- sport,loc,recommend 파트 css -->
-      <link rel="stylesheet" href="/getspo/resources/css/sport.css">
       <link rel="stylesheet" href="/getspo/resources/css/recommend.css">
-      <link rel="stylesheet" href="/getspo/resources/css/loc.css">
-      
-      <!-- sport 파트 폰트 설정 -->
-      <link rel="preconnect" href="https://fonts.googleapis.com">
-      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-      <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap"
-      rel="stylesheet">
-      
-      <style>
-         /* 메뉴 타이틀 css */
-         .menu_title {
-            font-size: 20px;
-            font-weight: bold;
-         }
-         
-         .menu_subtitle {
-            font-size: 15px;
-            color: grey;
-         }
-         
-         /* 개최 행사 메뉴 css */
-         .thumbnail {
-            width: 279px;
-            height: 150px;
-         }
-         
-         .gutter {
-            width: 30px;
-         }
-         
-         .event_date {
-            color: grey;
-            font-size: 15px;
-         }
-         
-         .event_name {
-            font-size: 20px;
-            font-weight: bold;
-         }
-         
-         .price {
-            color: #0099bc;
-            font-size: 15px;
-            font-weight: bold;
-            float: left;
-         }
-         
-         .view {
-            color: grey;
-            font-size: 10px;
-            float: right;
-         }
-      </style>
       
       <!-- slick관련 참조-->
          <!-- jQuery -->
@@ -99,31 +44,9 @@
             });
          });
       </script>
-      
    </head>
    
    <body>
-      <jsp:include page="navigation.jsp"></jsp:include><br>
-      
-      <!-- 스포츠 종목 메뉴 -->
-      <div class="sport">
-            <h4 class="menu_title">종목별 스포츠 행사</h4>
-            <h6 class="menu_subtitle">참가하고 싶은 종목의 행사들을 한번에 볼 수 있어요!</h6>
-         
-            <a href="javascript:" onclick="sport_running(this.form);">
-               <img src="/getspo/resources/img/sport_img/러닝 픽토그램.png">
-            </a> 
-            
-            <a href="javascript:" onclick="sport_triathlon(this.form);">
-               <img src="/getspo/resources/img/sport_img/철인3종 픽토그램.png">
-            </a> 
-            
-            <a href="javascript:" onclick="sport_etc(this.form);"> 
-               <img src="/getspo/resources/img/sport_img/기타 픽토그램.png">
-            </a>
-      </div>
-      
-      <!-- 지역 메뉴  -->
       <div class="slider-container">
          <h4 class="menu_title">지역별 스포츠 행사</h4>
             <h6 class="menu_subtitle">원하는 지역의 행사들을 한번에 볼 수 있어요!</h6>
@@ -231,62 +154,6 @@
                   </a>
                </div>
          </div>
-      </div>
-      
-      <!-- 개최 행사 메뉴 -->
-      <div class="recommend">
-            <h4 class="menu_title">Upcoming Event</h4>
-            <h6 class="menu_subtitle">다가오는 스포츠 이벤트를 만나보세요!</h6>
-      
-      <table align="center" width="1200px;">
-         <tr>
-            <td colspan="7" align="left">
-               <br>
-               
-            </td>
-         </tr>
-      <!-- 대회썸네일 -->
-         <tr>
-            <td>
-               <img class="thumbnail" src="/getspo/resources/img/thumbnail/thumbnail1.jpg"><br>
-               <a class="event_date">2024년 8월 17일 / 경기 하남</a><br>
-               <a class="event_name">썸머나이트런</a><br>
-               <a class="price">10,000</a>
-               <a class="view">조회수 100</a>
-            </td>
-            
-            <td class="gutter"></td>
-            
-            <td>
-               <img class="thumbnail" src="/getspo/resources/img/thumbnail/thumbnail1.jpg"><br>
-               <a class="event_date">2024년 8월 17일 / 경기 하남</a><br>
-               <a class="event_name">썸머나이트런</a><br>
-               <a class="price">10,000</a>
-               <a class="view">조회수 100</a>
-            </td>
-         
-            <td class="gutter"></td>
-             
-            <td>
-               <img class="thumbnail" src="/getspo/resources/img/thumbnail/thumbnail1.jpg"><br>
-               <a class="event_date">2024년 8월 17일 / 경기 하남</a><br>
-               <a class="event_name">썸머나이트런</a><br>
-               <a class="price">10,000</a>
-               <a class="view">조회수 100</a>
-            </td>
-            
-            <td class="gutter"></td>
-            
-            <td>
-               <img class="thumbnail" src="/getspo/resources/img/thumbnail/thumbnail1.jpg"><br>
-               <a class="event_date">2024년 8월 17일 / 경기 하남</a><br>
-               <a class="event_name">썸머나이트런</a><br>
-               <a class="price">무료</a>
-               <a class="view">조회수 100</a>
-            </td>  
-         </tr>
-         
-      </table>
       </div>
    </body>
 </html>

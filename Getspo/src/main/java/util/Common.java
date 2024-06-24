@@ -22,6 +22,12 @@ public class Common {
 	      
 	   }
 	
+	public static class Sign{
+	      
+	      public static final String VIEW_PATH = "/WEB-INF/views/signin/";
+	      
+	   }
+	
 	/*
 	 * //QnA 페이징 관련 public static class Comment{ public static final String
 	 * VIEW_PATH = "/WEB-INF/views/comment/"; public final static int BLOCKLIST = 3;

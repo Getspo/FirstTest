@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="u">
+
+<!-- 회원가입 -->
+	<insert id="insert_user" parameterType="user">
+		insert into getspo_user values(seq_user_idx.nextVal, #{user_name}, #{user_id}, #{user_pwd}, #{user_birth}, #{user_tel}, #{user_email}, #{user_addrcode}, #{user_addr}, #{user_addrdetail})
+	</insert>
+	
+<!-- 아이디 중복확인 -->
+<select id="select_id" resultType="String" parameterType="String">
+	select * from getspo_user where user_id = #{user_id}
+</select>
+
+<!-- 유저 로그인 -->
+<select id="user_login" resultType="user" parameterType="user">
+	select * from getspo_user where user_id = #{user_id}
+</select>
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
