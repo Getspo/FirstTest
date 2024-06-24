@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
    <head>
-      <meta charset="UTF-8">
+      <meta charset="UTF-8"> 
       <title>SPONIVERSE</title>
       
       <!-- sport,loc,recommend 파트 css -->

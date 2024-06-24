@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", function() {
 	
 	            authenticateBtn.addEventListener("click", function() {
 	            	let pattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-	            	let emailInput = document.getElementById("email");	
+	            	let emailInput = document.getElementById("user_email");	
 	            	
 		                    	
 	            	if(!pattern.test(emailInput.value)){
@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", function() {
 	
 	            verifyBtn.addEventListener("click", function() {
 	            	let check_input = document.getElementById("verificationCode");
-	            	let email_input = document.getElementById("email");
+	            	let email_input = document.getElementById("user_email");
 	                // 여기에 실제 인증번호 확인 로직을 추가하면 됩니다.
 	            	if( check_input.value == res ){
 						alert("인증되었습니다");
@@ -46,7 +46,7 @@ document.addEventListener("DOMContentLoaded", function() {
 	        }); 
 	        
 	        function checkDul(){
-	        	let id = document.getElementById("id");
+	        	let id = document.getElementById("user_id");
 	        	
 				//유효성 검사
 				//아이디
@@ -57,40 +57,36 @@ document.addEventListener("DOMContentLoaded", function() {
 					return;					
 				}else{
 					idWarning.textContent = ""; //경고 메세지 초기화
-					id.readOnly = true
 				}
 				
 			    let url = "checkDuplicate.do"; // 서버의 확인 URL
-         	    let param = "id=" + id;
+         	    let param = "id=" + id.value;
             	sendRequest(url, param, dupId, "post");				        	
 	        } 
 	        function dupId(){
+	        	let id = document.getElementById("user_id");
             	if(xhr.readyState == 4 && xhr.status == 200){
             		let data = xhr.responseText;
             		if (data === "true") {
             	           alert("이미 사용 중인 아이디입니다.");
             	           // 사용자가 이미 사용 중인 아이디임을 알리는 추가적인 처리
+            	           return;
             	       } else {
             	           alert("사용할 수 있는 아이디입니다.");
             	           // 사용자가 없어 사용할 수 있는 아이디
-            	           return;
+            	           // id.readOnly = true 쓰기불가능            	           
             	    }
             	}
             }
             
             function send(f){
-				let email = f.email.value;
-				let pwd = f.pwd.value;
-				let name = f.name.value;
-				let birth = f.birth.value;
-				let tel = f.tel.value;
-				let addr = f.addr.value;
+				let email = f.user_email.value;
+				let pwd = f.user_pwd.value;
+				let name = f.user_name.value;
+				let birth = f.user_birth.value;
+				let tel = f.user_tel.value;
+				let addr = f.user_addr.value;
 				
-				
-				console.log("t:"+id);
-				console.log("p:"+tel);
-				console.log("t:"+name);
-				console.log("a:"+addr);
 				
 				//유효성 검사
 												
@@ -150,17 +146,18 @@ document.addEventListener("DOMContentLoaded", function() {
 		                        extraAddr = ' (' + extraAddr + ')';
 		                    }
 		                    // 조합된 참고항목을 해당 필드에 넣는다.
-		                    document.getElementById("addrdetail").value = extraAddr;
+		                    document.getElementById("user_addrdetail").value = extraAddr;
 		                
 		                } else {
-		                    document.getElementById("addrdetail").value = '';
+		                    document.getElementById("user_addrdetail").value = '';
 		                }
 
 		                // 우편번호와 주소 정보를 해당 필드에 넣는다.
-		                document.getElementById('addrcode').value = data.zonecode;
-		                document.getElementById("addr").value = addr;
+		                document.getElementById('user_addrcode').value = data.zonecode;
+		                document.getElementById("user_addr").value = addr;
 		                // 커서를 상세주소 필드로 이동한다.
-		                document.getElementById("addrdetail").focus();
+		                document.getElementById("user_addrdetail").focus();
 		            }
  	}).open();
  }
+ 

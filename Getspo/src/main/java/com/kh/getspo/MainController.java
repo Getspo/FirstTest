@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import dao.CategoryDAO;
@@ -19,6 +20,7 @@ import dao.UserDAO;
 import service.MailSendService;
 import util.Common;
 import util.Paging;
+import vo.AuthInfoVO;
 import vo.UserVO;
 
 @Controller
@@ -33,6 +35,8 @@ public class MainController {
 	
 	EventDAO event_dao;
 	CategoryDAO category_dao;
+	
+	@Autowired
 	UserDAO user_dao;
 	
 	public MainController(EventDAO event_dao, CategoryDAO category_dao, MailSendService mss, UserDAO user_dao) {
@@ -91,7 +95,7 @@ public class MainController {
 	//아이디중복체크
 	 @RequestMapping("checkDuplicate.do")
 	 @ResponseBody 
-	 public String dualmail(String id) {
+	 public String dualid(String id) {
 		 System.out.println("id: " + id);
 		 String result = user_dao.selectId(id);
 		 String res = "";
@@ -107,14 +111,54 @@ public class MainController {
 	//회원가입
 	@RequestMapping("signupInsert.do")
 	public String signupInsert(UserVO vo) {
-		System.out.println("e:"+ vo.getEmail());
 		user_dao.userInsert(vo);
 		return "redirect:signinform.do";
 	}
 	
-
+	//로그인
+	@RequestMapping("/login.do")
+	@ResponseBody
+	public String loginUser(@RequestParam String id, @RequestParam String pwd, HttpServletRequest request) {
+		UserVO vo = new UserVO();
+	    vo.setUser_id(id);
+	    vo.setUser_pwd(pwd);
+		
+		UserVO user = user_dao.userlogin(vo);
+				
+		String res = "";
+		
+		//아이디가 없을 시
+		if(user == null) {
+			res = "no_id";
+			return res;
+		}
+		// 비밀번호가 틀릴 시
+        if(!user.getUser_pwd().equals(pwd)) {
+            res = "no_pwd";
+            return res;
+        }
+		
+		//아이디와 비밀번호가 문제 없다면 세션에 vo객체 저장
+		// 로그인 성공 시 세션에 사용자 정보 저장
+        HttpSession session = request.getSession();
+        session.setAttribute("user", user);
+				
+		//로그인 성공
+		res = "clear";
+		return res;				
+		
+	}
+	
+	//로그아웃
+	@RequestMapping("/logout.do")
+	public String userlogout() {
+		session.removeAttribute("user");
+		return "redirect:main.do";
+	}
 	
 	
+	
+		
 	
 	
 	
