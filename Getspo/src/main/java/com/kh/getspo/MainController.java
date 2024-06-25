@@ -157,7 +157,11 @@ public class MainController {
 	}
 	
 	
-	
+	//호스트페이지
+	@RequestMapping("/hostMain.do")
+	  public String hostMain() {
+	      return Common.Main.VIEW_PATH + "host.jsp";
+	   }
 		
 	
 	
