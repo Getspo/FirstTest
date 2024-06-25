@@ -31,4 +31,9 @@ public class UserDAO {
 		return sqlSession.selectOne("u.user_login", vo);
 	}
 	
+	//자동로그인 유저정보 확인
+	public UserVO selectUserById(String id) {
+		return sqlSession.selectOne("u.select_user", id);
+	}
+	
 }

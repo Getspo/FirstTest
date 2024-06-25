@@ -19,6 +19,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	select * from getspo_user where user_id = #{user_id}
 </select>
 
+<!-- 자동로그인 유저정보 찾기 -->
+<select id="select_user" resultType="user" parameterType="String">
+	select * from getspo_user where user_id = #{user_id}
+</select>
 </mapper>
 
 

@@ -14,15 +14,25 @@
 
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
 	<resources mapping="/resources/**" location="/resources/" />
-
+		
+		
+	<!-- Scans the classpath for annotated components (e.g., @Controller, @Service, etc.) -->
+    <!-- <context:component-scan base-package="com.kh.getspo" />	 -->
 		
 	<context:annotation-config/>
 	
-	<beans:bean class="com.kh.getspo.MainController">
+	<!-- 수동으로 Controller클래스 생성 -->
+	<beans:bean class ="com.kh.getspo.MainController">
+		<beans:constructor-arg ref="user_daoBean"/>
 		<beans:constructor-arg ref="event_daoBean"/>
 		<beans:constructor-arg ref="category_daoBean"/>
-		<beans:constructor-arg ref="mss"/>
-		<beans:constructor-arg ref="user_daoBean"/>
 	</beans:bean>
+	
+	<beans:bean class="com.kh.getspo.UserController">
+      <beans:constructor-arg ref="mss"/>
+      <beans:constructor-arg ref="user_daoBean"/>
+    </beans:bean>
+
+	
 </beans:beans>
  

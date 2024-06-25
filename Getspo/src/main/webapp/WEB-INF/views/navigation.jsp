@@ -8,6 +8,9 @@
       <title>네비게이션 바</title>
       
       <link rel="stylesheet" href="/getspo/resources/css/navigation.css">
+      <!-- 네이게이션js -->
+		<script src="/getspo/resources/js/navigation.js"></script>
+	
       
       <script>
          //검색버튼 구현//검색어━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
@@ -40,10 +43,23 @@
          <div class="right">
          	<div id="user-info">
 	            <c:if test="${not empty sessionScope.user}">
-	                ${sessionScope.user.user_name} <!-- 여기서 user_name은 사용자 이름을 담고 있는 변수명입니다. -->
-	                <form action="logout.do" method="post">
-	                    <input type="submit" value="Logout">
-	                </form>
+	               <button class="user-button">
+		                <span class="user-name">${sessionScope.user.user_name} 님</span>
+		                <svg class="user-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+		                    <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"></path>
+		                </svg>
+		            </button>
+	                <div id="menu-items" role="menu" tabindex="0">
+		                <div id="menu-1">
+		                    <p>${sessionScope.user.user_id}</p>
+		                    <a href="/mypage/account-settings">내 정보 수정 &gt;</a>
+		                </div>
+		                <a href="/mypage/allevent" class="joinevent">신청 행사</a>
+		                <div id="menu-2" class="border-t"></div>
+		                <form action="logout.do" method="post">
+		                    <button id="logout-button">로그아웃</button>
+		                </form>
+		            </div>
 	            </c:if>
 	            <c:if test="${empty sessionScope.user}">
 	                <a href="javascript:" onclick="location.href='signinform.do'" class="signin">로그인</a>&nbsp;&nbsp;&nbsp;
