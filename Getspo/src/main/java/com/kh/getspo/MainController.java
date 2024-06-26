@@ -32,6 +32,31 @@ public class MainController {
          return Common.Main.VIEW_PATH + "main.jsp";
    }
    
+   //호스트페이지
+ 	@RequestMapping("/hostMain.do")
+ 	public String hostMain() {
+ 	    return Common.Main.VIEW_PATH + "host.jsp";
+ 	}
+ 		
+ 	
+ 	//이벤트디테일 페이지
+ 	@RequestMapping("/eventDetail.do")
+ 	public String eventDetail() {
+ 	    return Common.Event.VIEW_PATH + "eventDetail.jsp";
+ 	}	
+
+ 	//이벤트개설 폼
+ 	@RequestMapping("/new_event.do")
+ 	public String event_form() {
+ 		return Common.Event.VIEW_PATH + "new_event.jsp";
+ 	}	
    
+ 	
+ 	//마이페이지이동
+ 	@RequestMapping("/mypageform.do")
+ 	public String mypage_form() {
+ 		return Common.Mypage.VIEW_PATH + "mypage.jsp";
+ 	}
+ 	
    
 }

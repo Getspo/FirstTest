@@ -36,4 +36,15 @@ public class UserDAO {
 		return sqlSession.selectOne("u.select_user", id);
 	}
 	
+	//아아디 찾기
+	public UserVO findUserId(UserVO vo) {
+		return sqlSession.selectOne("u.forgot_id", vo);
+	}
+	
+	//비밀번호 찾기
+	public UserVO findUser(UserVO vo) {
+		return sqlSession.selectOne("u.forgot_pwd", vo);
+	}
+	
+	
 }

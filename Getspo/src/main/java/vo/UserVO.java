@@ -2,6 +2,17 @@ package vo;
 
 public class UserVO {
 	private String user_id, user_name, user_pwd, user_birth, user_tel, user_email, user_addr, user_addrcode, user_addrdetail;
+	private int idx;
+
+	
+	
+	public int getIdx() {
+		return idx;
+	}
+
+	public void setIdx(int idx) {
+		this.idx = idx;
+	}
 
 	public String getUser_id() {
 		return user_id;

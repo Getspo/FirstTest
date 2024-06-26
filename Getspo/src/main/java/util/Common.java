@@ -32,6 +32,12 @@ public class Common {
 		  public static final String VIEW_PATH = "/WEB-INF/views/event/";
 	}
 	
+	public static class Mypage {
+
+	      public static final String VIEW_PATH = "/WEB-INF/views/mypage/";
+
+	   }
+	
 	/*
 	 * //QnA 페이징 관련 public static class Comment{ public static final String
 	 * VIEW_PATH = "/WEB-INF/views/comment/"; public final static int BLOCKLIST = 3;

@@ -52,9 +52,8 @@
 	                <div id="menu-items" role="menu" tabindex="0">
 		                <div id="menu-1">
 		                    <p>${sessionScope.user.user_id}</p>
-		                    <a href="/mypage/account-settings">내 정보 수정 &gt;</a>
+		                    <a href="mypageform.do">마이페이지 &gt;</a>
 		                </div>
-		                <a href="/mypage/allevent" class="joinevent">신청 행사</a>
 		                <div id="menu-2" class="border-t"></div>
 		                <form action="logout.do" method="post">
 		                    <button id="logout-button">로그아웃</button>
@@ -62,11 +61,12 @@
 		            </div>
 	            </c:if>
 	            <c:if test="${empty sessionScope.user}">
-	                <a href="javascript:" onclick="location.href='signinform.do'" class="signin">로그인</a>&nbsp;&nbsp;&nbsp;
+	                <a href="javascript:" onclick="location.href='signinform.do'" class="signin">로그인</a>&nbsp;
 	                <a href="javascript:" onclick="location.href='signupform.do'" class="signup">회원가입</a>&nbsp;&nbsp;&nbsp;
 	            </c:if>
-	        </div>            
-            <a href="javascript:" onclick="location.href='hostform.do'" class="hostpage">호스트센터</a>
+	        </div>
+            <a href="javascript:" onclick="location.href='hostMain.do'" class="hostpage">무료이벤트개설</a>&nbsp;
+            <a href="javascript:" onclick="location.href='hostMain.do'" class="hostpage">호스트센터</a>
          </div>
       </div>
       </nav>

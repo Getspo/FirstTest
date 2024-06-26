@@ -1,10 +1,14 @@
 package com.kh.getspo;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -52,8 +56,37 @@ public class UserController {
 
 	// 아이디 찾기 폼
 	@RequestMapping("/forgotid.do")
-	public String forgotId() {
+	public String forgotId() {	
 		return Common.Sign.VIEW_PATH + "forgotid.jsp";
+	}
+	
+	// 아이디 찾기
+	@RequestMapping("/findid.do")
+	@ResponseBody
+	public String forgotId(@RequestParam String name, @RequestParam String email) {
+		UserVO vo = new UserVO();
+		vo.setUser_name(name);
+		vo.setUser_email(email);
+		
+		String result = "";
+		String resultStr = "";
+		
+	    UserVO res = user_dao.findUserId(vo);
+	    if (res == null) { // 이름이 없을 시
+	        result = "no_name";
+	        resultStr = String.format("[{\"result\":\"%s\"}]", result);
+	    	return resultStr;
+	    } else if (!res.getUser_email().equals(vo.getUser_email())) { // 이메일 틀릴 시
+	        result = "no_email";
+	        resultStr = String.format("[{\"result\":\"%s\"}]", result);
+	    	return resultStr;
+	    } else {	    	    
+		    result = "clear";
+		    resultStr = String.format("[{\"result\":\"%s\", \"user_id\":\"%s\"}]", result, res.getUser_id());
+	    }
+	  
+	  
+	    return resultStr;   
 	}
 
 	// 비밀번호 찾기 폼
@@ -61,6 +94,48 @@ public class UserController {
 	public String forgotPassword() {
 		return Common.Sign.VIEW_PATH + "forgotpassword.jsp";
 	}
+	
+	
+	 // 비번재설정링크 이메일
+	 @RequestMapping("/sendRestEmail.do")
+	 @ResponseBody
+	 public String sendResetEmail(@RequestParam String id, @RequestParam String name, @RequestParam String email){ 
+		  UserVO vo = new UserVO();
+		  vo.setUser_id(id);
+		  vo.setUser_name(name);
+		  vo.setUser_email(email);
+		 
+		  String result = "";
+	
+		  UserVO user = user_dao.findUser(vo);  		  
+		  if (user == null) {
+		        result = "no_user";
+		    } else if (!user.getUser_email().equals(vo.getUser_email())) { // 이메일 틀릴시
+		        result = "no_email";
+		    } else if (!user.getUser_id().equals(vo.getUser_id())) { // 아이디 틀릴시
+		        result = "no_id";
+		    } else if (!user.getUser_name().equals(vo.getUser_name())) { // 이름 틀릴시
+		        result = "no_name";
+		    } else {
+		        mss.resetPwdEmail(vo);
+		        result = "clear";
+		    }
+
+		    String resultStr = String.format("[{\"result\":\"%s\"}]", result);
+		    return resultStr;
+		 
+		 
+		  
+		  
+	}
+	 
+	  // 비번재설정 폼
+	  @RequestMapping("/resetPwd_form.do")
+	  public String resetPwd_form(@RequestParam("user_id") String userId, Model model) {
+	      model.addAttribute("user_id", userId);
+	      return Common.Sign.VIEW_PATH + "resetpassword.jsp";
+	  }	 
+	 
 
 	// Ajax로 요청받은 인증처리 메서드
 	@RequestMapping("/mailCheck.do")
@@ -85,6 +160,7 @@ public class UserController {
 		}
 		return res;
 	}
+	
 
 	// 회원가입
 	@RequestMapping("signupInsert.do")

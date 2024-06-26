@@ -5,6 +5,7 @@
     height: 85px;
     position: fixed;
     background: #0099bc;
+    z-index: 1000; /* 높은 z-index 값 설정 */
 }
 
 /* 네비게이션 바의 해상도 */
@@ -22,6 +23,8 @@
 }
 
 .sponiverse_logo {
+	width:75px;
+	height:75px;
     border-radius: 0;
     transition-duration: 1s;
 }
@@ -131,6 +134,7 @@
     border: none;
     outline: none;
     cursor: pointer;
+    background: white;
 }
 
 #logout-button:hover {
