@@ -22,11 +22,13 @@
 	color: grey;
 }
 
+
 /* 개최 행사 메뉴 css */
 .container {
 	width: 279px;
 	height: 150px;
 	position: relative;
+	padding: 0 0 20px 0;
 }
 
 .thumbnail {

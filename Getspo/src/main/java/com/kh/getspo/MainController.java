@@ -159,11 +159,16 @@ public class MainController {
 	
 	//호스트페이지
 	@RequestMapping("/hostMain.do")
-	  public String hostMain() {
-	      return Common.Main.VIEW_PATH + "host.jsp";
-	   }
+	public String hostMain() {
+	    return Common.Main.VIEW_PATH + "host.jsp";
+	}
 		
 	
+	//이벤트디테일 페이지
+	@RequestMapping("/eventDetail.do")
+	public String eventDetail() {
+	    return Common.Main.VIEW_PATH + "eventDetail.jsp";
+	}	
 	
 	
 }
