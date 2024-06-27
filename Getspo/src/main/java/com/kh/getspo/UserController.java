@@ -124,9 +124,6 @@ public class UserController {
 		    String resultStr = String.format("[{\"result\":\"%s\"}]", result);
 		    return resultStr;
 		 
-		 
-		  
-		  
 	}
 	 
 	  // 비번재설정 폼

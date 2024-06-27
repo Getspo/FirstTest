@@ -16,27 +16,39 @@ public class Common {
 		public final static int BLOCKPAGE = 3;
 	}
 	
+	//메인
 	public static class Main{
 	      
 	      public static final String VIEW_PATH = "/WEB-INF/views/";
 	      
 	   }
 	
+	//로그인
 	public static class Sign{
 	      
 	      public static final String VIEW_PATH = "/WEB-INF/views/signin/";
 	      
 	   }
 	
+	//마이페이지
+	public static class Mypage {
+		
+		public static final String VIEW_PATH = "/WEB-INF/views/mypage/";
+		
+	}
+	
+	//행사
 	public static class Event{
 		  public static final String VIEW_PATH = "/WEB-INF/views/event/";
 	}
 	
-	public static class Mypage {
+	
+	//호스트센터
+	public static class Host {
 
-	      public static final String VIEW_PATH = "/WEB-INF/views/mypage/";
+	      public static final String VIEW_PATH = "/WEB-INF/views/host/";
 
-	   }
+	}
 	
 	/*
 	 * //QnA 페이징 관련 public static class Comment{ public static final String

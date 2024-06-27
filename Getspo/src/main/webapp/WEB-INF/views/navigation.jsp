@@ -10,7 +10,7 @@
       <link rel="stylesheet" href="/getspo/resources/css/navigation.css">
       
       <!-- 네이게이션js -->
-		<script src="/getspo/resources/js/navigation.js"></script>
+	  <script src="/getspo/resources/js/navigation.js"></script>
 	
       
       <script>
@@ -66,7 +66,7 @@
 	                <a href="javascript:" onclick="location.href='signupform.do'" class="signup">회원가입</a>&nbsp;
 	            </c:if>
 	        </div>
-            <a href="javascript:" onclick="location.href='new_event.do'" class="hostpage">무료행사개설</a>&nbsp;
+            <a href="javascript:" onclick="location.href='event_new.do'" class="hostpage">무료행사개설</a>&nbsp;
             <a href="javascript:" onclick="location.href='hostMain.do'" class="hostpage">호스트센터</a>
          </div>
       </div>

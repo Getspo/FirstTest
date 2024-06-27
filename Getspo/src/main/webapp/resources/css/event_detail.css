@@ -1,0 +1,92 @@
+@charset "UTF-8";
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Noto Sans KR", sans-serif;
+}
+
+body {
+    font-family: "Noto Sans KR", sans-serif;
+}
+
+.event_detail_page {
+    display: flex; /* Flexbox 사용 */
+    justify-content: space-between; /* 요소들 간의 간격을 균등하게 */
+    align-items: flex-start; /* 세로 정렬 기준을 위쪽으로 */
+    width: 1200px;
+    margin: 110px auto; /* 중앙 정렬 */
+}
+
+/* 행사 정보 라인 -------------------------------------------- */
+.event_line {
+    width: 68%; /* 왼쪽 영역의 너비 */
+}
+
+#event_image {
+    width: 100%;
+    height: auto; /* 이미지의 비율을 유지 */
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.button_bar {
+    display: flex; /* Flexbox 사용 */
+    margin-top: 20px;
+}
+
+.button_bar ul {
+    display: flex;
+    padding: 0;
+    list-style-type: none; /* 리스트 스타일 제거 */
+    width: 100%;
+    justify-content: space-between;
+}
+
+.button_bar li {
+    flex: 1;
+}
+
+.button_bar button {
+    position: relative;
+    width: 100%;
+    padding: 10px 0;
+    border: none;
+    background-color: white;
+    color: gray;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.button_bar button::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 50%; /* 버튼 너비의 50%로 설정 */
+    height: 2px;
+    background-color: transparent;
+    transform: translateX(-50%);
+    transition: background-color 0.3s;
+}
+
+.button_bar button.active::after,
+.button_bar button:hover::after {
+    background-color: #0099bc; /* 클릭 시 및 호버 시 변경될 border-bottom 색상 */
+}
+
+.button_bar button.active,
+.button_bar button:hover {
+    color: #0099bc;
+}
+
+/* 신청하기 라인 -------------------------------------------- */
+.apply_line {
+    width: 30%; /* 오른쪽 영역의 너비 */
+    border: 1px solid white;
+    border-radius: 4px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
+    padding: 20px; /* 콘텐츠에 여백 추가 */
+    background-color: white; /* 배경색 추가 (그림자가 더 잘 보이도록) */
+}

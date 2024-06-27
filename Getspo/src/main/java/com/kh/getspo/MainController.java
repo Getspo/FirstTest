@@ -35,20 +35,20 @@ public class MainController {
    //호스트페이지
  	@RequestMapping("/hostMain.do")
  	public String hostMain() {
- 	    return Common.Main.VIEW_PATH + "host.jsp";
+ 	    return Common.Host.VIEW_PATH + "host.jsp";
  	}
  		
  	
  	//이벤트디테일 페이지
- 	@RequestMapping("/eventDetail.do")
+ 	@RequestMapping("/event_detail.do")
  	public String eventDetail() {
- 	    return Common.Event.VIEW_PATH + "eventDetail.jsp";
+ 	    return Common.Event.VIEW_PATH + "event_detail.jsp";
  	}	
 
  	//이벤트개설 폼
- 	@RequestMapping("/new_event.do")
+ 	@RequestMapping("/event_new.do")
  	public String event_form() {
- 		return Common.Event.VIEW_PATH + "new_event.jsp";
+ 		return Common.Event.VIEW_PATH + "event_new.jsp";
  	}	
    
  	

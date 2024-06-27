@@ -19,7 +19,7 @@
 		<table align="center" width="1200px;">
 			<tr>
 				<td>
-					<div style="cursor:pointer" class="container" onclick="location.href='eventDetail.do'">
+					<div style="cursor:pointer" class="container" onclick="location.href='event_detail.do'">
 					    <img class="thumbnail" src="/getspo/resources/img/thumbnail/thumbnail.jpg" alt="">
 					    <div class="overlay">
 					       <p class="hover_text">대회종료</p>
