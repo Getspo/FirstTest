@@ -1,7 +1,7 @@
 package com.kh.getspo;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.time.LocalDateTime;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -10,12 +10,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import dao.PasswordResetTokenDAO;
 import dao.UserDAO;
 import service.MailSendService;
 import util.Common;
+import vo.PasswordResetTokenVO;
 import vo.UserVO;
 
 @Controller
@@ -30,10 +33,14 @@ public class UserController {
 
 	@Autowired
 	UserDAO user_dao;
+	
+	@Autowired
+	PasswordResetTokenDAO passwordreset_dao;
 
-	public UserController(MailSendService mss, UserDAO user_dao) {
+	public UserController(MailSendService mss, UserDAO user_dao, PasswordResetTokenDAO passwordreset_dao) {
 		this.mss = mss;
 		this.user_dao = user_dao;
+		this.passwordreset_dao = passwordreset_dao;
 	}
 
 	// 로그인페이지이동
@@ -117,24 +124,78 @@ public class UserController {
 		    } else if (!user.getUser_name().equals(vo.getUser_name())) { // 이름 틀릴시
 		        result = "no_name";
 		    } else {
-		        mss.resetPwdEmail(vo);
+		    	// 토큰 생성 및 저장
+		        String token = UUID.randomUUID().toString();
+		        PasswordResetTokenVO tokenVO = new PasswordResetTokenVO();
+		        tokenVO.setToken(token);
+		        tokenVO.setUser_id(user.getUser_id());
+		        tokenVO.setCreated_at(LocalDateTime.now()); // 토큰 생성 시간 설정
+		        
+		        passwordreset_dao.insertToken(tokenVO); // 생성된 토큰을 DB에 저장
+		        
+		        mss.resetPwdEmail(user, tokenVO); //이메일 방송 시 유저정보, 토큰 포함
 		        result = "clear";
 		    }
 
 		    String resultStr = String.format("[{\"result\":\"%s\"}]", result);
 		    return resultStr;
-		 
-		 
-		  
 		  
 	}
 	 
 	  // 비번재설정 폼
 	  @RequestMapping("/resetPwd_form.do")
-	  public String resetPwd_form(@RequestParam("user_id") String userId, Model model) {
-	      model.addAttribute("user_id", userId);
+	  public String resetPwd_form(@RequestParam("token") String token, Model model) {
+		  
+		  // 토큰 검증
+		  PasswordResetTokenVO tokenVO = passwordreset_dao.findByToken(token);
+		  
+		  // 토큰이 유효하지 않거나 만료된 경우 에러 페이지로 리다이렉트
+		  if (tokenVO == null || tokenVO.getCreated_at().plusMinutes(5).isBefore(LocalDateTime.now())) {
+		        model.addAttribute("message", "유효하지 않거나 만료된 토큰입니다.");
+		        return "errorPage.do";
+		    }
+		  
+	      model.addAttribute("token", token);
 	      return Common.Sign.VIEW_PATH + "resetpassword.jsp";
 	  }	 
+	  
+	  
+	  // 비밀번호 업데이트
+	  @RequestMapping("/changepwd.do")
+	  public String update_pwd(Model model, @RequestParam String token, @RequestParam String user_pwd) {
+		    // 토큰 검증
+	        PasswordResetTokenVO tokenVO = passwordreset_dao.findByToken(token);
+	        if (tokenVO == null || tokenVO.getCreated_at().plusMinutes(5).isBefore(LocalDateTime.now())) {
+	            model.addAttribute("message", "유효하지 않거나 만료된 토큰입니다.");
+	            return "errorpage.do"; // 토큰이 유효하지 않거나 만료된 경우
+	        }
+	        
+	        // 비밀번호 업데이트
+	        //비밀번호 암호화를 위한 클래스 호출
+			String encodePwd = Common.SecurePwd.encodePwd(user_pwd);
+
+	        UserVO user = new UserVO();
+	        user.setUser_id(tokenVO.getUser_id());
+	        user.setUser_pwd(encodePwd);
+	        
+	        int result = user_dao.updatePassword(user);
+	        
+	        if (result > 0) {
+	            // 토큰 삭제
+	            passwordreset_dao.deleteByToken(token);
+	            model.addAttribute("message", "비밀번호가 성공적으로 변경되었습니다.");
+	            return "signinform.do"; // 비밀번호 변경 후 로그인 페이지로 이동
+	        } else {
+	            model.addAttribute("message", "비밀번호 변경에 실패했습니다.");
+	            return "resetPwd_form.do"; // 비밀번호 변경 실패 시 다시 비밀번호 재설정 페이지로 이동
+	        }
+	  }
+	    
+	 //에러페이지(비번 재설정 토큰만료시)
+	 @RequestMapping("/errorpage.do")
+	 public String errorpage() {
+		 return Common.Sign.VIEW_PATH + "errorPage.jsp";
+	 }
 	 
 
 	// Ajax로 요청받은 인증처리 메서드
@@ -165,6 +226,11 @@ public class UserController {
 	// 회원가입
 	@RequestMapping("signupInsert.do")
 	public String signupInsert(UserVO vo) {
+		
+		//비밀번호 암호화를 위한 클래스 호출
+		String encodePwd = Common.SecurePwd.encodePwd(vo.getUser_pwd());
+		vo.setUser_pwd(encodePwd); //암호화된 비밀번호로 vo객체 갱신
+		
 		user_dao.userInsert(vo);
 		return "redirect:signinform.do";
 	}
@@ -173,11 +239,8 @@ public class UserController {
 	@RequestMapping("/login.do")
 	@ResponseBody
 	public String loginUser(@RequestParam String id, @RequestParam String pwd) {
-		UserVO vo = new UserVO();
-		vo.setUser_id(id);
-		vo.setUser_pwd(pwd);
-
-		UserVO user = user_dao.userlogin(vo);
+		
+		UserVO user = user_dao.userlogin(id);
 
 		String res = "";
 
@@ -187,7 +250,7 @@ public class UserController {
 			return res;
 		}
 		// 비밀번호가 틀릴 시
-		if (!user.getUser_pwd().equals(pwd)) {
+		if (!Common.SecurePwd.isPwdMatch(pwd, user.getUser_pwd())) {
 			res = "no_pwd";
 			return res;
 		}

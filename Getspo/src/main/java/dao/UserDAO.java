@@ -27,8 +27,8 @@ public class UserDAO {
 	}
 	
 	//유저 로그인
-	public UserVO userlogin(UserVO vo) {
-		return sqlSession.selectOne("u.user_login", vo);
+	public UserVO userlogin(String id) {
+		return sqlSession.selectOne("u.user_login", id);
 	}
 	
 	//자동로그인 유저정보 확인
@@ -44,6 +44,17 @@ public class UserDAO {
 	//비밀번호 찾기
 	public UserVO findUser(UserVO vo) {
 		return sqlSession.selectOne("u.forgot_pwd", vo);
+	}
+	
+	//비밀번호 변경(업데이트)
+	public int updatePassword(UserVO vo) {
+		return sqlSession.update("u.update_pwd", vo);
+	}
+	
+	//비밀번호 일치 확인
+	public UserVO check(int idx) {
+		UserVO vo = sqlSession.selectOne("u.compare_pwd", idx);
+		return vo;
 	}
 	
 	

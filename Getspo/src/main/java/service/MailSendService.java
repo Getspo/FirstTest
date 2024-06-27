@@ -8,6 +8,7 @@ import javax.mail.internet.MimeMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 
+import vo.PasswordResetTokenVO;
 import vo.UserVO;
 
 public class MailSendService {
@@ -58,16 +59,18 @@ public class MailSendService {
 	}
 	
 	//비밀번호 재설정 링크
-	public String resetPwdEmail(UserVO vo) {
+	public String resetPwdEmail(UserVO user, PasswordResetTokenVO tokenVO) {
 		makeRandomNumber();
 		String setFrom = "sponiverse@gmail.com"; //발송자의 메일주소
-		String toMail = vo.getUser_email(); //발송할 메일주소
+		String toMail = user.getUser_email(); //발송할 메일주소
 		String title = "비밀번호 재설정 링크 입니다."; //이메일 제목
 		
-		String resetLink = "http://192.168.0.1/resetPwd_form.do?user_id=" + vo.getUser_id();
+		String resetLink = "http://192.168.0.14:9090/getspo/resetPwd_form.do?token=" + tokenVO.getToken();
 		
 		//이메일 내용
-		String content = "안녕하세요 " + vo.getUser_name() + "님,\n\n비밀번호를 재설정하려면 다음 링크를 클릭하세요:\n" + resetLink;
+		String content = "안녕하세요 " + user.getUser_name() + "님,<br><br>비밀번호를 재설정하려면 아래 링크를 클릭하세요 <br>" +
+                "<a href='" + resetLink + "'>비밀번호 재설정</a>";
+
 		
 		try {
 			MimeMessage mail = javaMailSender.createMimeMessage();

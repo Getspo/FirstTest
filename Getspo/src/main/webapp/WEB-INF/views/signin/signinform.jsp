@@ -18,31 +18,77 @@
       <script src="/getspo/resources/js/httpRequest.js"></script>
       
       <script>
-      	function validateId(f){
-      		let id = f.user_id.value;
-      		let pwd = f.user_pwd.value;
-      		
-      		console.log("id = " + id);
-      		console.log("pwd = " + pwd);
-      		
-      		//유효성검사
-      		let idpattern = /^[a-z][a-z0-9]{5,19}$/;
-      		if(id == '' || !idpattern.test(id)){
-      			alert("올바른 아이디 비밀번호를 입력하세요");
-      			return;
-      		}else if(pwd == ''){
-      			alert("올바른 아이디 비밀번호를 입력하세요");
-      			return;
-      		}
-      		
-      		let url = "login.do";
-      		let param = "id=" + id + "&pwd=" + encodeURIComponent(pwd);
-      		
-      		sendRequest(url, param, resultLog, "POST");     		
-      	}
-      	
-      	function resultLog(){
-      		if(xhr.readyState == 4 && xhr.status == 200){
+      function validateInput(input, pattern, warningElement, warningMessage) {
+          if (!pattern.test(input.value)) {
+              warningElement.textContent = warningMessage;
+              input.classList.add('warning');
+          } else {
+              warningElement.textContent = "";
+              input.classList.remove('warning');
+          }
+      }
+     
+      /* Warning 칸 */
+      function addInputListeners() {
+          let idInput = document.getElementById('user_id');
+          let pwdInput = document.getElementById('user_pwd');
+
+          idInput.addEventListener('input', function() {
+              validateInput(idInput, /^[a-z][a-z0-9]{5,19}$/, document.getElementById('idWarning'), "올바른 아이디를 입력하세요");
+          });
+
+          pwdInput.addEventListener('input', function() {
+              validateInput(pwdInput, /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{}|;:',.<>/?]).{8,15}$/, document.getElementById('pwdWarning'), "올바른 비밀번호를 입력하세요");
+          });
+
+      }
+
+      document.addEventListener('DOMContentLoaded', function() {
+          addInputListeners();
+      });
+      
+      /* Warning 메세지 */
+         function validateId(f){
+            let id = f.user_id.value;
+            let pwd = f.user_pwd.value;
+            
+            console.log("id = " + id);
+            console.log("pwd = " + pwd);
+            
+            //유효성검사
+            let idpattern = /^[a-z][a-z0-9]{5,19}$/;
+            let pwdpattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{}|;:',.<>/?]).{8,15}$/;
+            
+            if(id == '' || !idpattern.test(id)){
+               idWarning.textContent = "올바르지 않은 아이디입니다."
+               document.getElementById('user_id').classList.add('warning');
+               return;               
+            }else{
+               idWarning.textContent = ""; //경고 메세지 초기화
+               document.getElementById('user_id').classList.remove('warning');
+            }
+               
+            
+         
+            if(pwd == '' || !pwdpattern.test(pwd)){
+              pwdWarning.textContent = "올바르지 않은 비밀번호입니다."
+              document.getElementById('user_pwd').classList.add('warning');
+               return;               
+            }else{
+               pwdWarning.textContent = ""; //경고 메세지 초기화
+               document.getElementById('user_pwd').classList.remove('warning');
+            }
+              
+           
+            
+            let url = "login.do";
+            let param = "id=" + id + "&pwd=" + encodeURIComponent(pwd);
+            
+            sendRequest(url, param, resultLog, "POST");           
+         }
+         
+         function resultLog(){
+            if(xhr.readyState == 4 && xhr.status == 200){
                 let data = xhr.responseText;
                 if (data === 'no_id') {
                     alert("아이디가 존재하지 않습니다");    
@@ -54,8 +100,15 @@
                     alert("로그인 실패");
                 }
             }
-      	}
-      	
+         }
+         
+         //비밀번호재설정 시 알림메세지
+         document.addEventListener('DOMContentLoaded', function() {
+             const message = "${message}";
+             if (message) {
+                 alert(message);
+             }
+         });
       </script>
       
       
@@ -77,12 +130,13 @@
          <div class="login_input">
             <p>아이디(ID)</p>
             <input class="id_box" placeholder="아이디를 입력하세요" name="user_id" id="user_id" type="text" required>
-            
+            <span id="idWarning"></span>
             <br>
             <br>
             
             <p>비밀번호</p>
             <input class="pwd_box" placeholder="비밀번호를 입력하세요" name="user_pwd" id="user_pwd" type="password" required>
+            <span id="pwdWarning"></span>
          </div>
          
          <div class="login_tool">
