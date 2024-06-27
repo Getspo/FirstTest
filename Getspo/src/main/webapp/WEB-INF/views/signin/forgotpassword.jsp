@@ -50,7 +50,7 @@
       			let name = f.user_name.value;
       			let email = f.user_email.value;    
       			
-      			//유혀성 검사				
+      			//유효성 검사				
 				//아이디
 				let idpattern = /^[a-z][a-z0-9]{5,19}$/;
       			//이름
