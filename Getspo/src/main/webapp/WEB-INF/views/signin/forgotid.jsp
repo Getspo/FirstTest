@@ -6,7 +6,7 @@
       <meta charset="UTF-8">
       <title>ID 찾기</title>
       
-      <link rel="stylesheet" href="/getspo/resources/css/forgotid.css">
+      <link rel="stylesheet" href="/getspo/resources/css/signin/forgotid.css">
       
       <!-- Ajax -->
       <script src="/getspo/resources/js/httpRequest.js"></script>

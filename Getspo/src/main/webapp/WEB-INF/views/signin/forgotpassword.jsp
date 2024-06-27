@@ -7,7 +7,7 @@
 		<title>비밀번호 찾기</title>
 		
 		<!-- css -->
-		<link rel="stylesheet" href="/getspo/resources/css/forgotpassword.css">
+		<link rel="stylesheet" href="/getspo/resources/css/signin/forgotpassword.css">
 		
 		<!-- Ajax -->
       	<script src="/getspo/resources/js/httpRequest.js"></script>

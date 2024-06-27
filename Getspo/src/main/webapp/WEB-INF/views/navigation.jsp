@@ -8,6 +8,7 @@
       <title>네비게이션 바</title>
       
       <link rel="stylesheet" href="/getspo/resources/css/navigation.css">
+      
       <!-- 네이게이션js -->
 		<script src="/getspo/resources/js/navigation.js"></script>
 	
@@ -62,10 +63,10 @@
 	            </c:if>
 	            <c:if test="${empty sessionScope.user}">
 	                <a href="javascript:" onclick="location.href='signinform.do'" class="signin">로그인</a>&nbsp;
-	                <a href="javascript:" onclick="location.href='signupform.do'" class="signup">회원가입</a>&nbsp;&nbsp;&nbsp;
+	                <a href="javascript:" onclick="location.href='signupform.do'" class="signup">회원가입</a>&nbsp;
 	            </c:if>
 	        </div>
-            <a href="javascript:" onclick="location.href='hostMain.do'" class="hostpage">무료이벤트개설</a>&nbsp;
+            <a href="javascript:" onclick="location.href='new_event.do'" class="hostpage">무료행사개설</a>&nbsp;
             <a href="javascript:" onclick="location.href='hostMain.do'" class="hostpage">호스트센터</a>
          </div>
       </div>

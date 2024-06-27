@@ -18,37 +18,33 @@
 	height: 85px;
 	position: fixed;
 	background-color: #171717;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 .resolution {
 	width: 1200px;
 	margin: 0 auto;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
 }
 
 
 .logo {
 	display: inline-block;
-	float: left;
 }
 
 .spononiverse {
 	width: 100px;
-	height: 60px;
-}
-
-.left {
-	display: inline-block;
-	float: left;
-	margin-top: 20px;
-	margin-left: 30px;
+	height: 70px;
 }
 
 .right {
-    display: flex; /* Flexbox를 사용하여 내부 요소들을 정렬 */
-    align-items: center; /* 수직 가운데 정렬 */
-    height: 100%; /* 부모 요소(.right)의 높이를 기준으로 링크의 높이 설정 */
-    float: right;
-    margin-top : 25px;
+    display: flex;
+    align-items: center;
+    height: 100%;
 }
 
 .toMake {
@@ -58,7 +54,6 @@
     border-radius: 5px;
     padding: 5px;
     margin-right: 5px;
-
 }
 
 .toMain {
@@ -84,18 +79,16 @@
 		<div class="resolution">
 			<div class="logo">
 				<img class="spononiverse"
-					src="/getspo/resources/img/logo/logo_black.png">&nbsp
-					<a class="hostText">HOST CENTER </a>
-					
+					src="/getspo/resources/img/logo/host_logo.png">
 			</div>
 				
-				<div class="right">
+			<div class="right">
 				<input class="toMake" type="button" value="이벤트개최하기"
 					onclick="location.href='new_event.do'">
 					
 				<input class="toMain" type="button" value="메인페이지"
 					onclick="location.href='main.do'">
-				</div>
+			</div>
 		</div>
 	</nav>
 </body>

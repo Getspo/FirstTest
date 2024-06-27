@@ -17,15 +17,20 @@ a{
    text-decoration: none; /* 링크 밑줄 없애기 */
 }
 
-h4{
-   margin: 0;
-   margin-bottom: 5px;
+.menu_title {
+	font-size: 20px;
+	font-weight: bold;
+	margin: 0;
+    margin-bottom: 5px;
 }
 
-h6 {
-   color: gray;
-   margin-bottom: 30px;
-}   
+.menu_subtitle {
+	font-size: 18px;
+	color: gray;
+	color: gray;
+    margin-bottom: 30px;
+}
+ 
 
 .sport img {
    border: none;

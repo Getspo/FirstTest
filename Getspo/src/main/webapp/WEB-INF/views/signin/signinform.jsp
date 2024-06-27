@@ -7,7 +7,7 @@
    <title>로그인</title>
       
       <!-- signin css -->
-      <link rel="stylesheet" href="/getspo/resources/css/signin.css">
+      <link rel="stylesheet" href="/getspo/resources/css/signin/signin.css">
       
       <!-- 폰트 설정 -->
       <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -94,6 +94,7 @@
             <input class="login_btn" type="button" value="로그인" onclick="validateId(this.form);">
             <input class="signup_btn" type="button" value="회원가입" onclick="location.href='signupform.do'">
          
+         <!--  비회원 신청 조회 보류 (주석처리만 풀면 사용 가능)
          <br>
          <br>
          <br>
@@ -105,7 +106,7 @@
                
             <a class="nonmember" href="javascript:" onclick="location.href='nonmemberconfirm.do'">비회원 신청 조회</a>
          </div>
-         
+         -->
       </div>
       
       </form>
