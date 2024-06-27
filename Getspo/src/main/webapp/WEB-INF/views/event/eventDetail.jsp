@@ -4,10 +4,10 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>Insert title here</title>
+		<title>행사 페이지</title>
 	</head>
 	
 	<body>
-	이벤트 디테일 페이지입니다.
+		 <jsp:include page="../navigation.jsp"></jsp:include><br>
 	</body>
 </html>

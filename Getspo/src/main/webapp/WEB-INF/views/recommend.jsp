@@ -5,6 +5,9 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>추천행사 메뉴</title>
+		
+		<link rel="stylesheet" href="/getspo/resources/css/recommend.css">
+		
 	</head>
 	<body>
 		 <!-- 개최 행사 메뉴 -->
