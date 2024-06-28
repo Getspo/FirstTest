@@ -61,7 +61,7 @@
             
             if(id == '' || !idpattern.test(id)){
                idWarning.textContent = "올바르지 않은 아이디입니다."
-            document.getElementById('user_id').classList.add('warning');
+               document.getElementById('user_id').classList.add('warning');
                return;               
             }else{
                idWarning.textContent = ""; //경고 메세지 초기화
@@ -72,7 +72,7 @@
          
             if(pwd == '' || !pwdpattern.test(pwd)){
               pwdWarning.textContent = "올바르지 않은 비밀번호입니다."
-            document.getElementById('user_pwd').classList.add('warning');
+              document.getElementById('user_pwd').classList.add('warning');
                return;               
             }else{
                pwdWarning.textContent = ""; //경고 메세지 초기화
@@ -102,6 +102,13 @@
             }
          }
          
+         //비밀번호재설정 시 알림메세지
+         document.addEventListener('DOMContentLoaded', function() {
+             const message = "${message}";
+             if (message) {
+                 alert(message);
+             }
+         });
       </script>
       
       

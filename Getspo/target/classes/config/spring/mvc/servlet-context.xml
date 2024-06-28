@@ -31,6 +31,7 @@
 	<beans:bean class="com.kh.getspo.UserController">
       <beans:constructor-arg ref="mss"/>
       <beans:constructor-arg ref="user_daoBean"/>
+      <beans:constructor-arg ref="passwordreset_daoBean"/>      
     </beans:bean>
 
 	

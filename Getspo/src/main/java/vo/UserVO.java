@@ -2,16 +2,16 @@ package vo;
 
 public class UserVO {
 	private String user_id, user_name, user_pwd, user_birth, user_tel, user_email, user_addr, user_addrcode, user_addrdetail;
-	private int idx;
+	private int user_idx;
 
 	
-	
-	public int getIdx() {
-		return idx;
+
+	public int getUser_idx() {
+		return user_idx;
 	}
 
-	public void setIdx(int idx) {
-		this.idx = idx;
+	public void setUser_idx(int user_idx) {
+		this.user_idx = user_idx;
 	}
 
 	public String getUser_id() {
