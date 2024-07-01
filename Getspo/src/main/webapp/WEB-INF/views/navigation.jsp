@@ -30,7 +30,9 @@
       <nav class="navibar">
       <div class="resolution">
          <div class="logo_div">
-            <img class="sponiverse_logo" src="/getspo/resources/img/logo/정사각형로고.png">
+            <a href="main.do">
+            	<img class="sponiverse_logo" src="/getspo/resources/img/logo/정사각형로고.png">
+            </a>
          </div>
          
          <div class="left">

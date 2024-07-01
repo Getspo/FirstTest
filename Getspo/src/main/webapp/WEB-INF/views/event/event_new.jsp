@@ -5,33 +5,41 @@
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <title>이벤트 개설하기</title>
-      
-      <!-- css -->
-      <link rel="stylesheet" href="/getspo/resources/css/new_event.css">
-      
-      <!-- 폰트 설정 -->
-      <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
-      
-      <!-- 주소 찾기 -->
-      <script   src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-      <script src="/getspo/resources/js/addr.js"></script>
-      
-      <!-- 에디터 -->
-      <link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
-        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-      
-        <!-- include summernote css/js -->
-        <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
-        <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
-      
-      <!-- Cropper.js -->
-       <link href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css" rel="stylesheet">
-       <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script>
-      
-   </head>
+
+		<!-- css -->
+		<link rel="stylesheet" href="/getspo/resources/css/event_new.css">
+	
+		<!-- 폰트 설정 -->
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
+	
+		<!-- 주소 찾기 -->
+		<script
+			src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+		<script src="/getspo/resources/js/addr.js"></script>
+		
+		<!-- 에디터 -->
+		<link
+			href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+			rel="stylesheet">
+		<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+		<script
+			src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+		
+		<!-- include summernote css/js -->
+		<link
+			href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css"
+			rel="stylesheet">
+		<script
+			src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+		
+		<!-- Cropper.js -->
+		<link href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css" rel="stylesheet">
+		<script
+			src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script>
+
+</head>
    
    <body>
 
@@ -215,7 +223,7 @@
             <h5>티켓</h5>
                <input id="ticket_name" name="ticket" type="text" placeholder="티켓명" required>
                <input id="member_limit" name="ticket"  type="number" min="1" step="1" placeholder="모집정원" required>
-               <input id="ticket_price" name="ticket" type="number" min="0" max="1000000"step="1000" placeholder="티켓금액" required>
+               <input id="ticket_amount" name="ticket" type="number" min="0" max="1000000"step="1000" placeholder="티켓금액" required>
                
              <div class="radio-group">
              <p>잔여수량</p>   

@@ -38,6 +38,8 @@
 .form-group input[type="date"],
 .form-group input[type="time"],
 .form-group input[type="number"],
+.form-group input[type="email"],
+.form-group input[type="tel"],
 .form-group select {
   padding: 8px;
   border: 1px solid #ddd;
@@ -80,7 +82,7 @@
 #event_category_group,
 #event_name_group,
 #event_date_group,
-#event_addr_group,
+#event__group,
 #event_content_group,
 #ticket_group {
   margin-bottom: 25px;

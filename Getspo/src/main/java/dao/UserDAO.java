@@ -57,5 +57,17 @@ public class UserDAO {
       return vo;
    }
    
+   //수정을 위해 idx에 해당되는 정보 한 건 조회
+   public UserVO selectOne(int user_idx) {
+	   UserVO vo = sqlSession.selectOne("u.selectOne", user_idx);
+	   return vo;
+   }
+   
+   //유저 정보 수정
+   public int update_userInfo(UserVO vo) {
+	   int res = sqlSession.update("u.update_userInfo", vo);
+	   return res;
+   }
+   
    
 }
