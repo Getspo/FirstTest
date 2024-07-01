@@ -272,5 +272,19 @@ public class UserController {
       session.removeAttribute("user");
       return "redirect:main.do";
    }
-
+   
+   //유저 정보 수정
+   @RequestMapping("/userinfo_modify")
+   @ResponseBody
+   public String modify(UserVO vo) {
+	   String encodePwd = Common.SecurePwd.encodePwd(vo.getUser_pwd());
+	   vo.setUser_pwd(encodePwd);
+		
+	   int res = user_dao.update_userInfo(vo);
+	   if(res > 0) {
+		   return "[{'result':'clear'}]";
+	   }else {
+		   return "[{'result':'fail'}]";
+	   }
+   }
 }
