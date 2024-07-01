@@ -8,7 +8,7 @@
 		<title>회원가입</title>
 		
 		<!-- css -->
-		<link rel="stylesheet" href="/getspo/resources/css/signup.css">
+		<link rel="stylesheet" href="/getspo/resources/css/signin/signup.css">
 		
 		<!-- 폰트 설정 -->
 		<link rel="preconnect" href="https://fonts.googleapis.com">
@@ -79,6 +79,7 @@
 					<p>주소
 					<input type="button" class="addr_btn" onclick="sample6_execDaumPostcode()" value="주소 찾기"><br>
 					</p>
+					
 					
 					<input type="text" id="user_addrcode" name="user_addrcode" placeholder="우편번호">
 					<input type="text" id="user_addr" name="user_addr" placeholder="주소"><br>

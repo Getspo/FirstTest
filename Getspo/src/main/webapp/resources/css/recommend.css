@@ -1,11 +1,88 @@
 @charset "UTF-8";
-* {	
-	margin:0;
-	padding:0;
+
+* {
+	margin: 0;
+	padding: 0;
 }
+
 .recommend {
 	font-family: "Noto Sans KR";
 	align-items: center;
 	width: 1200px;
 	margin: 110px auto;
+}
+
+.menu_title {
+	font-size: 20px;
+	font-weight: bold;
+}
+
+.menu_subtitle {
+	font-size: 18px;
+	color: gray;
+}
+
+
+/* 개최 행사 메뉴 css */
+.container {
+	width: 279px;
+	height: 150px;
+	position: relative;
+	padding: 0 0 20px 0;
+	margin-bottom: 40%;
+}
+
+.thumbnail {
+	width: 279px;
+	height: 150px;
+}
+
+.overlay {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: inherit;
+	height: inherit;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background: rgb(0, 0, 0, 0.5);
+	opacity: 0;
+	transition: opacity 0.2s;
+}
+
+.container:hover .overlay {
+	opacity: 1;
+}
+
+.hover_text {
+	color: white;
+	font-weight: bold;
+}
+
+.gutter {
+	width: 30px;
+}
+
+.event_date {
+	color: grey;
+	font-size: 15px;
+}
+
+.event_name {
+	font-size: 20px;
+	font-weight: bold;
+}
+
+.price {
+	color: #0099bc;
+	font-size: 15px;
+	font-weight: bold;
+	float: left;
+}
+
+.view {
+	color: grey;
+	font-size: 10px;
+	float: right;
 }

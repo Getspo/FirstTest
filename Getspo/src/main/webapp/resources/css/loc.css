@@ -1,57 +1,70 @@
 @charset "UTF-8";
 .head {
-			margin: 10px 10%;
-		}
-		
-		img {
-			width: 75px;
-			height: 75px;
-		}
-		
-		.slider-div {
-			padding: 20px 8%;
-			position: relative;
-		}
-		
-		/* Style for slick arrows */
-		.slick-prev, .slick-next {
-			background-color: black;
-			color: white;
-			padding: 10px 15px;
-			border: none;
-			border-radius: 5px;
-			position: absolute;
-			top: 50%;
-			transform: translateY(-50%);
-			z-index: 10;
-			cursor: pointer;
-		}
-		
-		.slick-prev {
-			left: 1%;
-		}
-		
-		.slick-next {
-			right: 3%;
-		}
-		
-		.slick-slide a {
-			display: block;
-			position: relative; /* 상대적 위치 설정 */
-			text-align: center; /* 텍스트 가운데 정렬 */
-		}
-		
-		
-		.slick-slide span {
-			position: absolute; /* 절대적 위치 설정 */
-			bottom: 0; /* 아래로부터 거리 설정 */
-			left: 18px; /* 왼쪽으로부터 거리 설정 */
-			color: white; /* 글자색 */
-			padding: 5px; /* 패딩 설정 */
-			font-size: 14px; /* 글자 크기 */
-		}
-		
-		.slider-container{
-			width: 1200px;
-			margin: 0 auto;
-		}
+	margin: 10px 10%;
+}
+
+.menu_title {
+	font-size: 20px;
+	font-weight: bold;
+	margin: 0;
+    margin-bottom: 5px;
+}
+
+.menu_subtitle {
+	font-size: 18px;
+	color: gray;
+	color: gray;
+    margin-bottom: 30px;
+}
+
+img {
+	width: 75px;
+	height: 75px;
+}
+
+.slider-div {
+	padding: 20px 8%;
+	position: relative;
+}
+
+/* Style for slick arrows */
+.slick-prev, .slick-next {
+	background-color: black;
+	color: white;
+	padding: 10px 15px;
+	border: none;
+	border-radius: 5px;
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	z-index: 10;
+	cursor: pointer;
+}
+
+.slick-prev {
+	left: 1%;
+}
+
+.slick-next {
+	right: 3%;
+}
+
+.slick-slide a {
+	display: block;
+	position: relative; /* 상대적 위치 설정 */
+	text-align: center; /* 텍스트 가운데 정렬 */
+}
+
+.slick-slide span {
+	position: absolute; /* 절대적 위치 설정 */
+	bottom: 0; /* 아래로부터 거리 설정 */
+	left: 18px; /* 왼쪽으로부터 거리 설정 */
+	color: white; /* 글자색 */
+	padding: 5px; /* 패딩 설정 */
+	font-size: 14px; /* 글자 크기 */
+}
+
+.slider-container {
+	width: 1200px;
+	margin: 0 auto;
+}

@@ -15,4 +15,9 @@
 		<constructor-arg ref="sqlSessionBean"/>
 	</bean>
 	
+	<bean id="passwordreset_daoBean" class="dao.PasswordResetTokenDAO">
+		<constructor-arg ref="sqlSessionBean"/>
+	</bean>
+	
+	
 </beans>
