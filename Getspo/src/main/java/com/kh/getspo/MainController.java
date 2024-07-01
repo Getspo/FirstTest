@@ -37,6 +37,18 @@ public class MainController {
  	public String hostMain() {
  	    return Common.Host.VIEW_PATH + "host.jsp";
  	}
+ 	
+    //호스트이벤트관리
+  	@RequestMapping("/host_event_management.do")
+  	public String host_event_management() {
+  	    return Common.Host.VIEW_PATH + "host_event_management.jsp";
+  	}
+  	
+    //호스트이벤트수정
+  	@RequestMapping("/host_event_modify.do")
+  	public String host_event_modify() {
+  	    return Common.Host.VIEW_PATH + "host_event_modify.jsp";
+  	}
  		
  	
  	//이벤트디테일 페이지

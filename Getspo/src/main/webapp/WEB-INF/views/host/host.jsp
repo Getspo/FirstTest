@@ -8,6 +8,7 @@
 			
 		<link rel="stylesheet" href="/getspo/resources/css/host/hostPage.css">
 		<link rel="stylesheet" href="/getspo/resources/css/recommend.css">
+		
 	</head>
 	
 	<body>
@@ -26,14 +27,24 @@
 				<th>이벤트일시</th>
 				<th>이벤트개설일</th>
 			</tr>
-			<tr>
+			
 				<!-- 아래내용은 대회작성후 자동으로 나올 수 있게 변경 -->
+			<tr>
 				<td>001</td>
 				<td>100</td>
-				<td><a href="#">썸머 나이트런</a></td>
-				<td>경기 하남</td>
+				<td><a href="javascript:" onclick="location.href='host_event_management.do'">태100 블루레이스</a></td>
+				<td>강원 태백</td>
+				<td>2024년 6월 1일</td>
+				<td>2024년 7월 7일</td>
+			</tr>
+			
+			<tr>
+				<td>002</td>
+				<td>100</td>
+				<td><a href="#">부산썸머비치울트라마라톤</a></td>
+				<td>부산 해운대</td>
+				<td>2024년 7월 10일</td>
 				<td>2024년 8월 17일</td>
-				<td>2024년 8월 1일</td>
 			</tr>
 			
 			</table>
