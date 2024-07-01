@@ -1,18 +1,18 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
-   <head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>이벤트 개설하기</title>
-      
-      <!-- css -->
+	<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Insert title here</title>
+	  
+	  <!-- css -->
       <link rel="stylesheet" href="/getspo/resources/css/new_event.css">
       
       <!-- 폰트 설정 -->
       <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
       
       <!-- 주소 찾기 -->
       <script   src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
@@ -20,22 +20,25 @@
       
       <!-- 에디터 -->
       <link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
-        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+      <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
       
-        <!-- include summernote css/js -->
-        <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
-        <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+      <!-- include summernote css/js -->
+      <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+      <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
       
       <!-- Cropper.js -->
-       <link href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css" rel="stylesheet">
-       <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script>
+      <link href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css" rel="stylesheet">
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script>
       
-   </head>
-   
-   <body>
-
-    <form class="new_event_form">
+	
+	</head>
+	
+	<body>
+	<jsp:include page="host_navigation.jsp"/>
+	<jsp:include page="host_sidebar.jsp"/>
+	<div>
+	    <form class="new_event_form">
             <div class="form-group">
                 <h2>구상 중인 행사를 개설해보세요! </h2>
             </div>
@@ -110,9 +113,9 @@
                 <h5>행사 장소
                     <input type="button" class="addr_btn" onclick="sample6_execDaumPostcode()" value="주소 찾기"><br>
                 </h5>
-                <input type="text" id="user_addrcode" name="user_addrcode" placeholder="우편번호">
-                <input type="text" id="user_addr" name="user_addr" placeholder="주소">
-                <input type="text" id="user_addrdetail" name="user_addrdetail" placeholder="상세주소">
+                <input type="text" id="addrcode" name="addrcode" placeholder="우편번호">
+                <input type="text" id="addr" name="addr" placeholder="주소">
+                <input type="text" id="addrdetail" name="addrdetail" placeholder="상세주소">
             </div>
                
            <div class="form-group" id="event_content_group">
@@ -208,14 +211,13 @@
             </select>
                     <input id="account" name="account" type="text" placeholder="입금받을 계좌번호" required>
                     <input id="account_name" name="account_name" type="text" placeholder="예금주 성명" required>
-                </div>
             </div>
             
             <div class="form-group" id="ticket_group">
             <h5>티켓</h5>
                <input id="ticket_name" name="ticket" type="text" placeholder="티켓명" required>
                <input id="member_limit" name="ticket"  type="number" min="1" step="1" placeholder="모집정원" required>
-               <input id="ticket_price" name="ticket" type="number" min="0" max="1000000"step="1000" placeholder="티켓금액" required>
+               <input id="ticket_amount" name="ticket" type="number" min="0" max="1000000"step="1000" placeholder="티켓금액" required>
                
              <div class="radio-group">
              <p>잔여수량</p>   
@@ -240,7 +242,7 @@
             
         <input type="button" class="event_btn" onclick="send(this.form)" value="행사 등록하기"> 
     </form>
-       
+    </div>   
     
     
       <script>
@@ -402,6 +404,6 @@
                    document.querySelector('.thumbnail_group').style.display = 'block'; // 썸네일 그룹 보이기
                } */
     </script>
-       
-   </body>
-</html>
+	
+	</body>
+	</html>

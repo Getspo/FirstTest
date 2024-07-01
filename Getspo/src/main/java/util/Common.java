@@ -11,7 +11,7 @@ public class Common {
 		public static final String VIEW_PATH = "/WEB-INF/views/main/";
 		
 		//한 페이지당 보여줄 게시글 수
-		public final static int BLOCKLIST = 4;
+		public final static int BLOCKLIST = 9;
 		
 		//한 화면에 보여지는 페이지 메뉴의 수
 		// <- 1 2 3 ->
