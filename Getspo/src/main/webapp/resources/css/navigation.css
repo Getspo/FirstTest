@@ -46,11 +46,11 @@
 /* 검색박스 */
 .searchbox {
     width: 300px;
-    height: 20px;
+    height: 40px;
     border: none;
     border-radius: 10px;
-    padding: 10px 20px;
     font-size: 15px;
+    padding: 0 15px; /* 좌우 여백 추가 */
 }
 
 /* 검색 버튼 */

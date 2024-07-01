@@ -43,8 +43,14 @@ public class MainController {
  	@RequestMapping("/event_detail.do")
  	public String eventDetail() {
  	    return Common.Event.VIEW_PATH + "event_detail.jsp";
- 	}	
-
+ 	}
+ 	
+ 	//신청폼 이동
+ 	@RequestMapping("/apply_form.do")
+ 	public String applyForm() {
+ 	    return Common.Event.VIEW_PATH + "apply_form.jsp";
+ 	}
+ 	
  	//이벤트개설 폼
  	@RequestMapping("/event_new.do")
  	public String event_form() {

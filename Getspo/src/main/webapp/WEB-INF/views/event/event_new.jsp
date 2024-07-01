@@ -5,33 +5,41 @@
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <title>이벤트 개설하기</title>
-      
-      <!-- css -->
-      <link rel="stylesheet" href="/getspo/resources/css/new_event.css">
-      
-      <!-- 폰트 설정 -->
-      <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
-      
-      <!-- 주소 찾기 -->
-      <script   src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-      <script src="/getspo/resources/js/addr.js"></script>
-      
-      <!-- 에디터 -->
-      <link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
-        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-      
-        <!-- include summernote css/js -->
-        <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
-        <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
-      
-      <!-- Cropper.js -->
-       <link href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css" rel="stylesheet">
-       <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script>
-      
-   </head>
+
+		<!-- css -->
+		<link rel="stylesheet" href="/getspo/resources/css/event_new.css">
+	
+		<!-- 폰트 설정 -->
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
+	
+		<!-- 주소 찾기 -->
+		<script
+			src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+		<script src="/getspo/resources/js/addr.js"></script>
+		
+		<!-- 에디터 -->
+		<link
+			href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+			rel="stylesheet">
+		<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+		<script
+			src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+		
+		<!-- include summernote css/js -->
+		<link
+			href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css"
+			rel="stylesheet">
+		<script
+			src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+		
+		<!-- Cropper.js -->
+		<link href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css" rel="stylesheet">
+		<script
+			src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script>
+
+</head>
    
    <body>
 
@@ -110,9 +118,9 @@
                 <h5>행사 장소
                     <input type="button" class="addr_btn" onclick="sample6_execDaumPostcode()" value="주소 찾기"><br>
                 </h5>
-                <input type="text" id="addrcode" name="addrcode" placeholder="우편번호">
-                <input type="text" id="addr" name="addr" placeholder="주소">
-                <input type="text" id="addrdetail" name="addrdetail" placeholder="상세주소">
+                <input type="text" id="user_addrcode" name="user_addrcode" placeholder="우편번호">
+                <input type="text" id="user_addr" name="user_addr" placeholder="주소">
+                <input type="text" id="user_addrdetail" name="user_addrdetail" placeholder="상세주소">
             </div>
                
            <div class="form-group" id="event_content_group">

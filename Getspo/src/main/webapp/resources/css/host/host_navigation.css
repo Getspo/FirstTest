@@ -48,7 +48,7 @@
     border-radius: 5px; 
     padding: 7px; 
     margin-left: 10px; 
-    
+    cursor: pointer;
 }
 
 .toMake:active, .toMain:active {
