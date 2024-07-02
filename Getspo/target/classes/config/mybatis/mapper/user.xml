@@ -48,6 +48,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		AND user_email = #{user_email}
 	</select>
 
+	<!-- 비밀번호 변경(업데이트) -->
+	<update id="update_pwd" parameterType="user">
+		UPDATE getspo_user SET user_pwd = #{user_pwd} WHERE user_id = #{user_id}
+	</update>
+
+	<!-- 삭제를 위한 비밀번호 체크 -->
+	<select id="compare_pwd" resultType="user" parameterType="int">
+		select * from getspo_user where user_idx = #{user_idx}
+	</select>
+
 	<!-- 회원 정보 수정을 위한 idx로 유저 정보 조회 -->
 	<select id="selectOne" resultType="user" parameterType="int">
 		select *
@@ -60,7 +70,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		user_tel=#{user_tel}, user_birth=#{user_birth},
 		user_addrcode=#{user_addrcode}, user_addr=#{user_addr},
 		user_addrdetail=#{user_addrdetail}
-		where idx=#{idx}
+		where user_idx=#{user_idx}
 	</update>
 </mapper>
 

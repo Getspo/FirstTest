@@ -3,9 +3,9 @@ package vo;
 public class UserVO {
 	private String user_id, user_name, user_pwd, user_birth, user_tel, user_email, user_addr, user_addrcode, user_addrdetail;
 	private int user_idx;
+
 	
-	
-	
+
 	public int getUser_idx() {
 		return user_idx;
 	}

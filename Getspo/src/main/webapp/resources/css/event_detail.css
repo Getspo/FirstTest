@@ -7,6 +7,10 @@
     font-family: "Noto Sans KR", sans-serif;
 }
 
+body {
+    font-family: "Noto Sans KR", sans-serif;
+}
+
 .event_detail_page {
     display: flex; /* Flexbox 사용 */
     justify-content: space-between; /* 요소들 간의 간격을 균등하게 */

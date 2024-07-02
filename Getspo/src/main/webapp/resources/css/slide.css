@@ -20,7 +20,7 @@
   height: 300px;
   
   /* location */
-  margin: 110px auto 30px auto;
+  margin: 110px auto 60px auto;
 
   /* slide drag를 위해 DOM요소가 드래그로 선택되는것을 방지 */
   user-select: none;

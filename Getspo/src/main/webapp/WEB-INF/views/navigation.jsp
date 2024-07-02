@@ -31,7 +31,7 @@
       <div class="resolution">
          <div class="logo_div">
             <a href="main.do">
-            <img class="sponiverse_logo" src="/getspo/resources/img/logo/정사각형로고.png">
+            	<img class="sponiverse_logo" src="/getspo/resources/img/logo/정사각형로고.png">
             </a>
          </div>
          

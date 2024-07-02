@@ -68,4 +68,6 @@ public class UserDAO {
 	   int res = sqlSession.update("u.update_userInfo", vo);
 	   return res;
    }
+   
+   
 }
