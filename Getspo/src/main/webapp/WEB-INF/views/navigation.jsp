@@ -55,7 +55,7 @@
 	                <div id="menu-items" role="menu" tabindex="0">
 		                <div id="menu-1">
 		                    <p>${sessionScope.user.user_id}</p>
-		                    <a href="mypageform.do">마이페이지 &gt;</a>
+		                    <a href="mypageform.do?user_idx=${sessionScope.user.user_idx}">마이페이지 &gt;</a>
 		                </div>
 		                <div id="menu-2" class="border-t"></div>
 		                <form action="logout.do" method="post">

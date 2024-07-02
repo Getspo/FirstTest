@@ -54,7 +54,7 @@
 				
 				<div class="form-group">
 					<p>이메일
-					<button type="button" class="btn-authenticate">본인인증</button>
+					<button type="button" class="btn-authenticate">메일인증</button>
 					</p> 
 					<input type="email" id="user_email" name="user_email" required>
 				</div>

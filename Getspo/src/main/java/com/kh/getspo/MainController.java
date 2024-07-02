@@ -3,12 +3,14 @@ package com.kh.getspo;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import dao.CategoryDAO;
 import dao.EventDAO;
 import dao.UserDAO;
 import util.Common;
+import vo.UserVO;
 
 
 @Controller
@@ -51,13 +53,12 @@ public class MainController {
   	    return Common.Host.VIEW_PATH + "host_event_modify.jsp";
   	}
  		
- 		
  	
-   
- 	
- 	//마이페이지이동
+ 	//마이페이지이동(+수정을 위한 정보를 들고 가야함)
  	@RequestMapping("/mypageform.do")
- 	public String mypage_form() {
+ 	public String mypage_form(Model model, int user_idx) {
+ 		UserVO vo = user_dao.selectOne(user_idx);
+ 		model.addAttribute("vo", vo);
  		return Common.Mypage.VIEW_PATH + "mypage.jsp";
  	}
  	

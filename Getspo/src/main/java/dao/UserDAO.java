@@ -57,7 +57,7 @@ public class UserDAO {
       return vo;
    }
    
-   //수정을 위해 idx에 해당되는 정보 한 건 조회
+   //수정 페이지로 이동(아이디가지고)
    public UserVO selectOne(int user_idx) {
 	   UserVO vo = sqlSession.selectOne("u.selectOne", user_idx);
 	   return vo;
