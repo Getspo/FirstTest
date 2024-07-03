@@ -254,16 +254,16 @@
     
       <script>
             /* 상세정보 입력창 관련 함수 */
-          $(document).ready(function() {
-	        $('#summernote').summernote({
-	            height: 300,
-	            callbacks: {
-	                onChange: function(contents, $editable) {
-	                    $('#summernote_content').val(contents);
-	                }
-	            }
-	        });
-	    });
+			$(document).ready(function() {
+		        $('#summernote').summernote({
+		            height: 300,
+		            callbacks: {
+		                onChange: function(contents, $editable) {
+		                    $('#summernote_content').val(contents);
+		                }
+		            }
+		        });
+		    });
       
             /* 결제방식에 따른 티켓 금액 입력창 활성화/비활성화 함수 */
                document.addEventListener('DOMContentLoaded', function() {

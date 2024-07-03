@@ -140,7 +140,15 @@ public class EventController {
 	                vo.setEvent_h_end(eventHEnd);
 	                vo.setEvent_r_start(eventRStart);
 	                vo.setEvent_r_end(eventREnd);
-	                vo.setEvent_content(eventContent);
+	                
+	                // HTML 콘텐츠 처리
+	                String fileRoot = "C:\\summernoteImg\\";
+	                try {
+	                    String processedContent = event_dao.processHtmlContent(eventContent, fileRoot);
+	                    vo.setEvent_content(processedContent);
+	                } catch (IOException e) {
+	                    e.printStackTrace();
+	                }
 	                
 	                //파일업로드 경로설정
 	                String webPath = "/resources/upload/";
