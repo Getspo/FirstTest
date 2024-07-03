@@ -65,5 +65,26 @@ public class EventDAO {
     public int eventcount() {
     	return sqlSession.selectOne("e.event_count");
     }
+    
+    // 이벤드 디테일 정보 idx별로 가져오기
+    public EventVO eventByIdx(int event_idx){
+    	return sqlSession.selectOne("e.getevent_idx", event_idx);
+    }
+    
+    //이벤트에 신청된 티켓 수 조회
+    public int applieCount(int event_idx) {
+    	return sqlSession.selectOne("e.apply_event", event_idx);
+    }
 	
 }
+
+
+
+
+
+
+
+
+
+
+

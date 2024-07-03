@@ -86,15 +86,32 @@ public class EventController {
 
  	//이벤트디테일 페이지
  	@RequestMapping("/event_detail.do")
- 	public String eventDetail() {
+ 	public String eventDetail(@RequestParam("event_idx") int event_idx, Model model) {
+ 		//해당 이벤트정보 가져오기
+ 		EventVO event = event_dao.eventByIdx(event_idx);
+ 		
+ 		//이벤트에 신청된 수 계산
+ 		int appliecount = event_dao.applieCount(event_idx);
+ 		
+ 		//잔여 수량 계산
+ 		int remainticket = event.getEvent_max_joiner() - appliecount;
+ 		
+ 		//바인딩
+ 		model.addAttribute("event", event);
+ 		model.addAttribute("remainticket", remainticket);
+ 		
  	    return Common.Event.VIEW_PATH + "event_detail.jsp";
  	}	
+ 	
+ 	
 
  	//이벤트개설 폼
  	@RequestMapping("/event_new.do")
  	public String event_form() {
  		return Common.Event.VIEW_PATH + "event_new.jsp";
  	}
+ 	
+ 	
  	
  	//이벤트 생성하기
 	@RequestMapping("/event_insert.do")

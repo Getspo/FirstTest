@@ -46,6 +46,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <select id="event_count" resultType="int">
 	SELECT COUNT(*) FROM getspo_event
 </select>
+
+<!-- 이벤트 디테일 idx값별로 가져오기 -->
+<select id="getevent_idx" resultType="event" parameterType="int">
+	SELECT * FROM getspo_event WHERE event_idx = #{event_idx}
+</select>
+
+<!-- 이벤트 신청된 티켓 조회 -->
+<select id="apply_event" parameterType="int" resultType="int">
+	SELECT COUNT(*) FROM getspo_order WHERE event_idx = #{event_idx}
+</select>
 </mapper>
 
 

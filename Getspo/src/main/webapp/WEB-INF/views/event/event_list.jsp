@@ -101,7 +101,14 @@
                             </div>
                             <div class="info-box">
                                 <div class="pay-box">
-                                    <span>${event.event_price}원</span>
+                                    <c:choose>
+								        <c:when test="${event.event_price > 0}">
+								            <span>${event.event_price}원</span>
+								        </c:when>
+								        <c:otherwise>
+								            <span>무료</span>
+								        </c:otherwise>
+								    </c:choose>
                                 </div>
                                 <div class="check-box">
                                     <span class="check-count"> 조회 ${event.event_viewCount}</span>
