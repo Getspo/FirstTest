@@ -273,10 +273,12 @@ public class UserController {
       return "redirect:main.do";
    }
    
-   //유저 정보 수정
-   @RequestMapping("/userinfo_modify")
+ //유저 정보 수정
+   @RequestMapping("/userinfo_modify.do")
    @ResponseBody
    public String modify(UserVO vo) {
+	   
+	   //비밀번호 암호화
 	   String encodePwd = Common.SecurePwd.encodePwd(vo.getUser_pwd());
 	   vo.setUser_pwd(encodePwd);
 		

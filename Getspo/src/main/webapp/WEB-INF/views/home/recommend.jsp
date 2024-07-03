@@ -6,14 +6,16 @@
 		<meta charset="UTF-8">
 		<title>추천행사 메뉴</title>
 		
-		<link rel="stylesheet" href="/getspo/resources/css/recommend.css">
+		<link rel="stylesheet" href="/getspo/resources/css/home/recommend.css">
 		
 	</head>
 	<body>
 		 <!-- 개최 행사 메뉴 -->
       <div class="recommend">
 			<h4 class="menu_title">Upcoming Event</h4>
-            <h6 class="menu_subtitle">다가오는 스포츠 행사를 만나보세요!</h6>
+            <h6 class="menu_subtitle">다가오는 스포츠 행사를 만나보세요!
+            	<a href="javascript:" onclick="location.href='event_list.do'" id="event_more">더 많은 행사보기 ></a>
+            </h6>
 
 		<!-- 대회썸네일 -->
 		<table align="center" width="1200px;">

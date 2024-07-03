@@ -92,7 +92,7 @@
 </head>
 
 <body>
-    <jsp:include page="../navigation.jsp"></jsp:include><br>
+    <jsp:include page="../home/navigation.jsp"></jsp:include><br>
 
     <div class="event_detail_page">
         <!-- 행사 정보 라인 -->

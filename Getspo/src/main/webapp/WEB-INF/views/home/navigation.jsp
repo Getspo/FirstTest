@@ -7,7 +7,7 @@
       <meta charset="UTF-8"> 
       <title>네비게이션 바</title>
       
-      <link rel="stylesheet" href="/getspo/resources/css/navigation.css">
+      <link rel="stylesheet" href="/getspo/resources/css/home/navigation.css">
       
       <!-- 네이게이션js -->
 	  <script src="/getspo/resources/js/navigation.js"></script>
@@ -55,7 +55,7 @@
 	                <div id="menu-items" role="menu" tabindex="0">
 		                <div id="menu-1">
 		                    <p>${sessionScope.user.user_id}</p>
-		                    <a href="mypageform.do">마이페이지 &gt;</a>
+		                     <a href="mypageform.do?user_idx=${sessionScope.user.user_idx}">마이페이지 &gt;</a>
 		                </div>
 		                <div id="menu-2" class="border-t"></div>
 		                <form action="logout.do" method="post">

@@ -1,6 +1,10 @@
 package util;
 
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
+import dao.UserDAO;
+import vo.UserVO;
 
 public class Common {
 	//객체 관리를 편하게 하기위한 클래스
@@ -21,7 +25,7 @@ public class Common {
 	//메인
 	public static class Main{
 	      
-	      public static final String VIEW_PATH = "/WEB-INF/views/";
+	      public static final String VIEW_PATH = "/WEB-INF/views/home/";
 	      
 	   }
 	
@@ -66,7 +70,21 @@ public class Common {
 	              BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 	              return encoder.matches(rawPwd, encodedPwd);
 	          }
-	         
+	          
+		        //비밀번호 복호화 메서드
+		  		public static boolean decodePwd(UserVO vo, UserDAO user_dao) {
+		  			boolean isValid = false;
+		  			
+		  			UserVO resultVO = user_dao.check(vo.getUser_idx());
+		  			
+		  			if( resultVO != null ) {
+		  				
+		  				//입력한 비밀번호와, DB의 암호화된 비밀번호가 일치하면
+		  				//isValid가 ture가 된다
+		  				isValid = BCrypt.checkpw(vo.getUser_pwd(), resultVO.getUser_pwd());
+		  			}
+		  			return isValid;
+		  		}
 	   }
 
 	

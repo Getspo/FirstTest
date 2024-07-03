@@ -69,16 +69,22 @@ public class MainController {
   	public String host_event_modify() {
   	    return Common.Host.VIEW_PATH + "host_event_modify.jsp";
   	}
+
+  	//호스트페이지에서 참가자확인페이지 이동(0703 추가)
+  	@RequestMapping("/register_list.do")
+  	public String register_list() {
+  		return Common.Host.VIEW_PATH + "host_register_list.jsp";
+  	}
  		
- 		
- 	
+
    
- 	
- 	//마이페이지이동
- 	@RequestMapping("/mypageform.do")
- 	public String mypage_form() {
- 		return Common.Mypage.VIEW_PATH + "mypage.jsp";
- 	}
+  //마이페이지이동(+수정을 위한 정보를 들고 가야함)
+   	@RequestMapping("/mypageform.do")
+   	public String mypage_form(Model model, int user_idx) {
+   		UserVO vo = user_dao.selectOne(user_idx);
+   		model.addAttribute("vo", vo);
+   		return Common.Mypage.VIEW_PATH + "mypage.jsp";
+   	}
  	
    
 }

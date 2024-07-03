@@ -38,6 +38,9 @@
 		<link href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css" rel="stylesheet">
 		<script
 			src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script>
+			
+		<!-- ajax -->
+		<script src="/getspo/resources/js/httpRequest.js"></script>
 
 </head>
    
@@ -254,7 +257,8 @@
     
       <script>
             /* 상세정보 입력창 관련 함수 */
-			$(document).ready(function() {
+			    /* 상세정보 입력창 관련 함수 */
+	          $(document).ready(function() {
 		        $('#summernote').summernote({
 		            height: 300,
 		            callbacks: {

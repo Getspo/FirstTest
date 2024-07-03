@@ -86,7 +86,21 @@ h2 {
 	margin: 30px;
 }
 
-.information input{
+.inp{
+	width: 300px;
+	margin-bottom: 30px;
+}
+.addrinp{
 	width: 300px;
 	margin-bottom: 10px;
+}
+.btn{
+	width: 50px;
+}
+.last_btn{
+	width: 50px;
+	margin-bottom: 10px;
+}
+.last_btn_div{
+	margin-left: 95px;
 }
