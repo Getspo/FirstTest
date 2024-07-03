@@ -9,7 +9,7 @@
 <title>MypageForm</title>
 
 <!-- css -->
-<link rel="stylesheet" href="/getspo/resources/css/mypage.css">
+<link rel="stylesheet" href="/getspo/resources/css/home/mypage.css">
 
 <!-- 폰트설정 -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
