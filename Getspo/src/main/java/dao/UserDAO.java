@@ -1,5 +1,7 @@
 package dao;
 
+import java.util.Map;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -57,7 +59,7 @@ public class UserDAO {
       return vo;
    }
    
-   //수정 페이지로 이동(아이디가지고)
+   //수정 페이지로 이동(수정 정보 가져가기)
    public UserVO selectOne(int user_idx) {
 	   UserVO vo = sqlSession.selectOne("u.selectOne", user_idx);
 	   return vo;

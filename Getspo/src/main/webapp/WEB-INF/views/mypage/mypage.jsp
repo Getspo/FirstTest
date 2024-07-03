@@ -21,28 +21,30 @@
 
 <!-- 우편번호 API -->
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script src="/getspo/resources/js/addr.js"></script>
 
 
 <script>
 	function modify(f) {
-		let user_idx = f.user_idx.value;
-		let check_pwd = f.c_pwd.value;
-
+		
 		let url = "userinfo_modify.do";
-		let param = "user_idx=" + user_idx + "user_name=" + f.user_name.value
-				+ "&user_pwd=" + f.user_pwd.value + "&user_birth="
-				+ f.user_birth.value + "&user_tel=" + f.user_tel.value
-				+ "&user_addr=" + f.user_addr.value;
+		let param = "user_idx=" + f.user_idx.value + "&user_name=" + f.user_name.value
+				+ "&user_pwd=" + f.new_pwd.value + "&user_tel=" + f.user_tel.value
+				+ "&user_birth=" + f.user_birth.value + "&user_addrcode=" + f.user_addrcode.value
+				+ "&user_addr=" + f.user_addr.value + "&user_addrdetail=" + f.user_addrdetail.value;
 
 		sendRequest(url, param, resultFn, "post");
 	}
 	function resultFn() {
 		if (xhr.readyState == 4 && xhr.status == 200) {
-			if (xhr.responseText == "success") {
-				alert("수정완료");
-				location.href = "mypageform.do";
-			} else {
+			let data = xhr.responseText;
+			let json = (new Function('return ' + data))();
+
+			if (json[0].result == "fail") {
 				alert("수정실패");
+			} else {
+				alert("수정완료");
+				location.href='mypageform.do?user_idx=${vo.user_idx}';
 			}
 		}
 	}
@@ -153,7 +155,6 @@
 				<div class="information">
 				<form>
 					<input type="hidden" name="user_idx" value="${vo.user_idx}">
-					<input type="hidden" name="user_pwd" value="${vo.user_pwd}">
 					
 					<h5>이름</h5>
 					<input id="user_name" name="user_name" class="inp" value="${vo.user_name}" required>
@@ -164,22 +165,22 @@
 					<h5>생년월일</h5>
 					<input type="date" id="user_birth" name="user_birth" class="inp" value="${vo.user_birth}" required>
 
-					<h5>주소
-					<input type="button" class="btn" value="찾기" onclick="sample6_execDaumPostcode()">
-					</h5>
+					<h5>주소</h5>
+					<div>
+						<input type="button" class="btn" value="찾기" onclick="sample6_execDaumPostcode()">
+						<br>
+						<input type="text" id="user_addrcode" name="user_addrcode" class="addrinp" value="${vo.user_addrcode}">
+						<br>
+						<input type="text" id="user_addr" name="user_addr" class="addrinp" value="${vo.user_addr}">
+						<br>
+						<input type="text" id="user_addrdetail" name="user_addrdetail" class="addrinp" value="${vo.user_addrdetail}">
+					</div>
 					
-
-					<input type="text" id="user_addrcode" name="user_addrcode" class="addrinp" value="${vo.user_addrcode}">
-					<br>
-					<input type="text" id="user_addr" name="user_addr" class="addrinp" value="${vo.user_addr}">
-					<br>
-					<input type="text" id="user_addrdetail" name="user_addrdetail" class="addrinp" value="${vo.user_addrdetail}">
-
 					<h5>비밀번호</h5>
-					<input type="password" id="user_pwd" name="user_pwd" class="inp" placeholder="비밀번호를 입력하세요"  required>
+					<input type="password" id="user_pwd" name="new_pwd" class="inp" required>
 					<div class="last_btn_div">
 					<input type="button" class="last_btn" value="완료" onclick="modify(this.form);">
-					<input type="button" class="last_btn" value="취소" onclick="history.go(-1);">
+					<input type="button" class="last_btn" value="취소" onclick="location.href='mypageform.do?user_idx=${vo.user_idx}'">
 					</div>
 				</form>
 				</div>

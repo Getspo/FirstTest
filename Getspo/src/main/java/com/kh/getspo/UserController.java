@@ -1,6 +1,8 @@
 package com.kh.getspo;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -274,9 +276,11 @@ public class UserController {
    }
    
    //유저 정보 수정
-   @RequestMapping("/userinfo_modify")
+   @RequestMapping("/userinfo_modify.do")
    @ResponseBody
    public String modify(UserVO vo) {
+	   
+	   //비밀번호 암호화
 	   String encodePwd = Common.SecurePwd.encodePwd(vo.getUser_pwd());
 	   vo.setUser_pwd(encodePwd);
 		
