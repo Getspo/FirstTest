@@ -4,9 +4,12 @@ import java.util.Random;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import vo.PasswordResetTokenVO;
 import vo.UserVO;
@@ -64,8 +67,8 @@ public class MailSendService {
       String setFrom = "sponiverse@gmail.com"; //발송자의 메일주소
       String toMail = user.getUser_email(); //발송할 메일주소
       String title = "비밀번호 재설정 링크 입니다."; //이메일 제목
-      
-      String resetLink = "http://192.168.0.14:9090/getspo/resetPwd_form.do?token=" + tokenVO.getToken();
+          
+      String resetLink = "http://localhost:9090/getspo/resetPwd_form.do?token=" + tokenVO.getToken();
       
       //이메일 내용
       String content = "안녕하세요 " + user.getUser_name() + "님,<br><br>비밀번호를 재설정하려면 아래 링크를 클릭하세요 <br>" +

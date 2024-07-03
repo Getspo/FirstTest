@@ -1,14 +1,21 @@
 package com.kh.getspo;
 
 
+import java.util.List;
+
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import dao.CategoryDAO;
 import dao.EventDAO;
 import dao.UserDAO;
 import util.Common;
+import vo.EventVO;
+import vo.UserVO;
 
 
 @Controller
@@ -19,6 +26,9 @@ public class MainController {
 	EventDAO event_dao;
 	@Autowired
 	CategoryDAO category_dao;
+	
+	@Autowired
+	HttpSession session;
 	
 	public MainController(UserDAO user_dao, EventDAO event_dao, CategoryDAO category_dao) {
 		this.user_dao = user_dao;
@@ -34,7 +44,16 @@ public class MainController {
    
    //호스트페이지
  	@RequestMapping("/hostMain.do")
- 	public String hostMain() {
+ 	public String hostMain(Model model) {
+ 		try {
+			UserVO user = (UserVO) session.getAttribute("user");
+			if(user != null) {
+				List<EventVO> events = event_dao.selectEventByUser(user.getUser_idx());
+				model.addAttribute("events", events);
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
  	    return Common.Host.VIEW_PATH + "host.jsp";
  	}
  	

@@ -70,7 +70,7 @@
             </div>
         </div>
         
-        <!-- -------  -->
+        <!-- 이벤트 섹션  -->
         
         <div class="eventSection" id="eventSection">
             <div class="search-box">
@@ -83,28 +83,28 @@
                 <c:forEach var="event" items="${events}">
                     <div class="content">
                         <div class="items-1">
-                            <a class="title-link" href="${event.link}">
-                                <img class="img-link" src="${event.imgSrc}" alt="${event.alt}">
+                            <a class="title-link" href="event_detail.do?event_idx=${event.event_idx}">
+                                <img class="img-link" src="/getspo/resources/upload/${event.event_thumbnail}" alt="${event.event_name}">
                             </a>
                         </div>
                         <div class="items-2">
                             <div class="dayloc-box">
                                 <div>
-                                    <span class="openday">${event.openDay}</span>
+                                    <span class="openday">${event.getFormattedEventHStart()}</span>
                                 </div>
                                 <div>
-                                    <span>${event.location}</span>
+                                    <span>${event.event_loc}</span>
                                 </div>
                             </div>
                             <div class="title-box">
-                                <a class="title-link" href="${event.link}">${event.title}</a>
+                                <a class="title-link" href="event_detail.do?event_idx=${event.event_idx}">${event.event_name}</a>
                             </div>
                             <div class="info-box">
                                 <div class="pay-box">
-                                    <span>${event.price}</span>
+                                    <span>${event.event_price}원</span>
                                 </div>
                                 <div class="check-box">
-                                    <span class="check-count"> 조회 ${event.viewCount}</span>
+                                    <span class="check-count"> 조회 ${event.event_viewCount}</span>
                                 </div>
                             </div>
                         </div>
