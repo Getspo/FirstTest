@@ -34,7 +34,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <!-- 유저별 행사 조회 -->
 <select id="userevents" parameterType="int" resultType="event">
-	select * from getspo_event where user_idx = #{user_idx}
+	select * from getspo_event where user_idx = #{user_idx} order by event_createdate DESC
 </select>
 	
 <!-- 전체 행사 조회 -->	
@@ -56,6 +56,43 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <select id="apply_event" parameterType="int" resultType="int">
 	SELECT COUNT(*) FROM getspo_order WHERE event_idx = #{event_idx}
 </select>
+
+<!-- 이벤트 수정 update_event -->
+<update id="update_event" parameterType="event">
+	UPDATE getspo_event set event_sports_idx = #{event_sports_idx},
+	  event_loc = #{event_loc},
+	  event_name = #{event_name},
+	  event_h_start = #{event_h_start},
+	  event_h_end = #{event_h_end},
+      event_r_start = #{event_r_start},
+      event_r_end = #{event_r_end},
+      event_addrcode = #{event_addrcode},
+      event_addr = #{event_addr},
+      event_addrdetail = #{event_addrdetail, jdbcType=VARCHAR},
+      event_thumbnail = #{event_thumbnail},
+      event_content = #{event_content},
+      event_paymethod = #{event_paymethod},
+      event_ticketname = #{event_ticketname},
+      event_max_joiner = #{event_max_joiner},
+      event_price = #{event_price},
+      event_ticket_open = #{event_ticket_open},
+      event_contact_name = #{event_contact_name},
+      event_contact_email = #{event_contact_email},
+      event_contact_tel = #{event_contact_tel},
+      event_bank = #{event_bank, jdbcType=VARCHAR},
+      event_account = #{event_account, jdbcType=VARCHAR},
+      event_account_name = #{event_account_name, jdbcType=VARCHAR},
+      event_createdate = sysdate
+      WHERE event_idx = #{event_idx}
+</update>
+
+
+<!-- 조회수 증가 -->
+<update id="event_update_viewcount" parameterType="int">
+	update getspo_event set event_viewcount = event_viewcount + 1 where event_idx = #{event_idx}
+</update>
+
+ 
 </mapper>
 
 

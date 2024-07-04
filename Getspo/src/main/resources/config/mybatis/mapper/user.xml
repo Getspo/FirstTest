@@ -54,15 +54,36 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="selectOne" resultType="user" parameterType="int">
 		select * from getspo_user where user_idx=#{user_idx}
 	</select>
+	<!-- 
+	mypage에서 내가 참가한 이벤트의 기본정보 확인이 가능해야 함 
+	번호 event_idx
+	조회수 event_viewCount
+	이벤트명 event_name
+	개최지역 event_loc
+	이벤트일시 formattedEventHStart
+	이벤트개설일 formattedEventHEnd 
+	
+	쿼리문
+	SELECT e.* FROM getspo_user u 
+	JOIN getspo_event e 
+	ON u.user_idx = e.user_idx 
+	WHERE u.user_idx = e.user_idx
+	-->
+	
 	<!-- 회원 정보 수정 -->
 	<update id="update_userInfo" parameterType="user">
 		update getspo_user
-			set user_name=#{user_name}, user_pwd=#{user_pwd},
-			user_tel=#{user_tel}, user_birth=#{user_birth},
-			user_addrcode=#{user_addrcode}, user_addr=#{user_addr},
-			user_addrdetail=#{user_addrdetail}
+		set user_name=#{user_name}, user_pwd=#{user_pwd},
+		user_tel=#{user_tel}, user_birth=#{user_birth},
+		user_addrcode=#{user_addrcode}, user_addr=#{user_addr},
+		user_addrdetail=#{user_addrdetail}
 		where user_idx=#{user_idx}
 	</update>
+	
+	<!-- 회원탈퇴(DB삭제) -->
+	<delete id="delete_userInfo" parameterType="int">
+		delete from getspo_user where user_idx=#{user_idx}
+	</delete>
 </mapper>
 
 

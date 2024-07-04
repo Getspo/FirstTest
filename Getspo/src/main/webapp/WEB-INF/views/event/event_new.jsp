@@ -53,32 +53,33 @@
 
             <div class="form-group" id="event_category_group">
                 <h5>카테고리</h5>
-                <select id="event_sport_idx" name="event_sport_idx">
+                <select id="event_sport_idx" name="event_sports_idx">
                     <option selected disabled>종목 선택</option>
                     <option value="1">러닝</option>
                     <option value="2">철인3종</option>
                     <option value="3">기타</option>
                 </select>
                 
+                <!-- 07/04 value변경 -->
                 <select id="category_loc" name="event_loc">
                     <option selected disabled>지역 선택</option>
-                    <option value="seoul">서울</option>
-                    <option value="gyunggi">경기</option>
-                    <option value="incheon">인천</option>
-                    <option value="daejeon">대전</option>
-                    <option value="daegu">대구</option>
-                    <option value="busan">부산</option>
-                    <option value="ulsan">울산</option>
-                    <option value="gwangju">광주</option>
-                    <option value="gangwon">강원</option>
-                    <option value="chungbuk">충북</option>
-                    <option value="chungnam">충남</option>
-                    <option value="gyungbuk">경북</option>
-                    <option value="gyungnam">경남</option>
-                    <option value="jeonbuk">전북</option>
-                    <option value="jeonnam">전남</option>
-                    <option value="sejong">세종</option>
-                    <option value="jeju">제주</option>
+                    <option value="서울">서울</option>
+                    <option value="경기">경기</option>
+                    <option value="인천">인천</option>
+                    <option value="대전">대전</option>
+                    <option value="대구">대구</option>
+                    <option value="부산">부산</option>
+                    <option value="울산">울산</option>
+                    <option value="광주">광주</option>
+                    <option value="강원">강원</option>
+                    <option value="충북">충북</option>
+                    <option value="충남">충남</option>
+                    <option value="경북">경북</option>
+                    <option value="경남">경남</option>
+                    <option value="전북">전북</option>
+                    <option value="전남">전남</option>
+                    <option value="세종">세종</option>
+                    <option value="제주">제주</option>
                 </select>
             </div>
 
@@ -257,17 +258,108 @@
     
       <script>
             /* 상세정보 입력창 관련 함수 */
-			    /* 상세정보 입력창 관련 함수 */
-	          $(document).ready(function() {
-		        $('#summernote').summernote({
-		            height: 300,
-		            callbacks: {
-		                onChange: function(contents, $editable) {
-		                    $('#summernote_content').val(contents);
-		                }
-		            }
-		        });
-		    });
+			$(document).ready(function () {
+			    $('#summernote').summernote({
+			        codeviewFilter: false, // 코드 보기 필터 비활성화
+			        codeviewIframeFilter: false, // 코드 보기 iframe 필터 비활성화
+			        height: 500, // 에디터 높이
+			        minHeight: null, // 최소 높이
+			        maxHeight: null, // 최대 높이
+			        focus: true, // 에디터 로딩 후 포커스 설정
+			        lang: 'ko-KR', // 언어 설정 (한국어)
+			        toolbar: [
+			            ['style', ['style']], // 글자 스타일 설정 옵션
+			            ['fontsize', ['fontsize']], // 글꼴 크기 설정 옵션
+			            ['font', ['bold', 'underline', 'clear']], // 글자 굵게, 밑줄, 포맷 제거 옵션
+			            ['color', ['color']], // 글자 색상 설정 옵션
+			            ['table', ['table']], // 테이블 삽입 옵션
+			            ['para', ['ul', 'ol', 'paragraph']], // 문단 스타일, 순서 없는 목록, 순서 있는 목록 옵션
+			            ['height', ['height']], // 에디터 높이 조절 옵션
+			            ['insert', ['picture', 'link', 'video']], // 이미지 삽입, 링크 삽입, 동영상 삽입 옵션
+			            ['view', ['codeview', 'fullscreen', 'help']], // 코드 보기, 전체 화면, 도움말 옵션
+			        ],
+			        fontSizes: [
+			            '8', '9', '10', '11', '12', '14', '16', '18',
+			            '20', '22', '24', '28', '30', '36', '50', '72',
+			        ], // 글꼴 크기 옵션
+			        styleTags: [
+			            'p',  // 일반 문단 스타일 옵션
+			            {
+			                title: 'Blockquote',
+			                tag: 'blockquote',
+			                className: 'blockquote',
+			                value: 'blockquote',
+			            },  // 인용구 스타일 옵션
+			            'pre',  // 코드 단락 스타일 옵션
+			            {
+			                title: 'code_light',
+			                tag: 'pre',
+			                className: 'code_light',
+			                value: 'pre',
+			            },  // 밝은 코드 스타일 옵션
+			            {
+			                title: 'code_dark',
+			                tag: 'pre',
+			                className: 'code_dark',
+			                value: 'pre',
+			            },  // 어두운 코드 스타일 옵션
+			            'h1', 'h2', 'h3', 'h4', 'h5', 'h6',  // 제목 스타일 옵션
+			        ],
+			        callbacks: {
+			            onImageUpload: function (files, editor, welEditable) {
+			                // 파일 업로드 (다중 업로드를 위해 반복문 사용)
+			                for (var i = files.length - 1; i >= 0; i--) {
+			                    uploadSummernoteImageFile(files[i], this);
+			                }
+			            },
+			        },
+			    });
+			
+			    // 폼 제출 이벤트 핸들러
+			    $('.new_event_form').on('submit', function() {
+			        // Summernote 내용 가져오기
+			        var content = $('#summernote').summernote('code');
+			        // textarea에 내용 설정
+			        $('#summernote_content').val(content);
+			    });
+			});
+			
+			function uploadSummernoteImageFile(file, el) {
+			    var data = new FormData();
+			    data.append("file", file);
+			    $.ajax({
+			        data: data,
+			        type: "POST",
+			        url: "uploadSummernoteImageFile", // 서버의 이미지 업로드 엔드포인트
+			        contentType: false,
+			        enctype: 'multipart/form-data',
+			        processData: false,
+			        success: function(data) {
+			            console.log("서버 응답:", data); // 서버 응답 확인을 위해 로그 출력
+			            try {
+			                var jsonResponse;
+			                if (typeof data === "string") {
+			                    jsonResponse = JSON.parse(data);
+			                } else {
+			                    jsonResponse = data;
+			                }
+			
+			                if (jsonResponse.responseCode === "success") {
+			                    $(el).summernote('insertImage', jsonResponse.url);			                    
+			                } else {
+			                    alert("이미지 업로드에 실패했습니다.");
+			                }
+			            } catch (e) {
+			                console.error("JSON 파싱 오류:", e);
+			                alert("서버 응답을 처리하는 중 오류가 발생했습니다.");
+			            }
+			        },
+			        error: function(jqXHR, textStatus, errorThrown) {
+			            console.error("AJAX 오류:", textStatus, errorThrown);
+			            alert("이미지 업로드 중 오류가 발생했습니다.");
+			        }
+			    });
+			}
       
             /* 결제방식에 따른 티켓 금액 입력창 활성화/비활성화 함수 */
                document.addEventListener('DOMContentLoaded', function() {

@@ -1,0 +1,260 @@
+@charset "UTF-8";
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Noto Sans KR", sans-serif;
+}
+
+body{
+	font-family: "Noto Sans KR", sans-serif;
+}
+
+.apply_form{
+    display: flex; /* Flexbox 사용 */
+    justify-content: space-between; /* 요소들 간의 간격을 균등하게 */
+    align-items: flex-start; /* 세로 정렬 기준을 위쪽으로 */
+    width: 1200px;
+    margin: 110px auto; /* 중앙 정렬 */
+}
+
+.title{
+	font-size: 20px;
+	font-weight: bold;
+}
+
+/******************************************************/
+
+/*-----신청행사정보라인-----*/
+
+.info_line{
+	width: 66%;
+}
+
+/*행사정보*****************************************************/
+.event_info{
+	padding : 32px;
+}
+
+.event_info .event_thumnail img{
+	width: 322px;
+	height: 182px;
+	border: 1px solid #ccc;
+}
+.event_name{
+	margin: 24px 0 0;
+}
+
+.event_name a{
+	font-size: 20px;
+	color : black;
+	text-decoration: none;
+}
+.event_date{
+	padding: 16px 0 0;
+}
+
+.event_addr{
+	padding: 8px 0 0;
+}
+
+.event_name a:hover{
+	text-decoration: underline;
+}
+
+.event_info .event_date, .event_info .event_addr{
+	font-size: 15px;
+	color: #878D91;
+}
+
+/*티켓명/금액/잔여수량*****************************************************/
+
+.event_ticket{
+	border-radius: 4px;
+	padding : 16px 0 0;
+}
+
+.ticket_details{
+	background-color: #F2F4F5;
+	border: 1px solid #F2F4F5;
+    border-radius: 4px;
+	padding : 32px;
+}
+
+#remainSection{
+	display: inline-block;
+}
+
+.amount_btn {
+    display: flex;
+    align-items: center;
+    background-color: #ffff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.amount_btn input[type="button"] {
+    width: 25px;
+    height: 25px;
+    font-size: 16px;
+    background-color : #ffff;
+ 	border: none;
+ 	cursor: pointer;
+}
+
+.amount_btn .quantity {
+    width: 25px;
+    text-align: center;
+}
+
+.quantity {
+	border-left: 1px solid #ccc;
+	border-right: 1px solid #ccc;
+}
+
+#event_price{
+	color: #0099bc;
+	font-size: 16px;
+	float: right;
+}
+
+/*신청자 정보*****************************************************/
+
+.apply_info{
+	padding: 48px 0 0;
+}
+
+.apply_info span{
+	color: red;
+}
+
+.apply_info_title{
+	padding: 0 0 24px;
+}
+
+.apply_info .subtitle, .apply_info a{
+	padding: 10px 0 0; 
+	font-size: 15px;
+	color: #878D91;
+}
+
+.user_name, .user_email, .user_tel{
+	padding: 32px;
+}
+
+.user_name input[type="text"],
+.user_email input[type="email"],
+.user_tel input[type="tel"]{
+	width: 80%;
+	margin:	10px 0 0;
+	padding:14px 12px;
+	border-radius: 4px;
+	border: 1px solid #ccc;
+	outline: none;
+	outline: none;
+    transition: box-shadow 0.2s ease, border 0.2s ease; /* 부드러운 전환 효과 */
+}
+
+.apply_info input[type="text"]:focus,
+.apply_info input[type="email"]:focus,
+.apply_info input[type="tel"]:focus{
+	border: 1px solid #0099bc;
+	box-shadow: 0 0 0 2px #0099bc; /* 부드러운 전환 효과를 위한 box-shadow */
+}
+	
+.user_name, .user_email, .user_tel{
+	padding: 20px;
+}
+
+/******************************************************/
+
+/*-----신청하기 라인-----*/
+.apply_line {
+    width: 32%;
+    position: sticky; /* 스크롤 시 상단에 고정 */
+    top: 110px;
+    height: auto;
+}
+
+.apply_box {
+    border: 1px solid white;
+    border-radius: 4px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
+    padding: 30px; /* 콘텐츠에 여백 추가 */
+    background-color: white; /* 배경색 추가 (그림자가 더 잘 보이도록) */
+}
+
+#price_text {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+#apply_price {
+    font-size: 28px;
+    font-weight: bold;
+    color: #0099bd;
+    padding: 10px 0 8px;
+}
+
+.agree_box {
+    padding: 24px 0 0;
+}
+
+.allagree {
+    font-size: 15px;
+    padding: 0 0 16px;
+}
+
+.allagree div, .sub_agree div{
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    ma
+}
+
+.allagree label {
+	margin-left: 5px;
+    cursor: pointer;
+}
+
+.agree_box .line {
+    border-bottom: 0.1px solid #ccc;
+}
+
+.sub_agree {
+    font-size: 12px;
+    padding: 20px 0 0;
+}
+
+
+.sub_agree label {
+    margin-left: 5px;
+    cursor: pointer;
+}
+
+.sub_agree a {
+    margin-left: auto;
+    color: #878D91;
+}
+
+.apply_line input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    accent-color: #0099bc;
+}
+
+.submit_button {
+    padding: 32px 0 0;
+}
+
+.submit_button button {
+    width: 100%;
+    height: 48px;
+    padding: 0 16px;
+    background-color: #0099bc;
+    color: white;
+    font-size: 15px;
+    border: 1px solid #0099bc;
+    border-radius: 4px;
+}

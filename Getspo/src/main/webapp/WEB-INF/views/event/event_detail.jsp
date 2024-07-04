@@ -273,7 +273,7 @@
 	               	</div>     
                 </div>
                 
-                <input type="button" id="apply_btn" value="신청하기" onclick="location.href='apply_form.do'"> 
+                <input type="button" id="apply_btn" value="신청하기" onclick="location.href='event_apply.do'"> 
             </div>
         </div>
     </div>

@@ -24,8 +24,8 @@
 				<li class="menu-item">
 					<a href="#" class="menu-link" data-target="submenu1">이벤트관리</a>
 					<ul class="submenu" id="submenu1">
-						<li><a href="javascript:" onclick="location.href='host_event_management.do'">이벤트개요</a></li>
-						<li><a href="javascript:" onclick="location.href='host_event_modify.do'">이벤트수정</a></li>
+						<li><a href="javascript:" onclick="location.href='host_event_management.do?event_idx=${event.event_idx}'">이벤트개요</a></li>
+						<li><a href="javascript:" onclick="location.href='host_event_modify.do?event_idx=${event.event_idx}'">이벤트수정</a></li>
 						<li><a href="#">이벤트할인쿠폰발송</a></li>
 					</ul>
 				</li>

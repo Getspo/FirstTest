@@ -79,6 +79,17 @@ public class EventDAO {
     public int applieCount(int event_idx) {
         return sqlSession.selectOne("e.apply_event", event_idx);
     }
+    
+    // 이벤트 수정 업데이트
+	public int updateEvent(EventVO vo) {
+		return sqlSession.update("e.update_event", vo); 
+	}
+	
+	//조회수 증가
+	public int update_viewcount(int event_idx) {
+		return sqlSession.update("e.event_update_viewcount", event_idx);		
+	}
+	    
 }
 
 

@@ -68,6 +68,11 @@ public class UserDAO {
 	   int res = sqlSession.update("u.update_userInfo", vo);
 	   return res;
    }
+   //회원 탈퇴(DB삭제)
+   public int delete(int user_idx) {
+		int res = sqlSession.delete("u.delete_userInfo", user_idx);
+		return res;
+	}
    
    
 }
