@@ -2,7 +2,6 @@
 *{
 	margin: 0;
 	padding: 0;
-	
 }
 
 .container {
@@ -29,6 +28,14 @@
 }
 
 .contents_div2 {
+	width: 918px;
+	float: right;
+	padding: 30px;
+	border: 1px dashed #0099bc;
+	min-height: 200px;
+	display: none;
+}
+.contents_div3 {
 	width: 918px;
 	float: right;
 	padding: 30px;

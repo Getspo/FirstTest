@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="e">
+
+<!-- 이벤트 추가 -->
+<insert id="event_insert" parameterType="event">
+	INSERT INTO getspo_event VALUES (seq_event_idx.nextVal, #{user_idx}, #{event_sports_idx}, #{event_loc}, #{event_name}, #{event_h_start},
+      #{event_h_end},
+      #{event_r_start},
+      #{event_r_end},
+      #{event_addrcode},
+      #{event_addr},
+      #{event_addrdetail, jdbcType=VARCHAR},
+      #{event_thumbnail},
+      #{event_content},
+      #{event_paymethod},
+      #{event_ticketname},
+      #{event_max_joiner},
+      #{event_price},
+      #{event_ticket_open},
+      #{event_contact_name},
+      #{event_contact_email},
+      #{event_contact_tel},
+      #{event_bank, jdbcType=VARCHAR},
+      #{event_account, jdbcType=VARCHAR},
+      #{event_account_name, jdbcType=VARCHAR},
+      sysdate,
+      0
+      )
+</insert>
+
+
+<!-- 유저별 행사 조회 -->
+<select id="userevents" parameterType="int" resultType="event">
+	select * from getspo_event where user_idx = #{user_idx}
+</select>
+	
+<!-- 전체 행사 조회 -->	
+<select id="allevents" resultType="event">
+	select * from getspo_event ORDER BY event_idx DESC
+</select>
+
+<!-- 전체 행사 게시글 수 조회 -->
+<select id="event_count" resultType="int">
+	SELECT COUNT(*) FROM getspo_event
+</select>
+
+<!-- 이벤트 디테일 idx값별로 가져오기 -->
+<select id="getevent_idx" resultType="event" parameterType="int">
+	SELECT * FROM getspo_event WHERE event_idx = #{event_idx}
+</select>
+
+<!-- 이벤트 신청된 티켓 조회 -->
+<select id="apply_event" parameterType="int" resultType="int">
+	SELECT COUNT(*) FROM getspo_order WHERE event_idx = #{event_idx}
+</select>
+</mapper>

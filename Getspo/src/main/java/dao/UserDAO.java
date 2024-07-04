@@ -1,11 +1,10 @@
 package dao;
 
-import java.util.Map;
-
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import vo.AuthInfoVO;
+import vo.EventVO;
 import vo.UserVO;
 
 public class UserDAO {
@@ -71,5 +70,10 @@ public class UserDAO {
 	   return res;
    }
    
+   //회원 탈퇴(DB삭제)
+   public int delete(int user_idx) {
+		int res = sqlSession.delete("u.delete_userInfo", user_idx);
+		return res;
+	}
    
 }

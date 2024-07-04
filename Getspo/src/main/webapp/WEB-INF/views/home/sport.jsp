@@ -6,7 +6,7 @@
       <meta charset="UTF-8"> 
       <title>종목 메뉴</title>
       
-      <link rel="stylesheet" href="/getspo/resources/css/sport.css">
+      <link rel="stylesheet" href="/getspo/resources/css/home/sport.css">
       
    </head>
    

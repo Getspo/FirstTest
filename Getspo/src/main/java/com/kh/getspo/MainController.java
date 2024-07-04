@@ -1,5 +1,8 @@
 package com.kh.getspo;
 
+import java.util.List;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,8 +13,8 @@ import dao.CategoryDAO;
 import dao.EventDAO;
 import dao.UserDAO;
 import util.Common;
+import vo.EventVO;
 import vo.UserVO;
-
 
 @Controller
 public class MainController {
@@ -21,46 +24,67 @@ public class MainController {
 	EventDAO event_dao;
 	@Autowired
 	CategoryDAO category_dao;
-	
+
+	@Autowired
+	HttpSession session;
+
 	public MainController(UserDAO user_dao, EventDAO event_dao, CategoryDAO category_dao) {
 		this.user_dao = user_dao;
 		this.event_dao = event_dao;
 		this.category_dao = category_dao;
 	}
-     
-   //메인페이지
-   @RequestMapping(value={"/", "main.do"})
-      public String Main() {
-         return Common.Main.VIEW_PATH + "main.jsp";
-   }
-   
-   //호스트페이지
- 	@RequestMapping("/hostMain.do")
- 	public String hostMain() {
- 	    return Common.Host.VIEW_PATH + "host.jsp";
- 	}
- 	
-	
-    //호스트이벤트관리
-  	@RequestMapping("/host_event_management.do")
-  	public String host_event_management() {
-  	    return Common.Host.VIEW_PATH + "host_event_management.jsp";
-  	}
-  	
-    //호스트이벤트수정
-  	@RequestMapping("/host_event_modify.do")
-  	public String host_event_modify() {
-  	    return Common.Host.VIEW_PATH + "host_event_modify.jsp";
-  	}
- 		
- 	
- 	//마이페이지이동(+수정을 위한 정보를 들고 가야함)
- 	@RequestMapping("/mypageform.do")
- 	public String mypage_form(Model model, int user_idx) {
- 		UserVO vo = user_dao.selectOne(user_idx);
- 		model.addAttribute("vo", vo);
- 		return Common.Mypage.VIEW_PATH + "mypage.jsp";
- 	}
- 	
-   
+
+	// 메인페이지
+	@RequestMapping(value = { "/", "main.do" })
+	public String Main() {
+		return Common.Main.VIEW_PATH + "main.jsp";
+	}
+
+	// 호스트페이지
+	@RequestMapping("/hostMain.do")
+	public String hostMain(Model model) {
+		try {
+			UserVO user = (UserVO) session.getAttribute("user");
+			if (user != null) {
+				List<EventVO> events = event_dao.selectEventByUser(user.getUser_idx());
+				model.addAttribute("events", events);
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return Common.Host.VIEW_PATH + "host.jsp";
+	}
+
+	// 호스트이벤트관리
+	@RequestMapping("/host_event_management.do")
+	public String host_event_management() {
+		return Common.Host.VIEW_PATH + "host_event_management.jsp";
+	}
+
+	// 호스트이벤트수정
+	@RequestMapping("/host_event_modify.do")
+	public String host_event_modify() {
+		return Common.Host.VIEW_PATH + "host_event_modify.jsp";
+	}
+
+	// 호스트페이지에서 참가자 확인페이지로 이동
+	@RequestMapping("/register_list.do")
+	public String register_list() {
+		return Common.Host.VIEW_PATH + "host_register_list.jsp";
+	}
+
+	// 마이페이지이동(+수정을 위한 정보를 들고 가야함)
+	@RequestMapping("/mypageform.do")
+	public String mypage_form(Model model, int user_idx) {
+		UserVO vo = user_dao.selectOne(user_idx);
+		model.addAttribute("vo", vo);
+		return Common.Mypage.VIEW_PATH + "mypage.jsp";
+	}
+
+	// 삭제 후에 보여질 페이지
+	@RequestMapping("withdrawalform.do")
+	public String withdrawalform() {
+		return Common.Mypage.VIEW_PATH + "withdraw_after.jsp";
+	}
+
 }

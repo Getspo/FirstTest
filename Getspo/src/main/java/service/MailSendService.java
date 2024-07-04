@@ -39,9 +39,9 @@ public class MailSendService {
 		String title = "회원 가입 인증 이메일 입니다."; // 이메일 제목
 
 		// 이메일 내용
-		String content = "<div style=\"text-align: center; border: 2px solid #0099bc; width: 300px; height: 230px;\">" +
-		"<h2 style=\"text-align: center;\">인증번호는</h2><br><h1  style=\"background-color: black;\">" + 
-				authNumber + "</h1><br><h2 style=\"text-align: center;\">입니다.</h2></div>";
+		String content = "<div style=\"text-align: center; border: 2px solid #0099bc; width: 300px; height: 230px;\">"
+				+ "<h2 style=\"text-align: center;\">인증번호는</h2><br><h1  style=\"background-color: black;\">"
+				+ authNumber + "</h1><br><h2 style=\"text-align: center;\">입니다.</h2></div>";
 
 		try {
 			MimeMessage mail = javaMailSender.createMimeMessage();
@@ -68,7 +68,7 @@ public class MailSendService {
 		String setFrom = "sponiverse@gmail.com"; // 발송자의 메일주소
 		String toMail = user.getUser_email(); // 발송할 메일주소
 		String title = "비밀번호 재설정 링크 입니다."; // 이메일 제목
-		
+
 		// 클라이언트의 IP 주소 가져오기
 		String resetLink = "http://localhost:9090/getspo/resetPwd_form.do?token=" + tokenVO.getToken();
 

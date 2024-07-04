@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
     <meta charset="UTF-8">
@@ -86,18 +87,19 @@
             var currentQuantity = parseInt(quantitySpan.innerText);
             quantitySpan.innerText = currentQuantity + 1;
         }
+        
     </script>
 </head>
 
 <body>
-    <jsp:include page="../navigation.jsp"></jsp:include><br>
+    <jsp:include page="../home/navigation.jsp"></jsp:include><br>
 
     <div class="event_detail_page">
         <!-- 행사 정보 라인 -->
         <div class="event_line">
             <div>
                 <!-- 이미지 임시로 삽입 -->
-                <img src="/getspo/resources/img/행사썸네일테스트.png" id="event_image">
+                <img src="/getspo/resources/upload/${event.event_thumbnail}" id="event_image">
             </div>
           
             <div class="button_bar">
@@ -136,33 +138,38 @@
                 
             <section id="intro" class="intro">
                 <div>
-                    <span>일시</span>
-                    <span>${vo.event_h_start}~${vo.event_h_end}</span><!-- ${vo.event_h_start}~${vo.event_h_end} -->
+                    <span>일시: </span>
+                    <span>${event.getFormattedEventHStart()}~${event.getFormattedEventHEnd()}</span><!-- ${vo.event_h_start}~${vo.event_h_end} -->
                 </div>
                 <div>
-                    <span>신청</span>
-                    <span>${vo.event_r_start}~${vo.event_r_end}</span>
+                    <span>신청: </span>
+                    <span>${event.getFormattedEventRStart()}~${event.getFormattedEventREnd()}</span>
                 </div>
                 <div>
-                    <span>비용</span>
-                    <span>${vo.event_price}</span>
+                    <span>비용: </span>
+                    <span>${event.event_price}</span>
                 </div>
                 <div>
-                    <span>장소</span>
-                    <span>${vo.event_loc}</span>
+                    <span>장소: </span>
+                    <span>${event.event_addr}${event.event_addrdetail}</span>
                 </div>
             </section>
             
             <br>
             <hr>
             <br>
+            <section id="content" class="content">
+            	<div>
+            		${event.event_content} 
+            	</div>
+            </section>
             
             <section id="place" class="place">
                 <div>
                     <h4>행사 장소</h4>
                     <div>
                         <span id="loc">장소</span>
-                        <span>${vo.event_loc}</span>
+                        <span>${event.event_addr}${event.event_addrdetail}</span>
                     </div>
                 </div>
             </section>
@@ -191,15 +198,15 @@
                 <div>
                     <div>
                         <div class="contact_category"><span>담당자</span></div> 
-                        <div class="contact_db" id="name">${vo.user_name}</div>
+                        <div class="contact_db" id="name">${event.event_contact_name}</div>
                     </div>
                     <div>
                         <div class="contact_category"><span>이메일</span></div> 
-                        <div class="contact_db" id="email">${vo.user_email}</div>
+                        <div class="contact_db" id="email">${event.event_contact_email}</div>
                     </div>
                     <div>
                         <div class="contact_category"><span>전화번호</span></div> 
-                        <div class="contact_db" id="tel">${vo.user_tel}</div>
+                        <div class="contact_db" id="tel">${event.event_contact_tel}</div>
                     </div>
                     
                 </div>
@@ -234,11 +241,11 @@
                 </div>
                 
                 <div class="apply_name">
-                	<span>행사이름 ${vo.event_name}</span>
+                	<span>행사이름 ${event.event_name}</span>
                 </div>
                 
                 <div class="apply_ticket">
-                    <span>티켓이름${vo.ticket_name}</span>
+                    <span>티켓이름 ${event.event_ticketname}</span>
                     
                     <br><br>
                     
@@ -248,13 +255,22 @@
 	                        <span class="quantity">1</span>
 	                        <input type="button" onclick="plus(this)" value="+">
 	                    </div>
-	                    <div class="remain">
-							<span>잔여수량 : ${vo.ticket_remain} </span>                    
+	                    <div id="remainSection" class="remain">
+	                    <c:if test="${event.event_ticket_open eq 'open'}">
+							<span>잔여수량 : ${remainticket}</span>
+						</c:if>                    
 	                    </div>
-	                     <div class="price">
-	                    <span>티켓금액${vo.ticket_price}</span>   
+	                    <div class="price">
+	                     	<c:choose>
+						        <c:when test="${event.event_price > 0}">
+						            <span>티켓금액: ${event.event_price}</span>
+						        </c:when>
+						        <c:otherwise>
+						            <span>무료</span>
+						        </c:otherwise>
+						    </c:choose>
 	                    </div>     
-	               	</div>    
+	               	</div>     
                 </div>
                 
                 <input type="button" id="apply_btn" value="신청하기" onclick="location.href='apply_form.do'"> 

@@ -7,7 +7,7 @@
       <meta charset="UTF-8"> 
       <title>네비게이션 바</title>
       
-      <link rel="stylesheet" href="/getspo/resources/css/navigation.css">
+      <link rel="stylesheet" href="/getspo/resources/css/home/navigation.css">
       
       <!-- 네이게이션js -->
 	  <script src="/getspo/resources/js/navigation.js"></script>

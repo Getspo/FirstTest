@@ -22,6 +22,16 @@
 	color: gray;
 }
 
+#event_more {
+	float: right;
+	font-size: 14px;
+	color: gray;
+	transition: color 0.2s;
+}
+
+#event_more:hover {
+	color: #333;
+}
 
 /* 개최 행사 메뉴 css */
 .container {

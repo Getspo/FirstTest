@@ -7,7 +7,7 @@
       <title>이벤트 개설하기</title>
 
 		<!-- css -->
-		<link rel="stylesheet" href="/getspo/resources/css/event_new.css">
+		<link rel="stylesheet" href="/getspo/resources/css/event/event_new.css">
 	
 		<!-- 폰트 설정 -->
 		<link rel="preconnect" href="https://fonts.googleapis.com">
@@ -17,7 +17,7 @@
 		<!-- 주소 찾기 -->
 		<script
 			src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-		<script src="/getspo/resources/js/addr.js"></script>
+		<script src="/getspo/resources/js/eventaddr.js"></script>
 		
 		<!-- 에디터 -->
 		<link
@@ -38,44 +38,47 @@
 		<link href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css" rel="stylesheet">
 		<script
 			src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script>
+			
+		<!-- ajax -->
+		<script src="/getspo/resources/js/httpRequest.js"></script>
 
 </head>
    
    <body>
 
-    <form class="new_event_form">
+    <form class="new_event_form" method="post" action="event_insert.do" enctype="multipart/form-data">
             <div class="form-group">
                 <h2>구상 중인 행사를 개설해보세요! </h2>
             </div>
 
             <div class="form-group" id="event_category_group">
                 <h5>카테고리</h5>
-                <select id="category_sport" name="category_sport">
+                <select id="event_sport_idx" name="event_sport_idx">
                     <option selected disabled>종목 선택</option>
-                    <option value="running">러닝</option>
-                    <option value="triathlon">철인3종</option>
-                    <option value="etc">기타</option>
+                    <option value="1">러닝</option>
+                    <option value="2">철인3종</option>
+                    <option value="3">기타</option>
                 </select>
                 
-                <select id="category_loc" name="category_loc">
+                <select id="category_loc" name="event_loc">
                     <option selected disabled>지역 선택</option>
-                    <option value="seoul">서울</option>
-                    <option value="gyunggi">경기</option>
-                    <option value="incheon">인천</option>
-                    <option value="daejeon">대전</option>
-                    <option value="daegu">대구</option>
-                    <option value="busan">부산</option>
-                    <option value="ulsan">울산</option>
-                    <option value="gwangju">광주</option>
-                    <option value="gangwon">강원</option>
-                    <option value="chungbuk">충북</option>
-                    <option value="chungnam">충남</option>
-                    <option value="gyungbuk">경북</option>
-                    <option value="gyungnam">경남</option>
-                    <option value="jeonbuk">전북</option>
-                    <option value="jeonnam">전남</option>
-                    <option value="sejong">세종</option>
-                    <option value="jeju">제주</option>
+                    <option value="서울">서울</option>
+                    <option value="경기">경기</option>
+                    <option value="인천">인천</option>
+                    <option value="대전">대전</option>
+                    <option value="대구">대구</option>
+                    <option value="부산">부산</option>
+                    <option value="울산">울산</option>
+                    <option value="광주">광주</option>
+                    <option value="강원">강원</option>
+                    <option value="충북">충북</option>
+                    <option value="충남">충남</option>
+                    <option value="경북">경북</option>
+                    <option value="경남">경남</option>
+                    <option value="전북">전북</option>
+                    <option value="전남">전남</option>
+                    <option value="세종">세종</option>
+                    <option value="제주">제주</option>
                 </select>
             </div>
 
@@ -118,9 +121,9 @@
                 <h5>행사 장소
                     <input type="button" class="addr_btn" onclick="sample6_execDaumPostcode()" value="주소 찾기"><br>
                 </h5>
-                <input type="text" id="user_addrcode" name="user_addrcode" placeholder="우편번호">
-                <input type="text" id="user_addr" name="user_addr" placeholder="주소">
-                <input type="text" id="user_addrdetail" name="user_addrdetail" placeholder="상세주소">
+                <input type="text" id="event_addrcode" name="event_addrcode" placeholder="우편번호">
+                <input type="text" id="event_addr" name="event_addr" placeholder="주소">
+                <input type="text" id="event_addrdetail" name="event_addrdetail" placeholder="상세주소">
             </div>
                
            <div class="form-group" id="event_content_group">
@@ -137,13 +140,15 @@
               <div class="thumbnail_group">
                   <label for="thumbnail_image" id="thumbnail_label" style="cursor: pointer;">
                 썸네일 이미지 추가
-                <input type="file" id="thumbnail_image" name="thumbnail_image" style="display: none;" onchange="handleFileChange(event)">
+                <input type="file" id="thumbnail_image" name="photo" style="display: none;" onchange="handleFileChange(event)">
             </label>
                   <div id="image_size">960*540px</div>
               </div>
               <br>
               <h5>행사 정보</h5>
-              <div id="summernote"><p></p></div>
+              <div id="summernote">
+              	<textarea id="summernote_content" name="event_content" style="display:none;"></textarea>
+              </div>
           </div>
 
           <!-- Cropper Modal -->
@@ -174,23 +179,23 @@
                <input type="button" class="add-item-btn" onclick="addNewItem()" value="새 항목 추가">
                </h5>
                    <span>
-                      <input id="entry_name" name="entry" type="checkbox" value="이름" checked disabled>
+                      <input id="entry_name" name="user_name" type="checkbox" value="이름" checked disabled>
                       <label for="entry_name">이름 *</label>
                   </span>
                   <span>
-                      <input id="entry_email" name="entry" type="checkbox" value="이메일" checked disabled>
+                      <input id="entry_email" name="user_email" type="checkbox" value="이메일" checked disabled>
                       <label for="entry_email">이메일 *</label>
                   </span>
                   <span>
-                      <input id="entry_tel" name="entry" type="checkbox" value="휴대전화번호" checked disabled>
+                      <input id="entry_tel" name="user_tel" type="checkbox" value="휴대전화번호" checked disabled>
                       <label for="entry_tel">휴대전화번호 *</label>
                   </span>
                   <span>
-                      <input id="entry_gender" name="entry" type="checkbox" value="성별" >
+                      <input id="entry_gender" name="user_sex" type="checkbox" value="성별" >
                       <label for="entry_gender">성별</label>
                   </span>
                   <span>
-                      <input id="entry_age" name="entry" type="checkbox" value="나이">
+                      <input id="entry_age" name="user_age" type="checkbox" value="나이">
                       <label for="entry_age">나이</label>
                   </span>
             </div>    
@@ -198,14 +203,14 @@
          <div class="form-group" id="event_pay_group">
             <h5>결제방식</h5>
             <div class="radio-group">
-               <input type="radio" id="free" name="pay" value="free" required>
+               <input type="radio" id="free" name="event_paymethod" value="free" required>
                <label for="free">무료</label>
-               <input type="radio" id="paid" name="pay" value="paid" required>
+               <input type="radio" id="paid" name="event_paymethod" value="paid" required>
                <label for="paid">유료</label>
             </div>
             
          <div class="paid_choice" id="paid_choice">
-               <select id="bank" name="bank">
+               <select id="bank" name="event_bank">
                 <option value="" disabled selected>은행 선택</option>
                 <option value="kookmin">국민은행</option>
                 <option value="shinhan">신한은행</option>
@@ -214,22 +219,22 @@
                 <option value="hana">KEB하나은행</option>
                 <option value="kakao">카카오뱅크</option>
             </select>
-                    <input id="account" name="account" type="text" placeholder="입금받을 계좌번호" required>
-                    <input id="account_name" name="account_name" type="text" placeholder="예금주 성명" required>
+                    <input id="event_account" name="account" type="text" placeholder="입금받을 계좌번호" required>
+                    <input id="event_account_name" name="account_name" type="text" placeholder="예금주 성명" required>
                 </div>
             </div>
             
             <div class="form-group" id="ticket_group">
             <h5>티켓</h5>
-               <input id="ticket_name" name="ticket" type="text" placeholder="티켓명" required>
-               <input id="member_limit" name="ticket"  type="number" min="1" step="1" placeholder="모집정원" required>
-               <input id="ticket_amount" name="ticket" type="number" min="0" max="1000000"step="1000" placeholder="티켓금액" required>
+               <input id="ticket_name" name="event_ticketname" type="text" placeholder="티켓명" required>
+               <input id="member_limit" name="event_max_joiner"  type="number" min="1" step="1" placeholder="모집정원" required>
+               <input id="ticket_amount" name="event_price" type="number" min="0" max="1000000"step="1000" placeholder="티켓금액" required>
                
              <div class="radio-group">
              <p>잔여수량</p>   
-                 <input type="radio" id="remain_open" name="ticket_remain" value="open" required>
+                 <input type="radio" id="remain_open" name="event_ticket_open" value="open" required>
                  <label for="remain_open">공개</label>
-                 <input type="radio" id="remain_close" name="ticket_remain" value="close" required>
+                 <input type="radio" id="remain_close" name="event_ticket_open" value="close" required>
                  <label for="remain_close">비공개</label>
              </div>
             </div>   
@@ -237,27 +242,32 @@
              <div class="form-group" id="contact_group">
                 <h5>담당자 정보</h5>
                 <p>담당자 이름</p>
-                <input id="contact_name" name="contact" type="text" required>
+                <input id="contact_name" name="event_contact_name" type="text" required>
                 <p>이메일 주소</p>
-                <input id="contact_email" name="contact" type="text" required>
+                <input id="contact_email" name="event_contact_email" type="text" required>
                 <p>전화번호</p>
-                <input id="contact_tel" name="contact" type="text" required>
+                <input id="contact_tel" name="event_contact_tel" type="text" required>
             </div>
              
-          </div>
-            
-        <input type="button" class="event_btn" onclick="send(this.form)" value="행사 등록하기"> 
+                      
+        <input type="submit" class="event_btn" value="행사 등록하기"> 
     </form>
        
     
     
       <script>
             /* 상세정보 입력창 관련 함수 */
-          $(document).ready(function() {
-              $('#summernote').summernote({
-                 height:300
-              });
-          });
+			    /* 상세정보 입력창 관련 함수 */
+	          $(document).ready(function() {
+		        $('#summernote').summernote({
+		            height: 300,
+		            callbacks: {
+		                onChange: function(contents, $editable) {
+		                    $('#summernote_content').val(contents);
+		                }
+		            }
+		        });
+		    });
       
             /* 결제방식에 따른 티켓 금액 입력창 활성화/비활성화 함수 */
                document.addEventListener('DOMContentLoaded', function() {
@@ -395,7 +405,8 @@
                        thumbnailImageInput.onchange = handleFileChange; // 변경 이벤트 핸들러 복원
                    };
                }
-            
+               
+                         	
                /* 삭제 버튼 보류
                   function deleteThumbnail() {
                    var thumbnailImageInput = document.getElementById('thumbnail_image');
