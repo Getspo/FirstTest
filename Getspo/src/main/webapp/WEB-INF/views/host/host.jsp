@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<!-- 07/04 날짜변수 수정 -->
 <!DOCTYPE html>
 <html>
 	<head>
@@ -36,10 +38,10 @@
 			<tr>
 				<td>${event.event_idx}</td>
 				<td>${event.event_viewCount}</td>
-				<td><a href="javascript:" onclick="location.href='host_event_management.do'">${event.event_name}</a></td>
+				<td><a href="javascript:" onclick="location.href='host_event_management.do?event_idx=${event.event_idx}'">${event.event_name}</a></td>
 				<td>${event.event_loc}</td>
 				<td>${event.formattedEventHStart}</td>
-				<td>${event.formattedEventHEnd}</td>
+				<td>${event.formattedEventCreateDate}</td>
 			</tr>
 			</c:forEach>
 			</table>

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -21,7 +22,7 @@
 	<article id="event_info_section" class="event_info_section">
 	    <div class="event_info_img_wrapper">
 	        <div class="event_info_img">
-	            <img src="https://eventusstorage.blob.core.windows.net/evs/Image/challengekr/84669/ProjectInfo/Cover/025610a306d54c75889ffdb80823afd5.jpg?fixed" alt="Event Image">
+	            <img src="/getspo/resources/upload/${event.event_thumbnail}" alt="Event Image">
 	        </div>
 	        <div class="event_info_dday">
 	            <canvas id="canvas" class="confetti" width="238" height="123" style="display: none;"></canvas>
@@ -32,7 +33,17 @@
 	    </div>
 	    <div class="event_info_wrapper">
 	        <div class="category">
-	            <p>라이프</p>
+	            <c:choose>
+				    <c:when test="${event.event_sports_idx == 1}">
+				        <p>러닝</p>
+				    </c:when>
+				    <c:when test="${event.event_sports_idx == 2}">
+				        <p>철인3종</p>
+				    </c:when>
+				    <c:otherwise>
+				        <p>기타</p>
+				    </c:otherwise>
+				</c:choose>
 	            <span class="wall">|</span>
 	            <p>대회/공모전</p>
 	        </div>
@@ -51,20 +62,20 @@
 	        </div>
 	        <div>
 	            <p class="event_info">
-	                (행사번호 : 84669) 2024 태100 블루 레이스 28K
+	                (행사번호 : ${event.event_idx}) ${event.event_name}
 	            </p>
 	        </div>
 	        <div class="detail_info">
 	            <p class="detail_title">일시</p>
-	            <p class="detail_info_data">06월 10일(월) 13:00 ~ 06월 11일(화) 11:00</p>
+	            <p class="detail_info_data">${event.getFormattedEventHStart()} ~ ${event.getFormattedEventHEnd() }</p>
 	        </div>
 	        <div class="detail_info">
 	            <p>장소</p>
-	            <p class="detail_info_data">강원특별자치도 태백시 연화산길 10 태백시 종합운동장</p>
+	            <p class="detail_info_data">${event.event_addr}${event.event_addrdetail}</p>
 	        </div>
 	        <div class="detail_info">
 	            <p>링크</p>
-	            <p id="event-url" class="detail_info_data">https://event-us.kr/challengekr/event/84669</p>
+	            <p id="event-url" class="detail_info_data">http://localhost:9090/getspo/event_detail.do?event_idx=${event.event_idx}</p>
 	            <div class="clipboard_btn">
 	                <a data-clipboard-target="#event_url" href="#urlModal" class="copy_url">URL 복사</a>
 	            </div>
@@ -155,7 +166,7 @@
                 labels: ['전체 참가자 수', '신청한 참가자 수'],
                 datasets: [{
                     label: '참가자 수 비교',
-                    data: [100, 44], // 예시 데이터: 전체 참가자 수 100명, 내가 신청한 참가자 수 20명
+                    data: [${event.event_max_joiner}, 44], // 데이터: 전체 참가자 수 , 신청한 참가자 수 
                     backgroundColor: [
                         'rgba(54, 162, 235, 0.2)', // 전체 참가자 수의 배경 색상
                         'rgba(255, 99, 132, 0.2)'  // 내가 신청한 참가자 수의 배경 색상

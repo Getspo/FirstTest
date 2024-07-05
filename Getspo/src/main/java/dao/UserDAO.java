@@ -3,8 +3,6 @@ package dao;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import vo.AuthInfoVO;
-import vo.EventVO;
 import vo.UserVO;
 
 public class UserDAO {

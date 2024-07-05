@@ -13,8 +13,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</insert>
 
 	<!-- 아이디 중복확인 -->
-	<select id="select_id" resultType="String"
-		parameterType="String">
+	<select id="select_id" resultType="String" parameterType="String">
 		select * from getspo_user where user_id = #{user_id}
 	</select>
 
@@ -24,8 +23,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 
 	<!-- 자동로그인 유저정보 찾기 -->
-	<select id="select_user" resultType="user"
-		parameterType="String">
+	<select id="select_user" resultType="user" parameterType="String">
 		select * from getspo_user where user_id = #{user_id}
 	</select>
 

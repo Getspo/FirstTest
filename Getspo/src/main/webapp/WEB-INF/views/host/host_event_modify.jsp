@@ -6,77 +6,88 @@
 		<meta charset="UTF-8">
 		<title>Insert title here</title>
 	  
-	  <!-- css -->
-      <link rel="stylesheet" href="/getspo/resources/css/new_event.css">
-      
-      <!-- 폰트 설정 -->
-      <link rel="preconnect" href="https://fonts.googleapis.com">
-      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-      <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
-      
-      <!-- 주소 찾기 -->
-      <script   src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-      <script src="/getspo/resources/js/addr.js"></script>
-      
-      <!-- 에디터 -->
-      <link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
-      <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-      <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-      
-      <!-- include summernote css/js -->
-      <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
-      <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
-      
-      <!-- Cropper.js -->
-      <link href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css" rel="stylesheet">
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script>
-      
+	  	<!-- css -->
+		<link rel="stylesheet" href="/getspo/resources/css/event/event_new.css">
 	
-	</head>
+		<!-- 폰트 설정 -->
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
 	
-	<body>
+		<!-- 주소 찾기 -->
+		<script
+			src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+		<script src="/getspo/resources/js/eventaddr.js"></script>
+		
+		<!-- 에디터 -->
+		<link
+			href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+			rel="stylesheet">
+		<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+		<script
+			src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+		
+		<!-- include summernote css/js -->
+		<link
+			href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css"
+			rel="stylesheet">
+		<script
+			src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+		
+		<!-- Cropper.js -->
+		<link href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css" rel="stylesheet">
+		<script
+			src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script>
+			
+		<!-- ajax -->
+		<script src="/getspo/resources/js/httpRequest.js"></script>
+
+</head>
+   
+   <body>
 	<jsp:include page="host_navigation.jsp"/>
 	<jsp:include page="host_sidebar.jsp"/>
-	<div>
-	    <form class="new_event_form">
+    <form class="new_event_form" method="post" action="host_event_update.do" enctype="multipart/form-data">
+    	<input type="hidden" name="event_idx" value="${event.event_idx}">
             <div class="form-group">
                 <h2>구상 중인 행사를 개설해보세요! </h2>
             </div>
 
             <div class="form-group" id="event_category_group">
                 <h5>카테고리</h5>
-                <select id="category_sport" name="category_sport">
+                <select id="event_sport_idx" name="event_sports_idx">
                     <option selected disabled>종목 선택</option>
-                    <option value="running">러닝</option>
-                    <option value="triathlon">철인3종</option>
-                    <option value="etc">기타</option>
+                    <option value="1">러닝</option>
+                    <option value="2">철인3종</option>
+                    <option value="3">기타</option>
                 </select>
                 
-                <select id="category_loc" name="category_loc">
+                <!-- 07/04 value변경 -->
+                <select id="category_loc" name="event_loc">
                     <option selected disabled>지역 선택</option>
-                    <option value="seoul">서울</option>
-                    <option value="gyunggi">경기</option>
-                    <option value="incheon">인천</option>
-                    <option value="daejeon">대전</option>
-                    <option value="daegu">대구</option>
-                    <option value="busan">부산</option>
-                    <option value="ulsan">울산</option>
-                    <option value="gwangju">광주</option>
-                    <option value="gangwon">강원</option>
-                    <option value="chungbuk">충북</option>
-                    <option value="chungnam">충남</option>
-                    <option value="gyungbuk">경북</option>
-                    <option value="gyungnam">경남</option>
-                    <option value="jeonbuk">전북</option>
-                    <option value="jeonnam">전남</option>
-                    <option value="sejong">세종</option>
-                    <option value="jeju">제주</option>
+                    <option value="서울">서울</option>
+                    <option value="경기">경기</option>
+                    <option value="인천">인천</option>
+                    <option value="대전">대전</option>
+                    <option value="대구">대구</option>
+                    <option value="부산">부산</option>
+                    <option value="울산">울산</option>
+                    <option value="광주">광주</option>
+                    <option value="강원">강원</option>
+                    <option value="충북">충북</option>
+                    <option value="충남">충남</option>
+                    <option value="경북">경북</option>
+                    <option value="경남">경남</option>
+                    <option value="전북">전북</option>
+                    <option value="전남">전남</option>
+                    <option value="세종">세종</option>
+                    <option value="제주">제주</option>
                 </select>
             </div>
 
             <div class="form-group" id="event_name_group">
                 <h5>행사명</h5>
-                <input id="event_name" name="event_name" type="text" required>
+                <input id="event_name" name="event_name" type="text" value="${event.event_name}" required>
             </div>
 
             <div class="form-group" id="event_date_group">
@@ -113,9 +124,9 @@
                 <h5>행사 장소
                     <input type="button" class="addr_btn" onclick="sample6_execDaumPostcode()" value="주소 찾기"><br>
                 </h5>
-                <input type="text" id="addrcode" name="addrcode" placeholder="우편번호">
-                <input type="text" id="addr" name="addr" placeholder="주소">
-                <input type="text" id="addrdetail" name="addrdetail" placeholder="상세주소">
+                <input type="text" id="event_addrcode" name="event_addrcode" value="${event.event_addrcode}" placeholder="우편번호">
+                <input type="text" id="event_addr" name="event_addr" value="${event.event_addr}" placeholder="주소">
+                <input type="text" id="event_addrdetail" name="event_addrdetail" value="${event.event_addrdetail}" placeholder="상세주소">
             </div>
                
            <div class="form-group" id="event_content_group">
@@ -132,13 +143,15 @@
               <div class="thumbnail_group">
                   <label for="thumbnail_image" id="thumbnail_label" style="cursor: pointer;">
                 썸네일 이미지 추가
-                <input type="file" id="thumbnail_image" name="thumbnail_image" style="display: none;" onchange="handleFileChange(event)">
+                <input type="file" id="thumbnail_image" name="photo" style="display: none;" onchange="handleFileChange(event)">
             </label>
                   <div id="image_size">960*540px</div>
               </div>
               <br>
               <h5>행사 정보</h5>
-              <div id="summernote"><p></p></div>
+              <div id="summernote">
+              	<textarea id="summernote_content" name="event_content"  style="display:none;">${event.event_content}</textarea> 
+              </div>
           </div>
 
           <!-- Cropper Modal -->
@@ -169,23 +182,23 @@
                <input type="button" class="add-item-btn" onclick="addNewItem()" value="새 항목 추가">
                </h5>
                    <span>
-                      <input id="entry_name" name="entry" type="checkbox" value="이름" checked disabled>
+                      <input id="entry_name" name="user_name" type="checkbox" value="이름" checked disabled>
                       <label for="entry_name">이름 *</label>
                   </span>
                   <span>
-                      <input id="entry_email" name="entry" type="checkbox" value="이메일" checked disabled>
+                      <input id="entry_email" name="user_email" type="checkbox" value="이메일" checked disabled>
                       <label for="entry_email">이메일 *</label>
                   </span>
                   <span>
-                      <input id="entry_tel" name="entry" type="checkbox" value="휴대전화번호" checked disabled>
+                      <input id="entry_tel" name="user_tel" type="checkbox" value="휴대전화번호" checked disabled>
                       <label for="entry_tel">휴대전화번호 *</label>
                   </span>
                   <span>
-                      <input id="entry_gender" name="entry" type="checkbox" value="성별" >
+                      <input id="entry_gender" name="user_sex" type="checkbox" value="성별" >
                       <label for="entry_gender">성별</label>
                   </span>
                   <span>
-                      <input id="entry_age" name="entry" type="checkbox" value="나이">
+                      <input id="entry_age" name="user_age" type="checkbox" value="나이">
                       <label for="entry_age">나이</label>
                   </span>
             </div>    
@@ -193,14 +206,14 @@
          <div class="form-group" id="event_pay_group">
             <h5>결제방식</h5>
             <div class="radio-group">
-               <input type="radio" id="free" name="pay" value="free" required>
+               <input type="radio" id="free" name="event_paymethod" value="free" required>
                <label for="free">무료</label>
-               <input type="radio" id="paid" name="pay" value="paid" required>
+               <input type="radio" id="paid" name="event_paymethod" value="paid" required>
                <label for="paid">유료</label>
             </div>
             
          <div class="paid_choice" id="paid_choice">
-               <select id="bank" name="bank">
+               <select id="bank" name="event_bank">
                 <option value="" disabled selected>은행 선택</option>
                 <option value="kookmin">국민은행</option>
                 <option value="shinhan">신한은행</option>
@@ -209,21 +222,22 @@
                 <option value="hana">KEB하나은행</option>
                 <option value="kakao">카카오뱅크</option>
             </select>
-                    <input id="account" name="account" type="text" placeholder="입금받을 계좌번호" required>
-                    <input id="account_name" name="account_name" type="text" placeholder="예금주 성명" required>
+                    <input id="event_account" name="account" type="text" placeholder="입금받을 계좌번호" required>
+                    <input id="event_account_name" name="account_name" type="text" placeholder="예금주 성명" required>
+                </div>
             </div>
             
             <div class="form-group" id="ticket_group">
             <h5>티켓</h5>
-               <input id="ticket_name" name="ticket" type="text" placeholder="티켓명" required>
-               <input id="member_limit" name="ticket"  type="number" min="1" step="1" placeholder="모집정원" required>
-               <input id="ticket_amount" name="ticket" type="number" min="0" max="1000000"step="1000" placeholder="티켓금액" required>
+               <input id="ticket_name" name="event_ticketname" type="text" placeholder="티켓명" value="${event.event_ticketname}" required>
+               <input id="member_limit" name="event_max_joiner"  type="number" min="1" step="1" placeholder="모집정원" value="${event.event_max_joiner}" required>
+               <input id="ticket_amount" name="event_price" type="number" min="0" max="1000000"step="1000" placeholder="티켓금액" value="${event.event_price}" required>
                
              <div class="radio-group">
              <p>잔여수량</p>   
-                 <input type="radio" id="remain_open" name="ticket_remain" value="open" required>
+                 <input type="radio" id="remain_open" name="event_ticket_open" value="open" required>
                  <label for="remain_open">공개</label>
-                 <input type="radio" id="remain_close" name="ticket_remain" value="close" required>
+                 <input type="radio" id="remain_close" name="event_ticket_open" value="close" required>
                  <label for="remain_close">비공개</label>
              </div>
             </div>   
@@ -231,27 +245,126 @@
              <div class="form-group" id="contact_group">
                 <h5>담당자 정보</h5>
                 <p>담당자 이름</p>
-                <input id="contact_name" name="contact" type="text" required>
+                <input id="contact_name" name="event_contact_name" type="text" value="${event.event_contact_name}" required>
                 <p>이메일 주소</p>
-                <input id="contact_email" name="contact" type="text" required>
+                <input id="contact_email" name="event_contact_email" type="text" value="${event.event_contact_email}" required>
                 <p>전화번호</p>
-                <input id="contact_tel" name="contact" type="text" required>
+                <input id="contact_tel" name="event_contact_tel" type="text" value="${event.event_contact_tel}" required>
             </div>
              
-          </div>
-            
-        <input type="button" class="event_btn" onclick="send(this.form)" value="행사 등록하기"> 
+                      
+        <input type="submit" class="event_btn" value="이벤트 수정완료"> 
     </form>
-    </div>   
+       
     
     
       <script>
-            /* 상세정보 입력창 관련 함수 */
-          $(document).ready(function() {
-              $('#summernote').summernote({
-                 height:300
-              });
-          });
+			/* 상세정보 입력창 관련 함수 */
+			$(document).ready(function () {
+			    $('#summernote').summernote({
+			        codeviewFilter: false, // 코드 보기 필터 비활성화
+			        codeviewIframeFilter: false, // 코드 보기 iframe 필터 비활성화
+			        height: 500, // 에디터 높이
+			        minHeight: null, // 최소 높이
+			        maxHeight: null, // 최대 높이
+			        focus: true, // 에디터 로딩 후 포커스 설정
+			        lang: 'ko-KR', // 언어 설정 (한국어)
+			        toolbar: [
+			            ['style', ['style']], // 글자 스타일 설정 옵션
+			            ['fontsize', ['fontsize']], // 글꼴 크기 설정 옵션
+			            ['font', ['bold', 'underline', 'clear']], // 글자 굵게, 밑줄, 포맷 제거 옵션
+			            ['color', ['color']], // 글자 색상 설정 옵션
+			            ['table', ['table']], // 테이블 삽입 옵션
+			            ['para', ['ul', 'ol', 'paragraph']], // 문단 스타일, 순서 없는 목록, 순서 있는 목록 옵션
+			            ['height', ['height']], // 에디터 높이 조절 옵션
+			            ['insert', ['picture', 'link', 'video']], // 이미지 삽입, 링크 삽입, 동영상 삽입 옵션
+			            ['view', ['codeview', 'fullscreen', 'help']], // 코드 보기, 전체 화면, 도움말 옵션
+			        ],
+			        fontSizes: [
+			            '8', '9', '10', '11', '12', '14', '16', '18',
+			            '20', '22', '24', '28', '30', '36', '50', '72',
+			        ], // 글꼴 크기 옵션
+			        styleTags: [
+			            'p',  // 일반 문단 스타일 옵션
+			            {
+			                title: 'Blockquote',
+			                tag: 'blockquote',
+			                className: 'blockquote',
+			                value: 'blockquote',
+			            },  // 인용구 스타일 옵션
+			            'pre',  // 코드 단락 스타일 옵션
+			            {
+			                title: 'code_light',
+			                tag: 'pre',
+			                className: 'code_light',
+			                value: 'pre',
+			            },  // 밝은 코드 스타일 옵션
+			            {
+			                title: 'code_dark',
+			                tag: 'pre',
+			                className: 'code_dark',
+			                value: 'pre',
+			            },  // 어두운 코드 스타일 옵션
+			            'h1', 'h2', 'h3', 'h4', 'h5', 'h6',  // 제목 스타일 옵션
+			        ],
+			        callbacks: {
+			            onImageUpload: function (files, editor, welEditable) {
+			                // 파일 업로드 (다중 업로드를 위해 반복문 사용)
+			                for (var i = files.length - 1; i >= 0; i--) {
+			                    uploadSummernoteImageFile(files[i], this);
+			                }
+			            },
+			        },
+			    });
+			    
+			    // 초기화 후 내용 설정
+			    $('#summernote').summernote('code', $('#summernote_content').val());
+			
+			    // 폼 제출 이벤트 핸들러
+			    $('.new_event_form').on('submit', function() {
+			        // Summernote 내용 가져오기
+			        var content = $('#summernote').summernote('code');
+			        // textarea에 내용 설정
+			        $('#summernote_content').val(content);
+			    });
+			});
+			
+			function uploadSummernoteImageFile(file, el) {
+			    var data = new FormData();
+			    data.append("file", file);
+			    $.ajax({
+			        data: data,
+			        type: "POST",
+			        url: "hostuploadSummernoteImageFile", // 서버의 이미지 업로드 엔드포인트
+			        contentType: false,
+			        enctype: 'multipart/form-data',
+			        processData: false,
+			        success: function(data) {
+			            console.log("서버 응답:", data); // 서버 응답 확인을 위해 로그 출력
+			            try {
+			                var jsonResponse;
+			                if (typeof data === "string") {
+			                    jsonResponse = JSON.parse(data);
+			                } else {
+			                    jsonResponse = data;
+			                }
+			
+			                if (jsonResponse.responseCode === "success") {
+			                    $(el).summernote('insertImage', jsonResponse.url);			                    
+			                } else {
+			                    alert("이미지 업로드에 실패했습니다.");
+			                }
+			            } catch (e) {
+			                console.error("JSON 파싱 오류:", e);
+			                alert("서버 응답을 처리하는 중 오류가 발생했습니다.");
+			            }
+			        },
+			        error: function(jqXHR, textStatus, errorThrown) {
+			            console.error("AJAX 오류:", textStatus, errorThrown);
+			            alert("이미지 업로드 중 오류가 발생했습니다.");
+			        }
+			    });
+			}
       
             /* 결제방식에 따른 티켓 금액 입력창 활성화/비활성화 함수 */
                document.addEventListener('DOMContentLoaded', function() {
@@ -389,7 +502,35 @@
                        thumbnailImageInput.onchange = handleFileChange; // 변경 이벤트 핸들러 복원
                    };
                }
-            
+               
+               //카테고리 포워딩
+               document.addEventListener('DOMContentLoaded', (event) => {
+            	    const selectedSportIdx = "${event.event_sports_idx}"; // 서버에서 받아온 값을 여기 넣습니다.
+            	    const selectElement = document.getElementById('event_sport_idx');
+            	    
+            	    for (const option of selectElement.options) {
+            	        if (option.value === selectedSportIdx) {
+            	            option.selected = true;
+            	            break;
+            	        }
+            	    }
+            	});
+               
+               
+               //지역바인딩한거 포워딩하기
+               document.addEventListener('DOMContentLoaded', (event) => {
+				    const selectedLoc = "${event.event_loc}"; // 서버에서 받아온  값을 여기 넣습니다.
+				    const selectElement = document.getElementById('category_loc');
+				    
+				    for (const option of selectElement.options) {
+				        if (option.value === selectedLoc) {
+				            option.selected = true;
+				            break;
+				        }
+				    }
+				});
+               
+                         	
                /* 삭제 버튼 보류
                   function deleteThumbnail() {
                    var thumbnailImageInput = document.getElementById('thumbnail_image');
@@ -404,6 +545,6 @@
                    document.querySelector('.thumbnail_group').style.display = 'block'; // 썸네일 그룹 보이기
                } */
     </script>
-	
-	</body>
-	</html>
+       
+   </body>
+</html>
