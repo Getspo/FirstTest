@@ -89,6 +89,13 @@ public class EventDAO {
 	public int update_viewcount(int event_idx) {
 		return sqlSession.update("e.event_update_viewcount", event_idx);		
 	}
+	
+	//다가오는 행사 리스트
+	public List<EventVO> fastevent(){
+		return sqlSession.selectList("e.fast_event");
+	}
+	
+	
 	    
 }
 

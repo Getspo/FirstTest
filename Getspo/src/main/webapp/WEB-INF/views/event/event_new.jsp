@@ -220,8 +220,8 @@
                 <option value="hana">KEB하나은행</option>
                 <option value="kakao">카카오뱅크</option>
             </select>
-                    <input id="event_account" name="account" type="text" placeholder="입금받을 계좌번호" required>
-                    <input id="event_account_name" name="account_name" type="text" placeholder="예금주 성명" required>
+                    <input id="event_account" name="event_account" type="text" placeholder="입금받을 계좌번호" required>
+                    <input id="event_account_name" name="event_account_name" type="text" placeholder="예금주 성명" required>
                 </div>
             </div>
             
@@ -265,7 +265,7 @@
 			        height: 500, // 에디터 높이
 			        minHeight: null, // 최소 높이
 			        maxHeight: null, // 최대 높이
-			        focus: true, // 에디터 로딩 후 포커스 설정
+			        focus: false, // 에디터 로딩 후 포커스 설정
 			        lang: 'ko-KR', // 언어 설정 (한국어)
 			        toolbar: [
 			            ['style', ['style']], // 글자 스타일 설정 옵션

@@ -59,7 +59,13 @@ public class MainController {
 
 	// 메인페이지
 	@RequestMapping(value = { "/", "main.do" })
-	public String Main() {
+	public String Main(Model model) {
+		//다가오는 행사 리스트
+		List<EventVO> events = event_dao.fastevent();
+		
+		model.addAttribute("events", events);
+		
+		
 		return Common.Main.VIEW_PATH + "main.jsp";
 	}
 

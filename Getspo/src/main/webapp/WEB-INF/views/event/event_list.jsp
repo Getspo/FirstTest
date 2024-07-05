@@ -8,16 +8,38 @@
     <meta charset="UTF-8">
     <title>행사 전체 페이지</title>
     <link rel="stylesheet" href="/getspo/resources/css/event/event_list.css">
+    
+    <!-- ajax -->
+	<script src="/getspo/resources/js/httpRequest.js"></script>
+    
     <script>
         function goToPage(pageNumber) {
             var form = document.getElementById('pagingForm');
             form.page.value = pageNumber;
             form.submit();
         }
-
+		
+     	// 필터링 기능 구현
         function filterEvents() {
-            // 필터링 기능 구현 (필요 시 추가)
+        	var location = document.getElementById('location').value;
+        	var sports = [];
+        	if (document.getElementById('running').checked) {
+                sports.push('running');
+            }
+            if (document.getElementById('triathlon').checked) {
+                sports.push('triathlon');
+            }
+        	
+            let url = "event_list.do";
+            let param = "event_loc=" + location;
+            sendRequest(url, param, resultFn, "post");
         }
+     	function resultFn(){
+     		if(xhr.readyState == 4 && xhr.status == 200){
+				let data = xhr.responseText;
+				
+			}
+     	}
 
         function resetFilters() {
             document.getElementById('location').value = 'all';
@@ -38,15 +60,15 @@
                 <!-- 지역 선택 -->
                 <div class="filter-item">
                     <label for="location">지역</label>
-                    <select id="location" name="location" class="location">
+                    <select id="location" name="location" class="location" onchange="filterEvents();">
                         <option value="all">전체</option>
-                        <option value="seoul_gyeonggi_incheon">서울/경기/인천</option>
-                        <option value="busan_ulsan_gyeongnam">부산/울산/경남</option>
-                        <option value="daegu_gyeongbuk">대구/경북</option>
-                        <option value="chungcheong_daejeon_sejong">충청/대전/세종</option>
-                        <option value="jeolla_gwangju">전라/광주</option>
-                        <option value="gangwon">강원</option>
-                        <option value="jeju">제주</option>
+                        <option value="서울_경기_인천">서울/경기/인천</option>
+                        <option value="부산_울산_경남">부산/울산/경남</option>
+                        <option value="대구_경북">대구/경북</option>
+                        <option value="충북_충남_대전_세종">충청/대전/세종</option>
+                        <option value="전남_전북_광주">전라/광주</option>
+                        <option value="강원">강원</option>
+                        <option value="제주">제주</option>
                         <!-- 필요한 다른 지역 추가 -->
                     </select>
                 </div>

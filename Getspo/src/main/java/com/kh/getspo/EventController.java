@@ -53,6 +53,8 @@ public class EventController {
 	public EventController(EventDAO event_dao) {
 		this.event_dao = event_dao;
 	}
+	
+			
 
 	//행사 전체보기
 	@RequestMapping("/event_list.do")
@@ -229,12 +231,7 @@ public class EventController {
 		try (InputStream fileStream = multipartFile.getInputStream()) {
 			// 파일 저장
 			FileUtils.copyInputStreamToFile(fileStream, targetFile);
-			jsonObject.addProperty("url", request.getContextPath() + "/resources/fileupload/" + savedFileName); // contextroot
-																												// +
-																												// resources
-																												// + 저장할
-																												// 내부
-																												// 폴더명
+			jsonObject.addProperty("url", request.getContextPath() + "/resources/fileupload/" + savedFileName); 																								
 			jsonObject.addProperty("responseCode", "success");
 		} catch (IOException e) {
 			// 저장된 파일 삭제
