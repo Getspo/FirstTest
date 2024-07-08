@@ -22,7 +22,7 @@
             $('.slider-div').slick({
                infinite: false, /* 무제한전환 */
                slidesToShow: 10,   /* 보여지는개수 */
-               slidesToScroll: 1,   /* 이동개수 */
+               slidesToScroll: 8,   /* 이동개수 */
                arrows: true, /* 화살표 보여주기 */
                prevArrow: "<button type='button' class='slick-prev'>&lt;</button>",
                nextArrow: "<button type='button' class='slick-next'>&gt;</button>",

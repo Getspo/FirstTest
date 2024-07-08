@@ -173,10 +173,10 @@ body {
 }
 
 .checkbox-group input[type="checkbox"] {
-    margin-right: 0.5rem; /* 오른쪽 여백 설정 */
-    background-color: #f1f5f9; /* hover 시 배경색 변경 */
-   width: 16px;
-   height: 16px;
+	margin-right: 0.5rem;
+	width: 16px;
+	height: 16px;
+	accent-color: #0099bc;
 }
 
 .checkbox-group label {

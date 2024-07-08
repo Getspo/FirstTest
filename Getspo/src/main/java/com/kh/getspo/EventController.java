@@ -8,7 +8,6 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
-
 import java.util.UUID;
 
 import javax.servlet.ServletContext;
@@ -23,7 +22,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -31,6 +29,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.google.gson.JsonObject;
 
 import dao.EventDAO;
+import dao.UserDAO;
 import util.Common;
 import util.Paging;
 import vo.EventVO;
@@ -50,13 +49,36 @@ public class EventController {
 	@Autowired
 	EventDAO event_dao;
 
-	public EventController(EventDAO event_dao) {
-		this.event_dao = event_dao;
-	}
-	
-			
+	@Autowired
+	UserDAO user_dao;
 
-	//행사 전체보기
+	public EventController(EventDAO event_dao, UserDAO user_dao) {
+		this.event_dao = event_dao;
+		this.user_dao = user_dao;
+	}
+
+	// 공통 메서드: 행사 정보를 가져오고 모델에 추가
+	private void addEventDetailsToModel(int event_idx, Model model) {
+		EventVO event = event_dao.eventByIdx(event_idx);
+		int appliecount = event_dao.applieCount(event_idx);
+		int remainticket = event.getEvent_max_joiner() - appliecount;
+
+		List<Integer> viewedEvents = (List<Integer>) session.getAttribute("viewedEvents");
+		if (viewedEvents == null) {
+			viewedEvents = new ArrayList<>();
+		}
+
+		if (!viewedEvents.contains(event_idx)) {
+			event_dao.update_viewcount(event_idx);
+			viewedEvents.add(event_idx);
+			session.setAttribute("viewedEvents", viewedEvents);
+		}
+
+		model.addAttribute("event", event);
+		model.addAttribute("remainticket", remainticket);
+	}
+
+	// 행사 전체보기
 	@RequestMapping("/event_list.do")
 	public String event_list(Model model, String page) {
 		int nowPage = 1;
@@ -89,7 +111,7 @@ public class EventController {
 		return Common.Event.VIEW_PATH + "event_list.jsp";
 	}
 
-	//행사 상세보기 페이지
+	// 행사 상세보기 페이지
 	@RequestMapping("/event_detail.do")
 	public String eventDetail(@RequestParam("event_idx") int event_idx, Model model) {
 		// 해당 이벤트정보 가져오기
@@ -128,13 +150,28 @@ public class EventController {
 		return Common.Event.VIEW_PATH + "event_detail.jsp";
 	}
 
-	//행사 개설 페이지
+	// 행사 신청 페이지
+	@RequestMapping("/event_apply.do")
+	public String eventApply(@RequestParam("event_idx") int event_idx, Model model) {
+		
+		
+		// 해당 이벤트정보 가져오기
+		EventVO event = event_dao.eventByIdx(event_idx);
+		
+		// 바인딩
+		model.addAttribute("event", event);
+		
+		addEventDetailsToModel(event_idx, model);
+		return Common.Event.VIEW_PATH + "event_apply.jsp";
+	}
+
+	// 행사 개설 페이지
 	@RequestMapping("/event_new.do")
 	public String event_form() {
 		return Common.Event.VIEW_PATH + "event_new.jsp";
 	}
 
-	//행사 개설하기
+	// 행사 개설하기
 	@RequestMapping("/event_insert.do")
 	public String event_insert(@ModelAttribute EventVO vo,
 			@RequestParam("start_date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
@@ -210,8 +247,8 @@ public class EventController {
 
 		return "redirect:hostMain.do";
 	}
-	
-	//썸머노트
+
+	// 썸머노트
 	@RequestMapping(value = "/uploadSummernoteImageFile", produces = "application/json; charset=utf8")
 	@ResponseBody
 	public String uploadSummernoteImageFile(@RequestParam("file") MultipartFile multipartFile,
@@ -231,7 +268,7 @@ public class EventController {
 		try (InputStream fileStream = multipartFile.getInputStream()) {
 			// 파일 저장
 			FileUtils.copyInputStreamToFile(fileStream, targetFile);
-			jsonObject.addProperty("url", request.getContextPath() + "/resources/fileupload/" + savedFileName); 																								
+			jsonObject.addProperty("url", request.getContextPath() + "/resources/fileupload/" + savedFileName);
 			jsonObject.addProperty("responseCode", "success");
 		} catch (IOException e) {
 			// 저장된 파일 삭제
@@ -243,10 +280,10 @@ public class EventController {
 		return jsonObject.toString();
 	}
 
-	//행사 신청하기
-	@RequestMapping("/event_apply.do")
-	public String event_apply() {
-		return Common.Event.VIEW_PATH + "event_apply.jsp";
+	// 행사신청내역 페이지
+	@RequestMapping("/applyEvent_list.do")
+	public String applyEvent_list() {
+		return Common.Mypage.VIEW_PATH + "mypage.jsp";
 	}
 
 }

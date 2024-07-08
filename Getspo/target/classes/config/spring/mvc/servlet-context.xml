@@ -36,7 +36,8 @@
     </beans:bean>
     
     <beans:bean class="com.kh.getspo.EventController">
-      <beans:constructor-arg ref="event_daoBean"/>            
+      <beans:constructor-arg ref="event_daoBean"/>    
+      <beans:constructor-arg ref="user_daoBean"/>        
     </beans:bean>
     
     <!-- 스프링에서 기본으로 제공하는 multipartResolver는 CommonsMultipartResolver 이므로, 

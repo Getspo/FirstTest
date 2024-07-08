@@ -46,23 +46,23 @@
    
    <body>
 
-    <form class="new_event_form" method="post" action="event_insert.do" enctype="multipart/form-data">
+    <form id="eventForm" class="new_event_form" method="post" action="event_insert.do" enctype="multipart/form-data">
             <div class="form-group">
                 <h2>구상 중인 행사를 개설해보세요! </h2>
             </div>
 
             <div class="form-group" id="event_category_group">
                 <h5>카테고리</h5>
-                <select id="event_sport_idx" name="event_sports_idx">
-                    <option selected disabled>종목 선택</option>
+                <select id="event_sport_idx" name="event_sports_idx" required>
+                    <option value="" disabled selected>종목 선택</option>
                     <option value="1">러닝</option>
                     <option value="2">철인3종</option>
                     <option value="3">기타</option>
                 </select>
                 
                 <!-- 07/04 value변경 -->
-                <select id="category_loc" name="event_loc">
-                    <option selected disabled>지역 선택</option>
+                <select id="category_loc" name="event_loc" required>
+                    <option value="" disabled selected>지역 선택</option>
                     <option value="서울">서울</option>
                     <option value="경기">경기</option>
                     <option value="인천">인천</option>
@@ -92,13 +92,14 @@
                 <h5>행사 기간</h5>
                 <div>
                     <p class="start_date">시작 날짜</p>
-                    <input type="date" id="start_date" name="start_date">
-                    <input type="time" id="start_time" name="start_time">
+                    <input type="date" id="start_date" name="start_date" required>
+                    <input type="time" id="start_time" name="start_time" required>
                 </div>
                 <div>
                     <p class="end_date">종료 날짜 </p> 
-                    <input type="date" id="end_date" name="end_date">
-                    <input type="time" id="end_time" name="end_time">
+                    <input type="date" id="end_date" name="end_date" required>
+                    <input type="time" id="end_time" name="end_time" required>
+                    <span id="endDateWarning"></span>
                 </div>
                 <p id="comment">* 종료날짜는 시작날짜 보다 뒤로 설정해주세요!</p>
              </div>    
@@ -107,13 +108,14 @@
                 <h5>모집 기간</h5>
                 <div>
                     <p class="start_date">시작 날짜</p>
-                    <input type="date" id="apply_start_date" name="apply_start_date">
-                    <input type="time" id="apply_start_time" name="apply_start_time">
+                    <input type="date" id="apply_start_date" name="apply_start_date" required>
+                    <input type="time" id="apply_start_time" name="apply_start_time" required>
                 </div>
                 <div>
                     <p class="end_date">종료 날짜 </p> 
-                    <input type="date" id="apply_end_date" name="apply_end_date">
-                    <input type="time" id="apply_end_time" name="apply_end_time">
+                    <input type="date" id="apply_end_date" name="apply_end_date" required>
+                    <input type="time" id="apply_end_time" name="apply_end_time" required>
+                    <span id="applyEndDateWarning"></span>
                 </div>
                 <p id="comment">* 종료날짜는 시작날짜 보다 뒤로 설정해주세요!</p>
             </div>
@@ -245,9 +247,10 @@
                 <p>담당자 이름</p>
                 <input id="contact_name" name="event_contact_name" type="text" required>
                 <p>이메일 주소</p>
-                <input id="contact_email" name="event_contact_email" type="text" required>
+                <input id="contact_email" name="event_contact_email" type="email" required>
                 <p>전화번호</p>
-                <input id="contact_tel" name="event_contact_tel" type="text" required>
+                <input id="contact_tel" name="event_contact_tel" type="text" placeholder="(010)-0000-0000">
+                <span id="contactTelWarning"></span>
             </div>
              
                       
@@ -497,6 +500,46 @@
                        thumbnailImageInput.onchange = handleFileChange; // 변경 이벤트 핸들러 복원
                    };
                }
+               
+               //유효성 검사
+               document.getElementById('eventForm').addEventListener('submit', function(event) {
+                   const startDate = new Date(document.getElementById('start_date').value);
+                   const endDate = new Date(document.getElementById('end_date').value);
+                   const applyStartDate = new Date(document.getElementById('apply_start_date').value);
+                   const applyEndDate = new Date(document.getElementById('apply_end_date').value);
+                   const contactTel = new Date(document.getElementById('contact_tel').value);
+	
+               	   
+                   if (startDate && endDate && endDate < startDate) {
+                	   endDateWarning.textContent = "행사 종료 날짜는 시작 날짜 이후여야 합니다";
+                       event.preventDefault();
+                   }else {
+                       endDateWarning.textContent = "";
+                   }
+
+                   if (applyStartDate && applyEndDate && applyEndDate < applyStartDate) {
+                	   applyEndDateWarning.textContent = "모집 종료 날짜는 시작 날짜 이후여야 합니다";
+                       event.preventDefault();
+                   }else {
+                       applyEndDateWarning.textContent = "";
+                   }
+
+                   if (applyEndDate && startDate && applyEndDate > startDate) {
+                	   applyEndDateWarning.textContent = "모집 날짜는 행사 시작 날짜 이전이어야 합니다";
+                       event.preventDefault();
+                   }else {
+                       applyEndDateWarning.textContent = "";
+                   }
+                   
+                   let telpattern = /^\d{3}-\d{4}-\d{4}$/;
+                   if (!telpattern.test(contactTel)) {
+                	   contactTelWarning.textContent = "올바른 전화번호를 입력하세요";
+                	   event.preventDefault();
+                   } else {
+                       contactTelWarning.textContent = "";
+                   }
+                   
+               });
                
                          	
                /* 삭제 버튼 보류

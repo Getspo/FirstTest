@@ -223,10 +223,5 @@ public class MainController {
 		return Common.Mypage.VIEW_PATH + "withdraw_after.jsp";
 	}
 
-	// 행사신청내역 페이지
-	@RequestMapping("/applyEvent_list.do")
-	public String applyEvent_list() {
-		return Common.Mypage.VIEW_PATH + "mypage.jsp";
-	}
 
 }

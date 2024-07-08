@@ -27,6 +27,12 @@ body{
 /******************************************************/
 
 /*-----신청행사정보라인-----*/
+#thumbnail {
+    width: 200px;
+    height: 113px; /* 이미지의 비율을 유지 */
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
 
 .info_line{
 	width: 66%;
@@ -82,8 +88,24 @@ body{
 	padding : 32px;
 }
 
-#remainSection{
-	display: inline-block;
+#ticketname{
+	font-size: 16px;
+}
+
+.pay_option{
+	padding: 24px 0 0;
+}
+
+.pay_option_text{
+	padding: 0 0 16px;
+	font-size: 16px;
+}
+
+.ticket_etc{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 10px;
 }
 
 .amount_btn {
@@ -92,6 +114,7 @@ body{
     background-color: #ffff;
     border: 1px solid #ccc;
     border-radius: 4px;
+    margin-right: 20px;
 }
 
 .amount_btn input[type="button"] {
@@ -106,6 +129,7 @@ body{
 .amount_btn .quantity {
     width: 25px;
     text-align: center;
+    margin: 0 5px;
 }
 
 .quantity {
@@ -113,10 +137,16 @@ body{
 	border-right: 1px solid #ccc;
 }
 
-#event_price{
-	color: #0099bc;
-	font-size: 16px;
-	float: right;
+.remain{
+	font-size: 15px;
+	color: #878D91;
+	float: left;
+}
+
+#event_price {
+    margin-left: auto;
+    color: #0099bc;
+    font-size: 16px;
 }
 
 /*신청자 정보*****************************************************/
@@ -146,25 +176,29 @@ body{
 .user_name input[type="text"],
 .user_email input[type="email"],
 .user_tel input[type="tel"]{
-	width: 80%;
-	margin:	10px 0 0;
-	padding:14px 12px;
-	border-radius: 4px;
-	border: 1px solid #ccc;
-	outline: none;
-	outline: none;
+    width: 80%;
+    margin: 10px 0 0;
+    padding: 14px 12px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    outline: none;
     transition: box-shadow 0.2s ease, border 0.2s ease; /* 부드러운 전환 효과 */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* 입체감을 위한 그림자 추가 */
 }
 
 .apply_info input[type="text"]:focus,
-.apply_info input[type="email"]:focus,
 .apply_info input[type="tel"]:focus{
 	border: 1px solid #0099bc;
-	box-shadow: 0 0 0 2px #0099bc; /* 부드러운 전환 효과를 위한 box-shadow */
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2), 0 0 0 2px #0099bc; /* 부드러운 전환 효과를 위한 box-shadow */
 }
 	
 .user_name, .user_email, .user_tel{
 	padding: 20px;
+}
+
+.user_email #email{
+	color: #878D91;
+	
 }
 
 /******************************************************/
@@ -195,6 +229,48 @@ body{
     font-weight: bold;
     color: #0099bd;
     padding: 10px 0 8px;
+}
+
+.option_btn input[type="button"] {
+    width: 47%;
+    padding: 8px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 13px;
+    color: #878D91;
+    background-color: white;
+    cursor: pointer;
+    position: relative; 
+    z-index: 1; 
+}
+
+.option_btn input[type="button"].active {
+    border: 1px solid #0099bc;
+    color: #0099bc;
+}
+
+.account_comment {
+    display: none; /* 초기에는 숨김 */
+    margin-top: 10px; /* 상단 여백 추가 */
+	padding: 16px 0 0;
+}
+
+#virtualAccountBtn:checked ~ .account_comment {
+    display: block; /* 가상계좌 버튼을 누르면 account_comment가 나타남 */
+}
+
+#comment_title {
+    font-weight: bold;
+    color: red;
+    font-size: 13px;
+    amrgin
+    margin-bottom: 5px;
+}
+
+#comment_ment {
+    font-size: 14px;
+    color: #878D91;
+    padding: 10px 0 0;
 }
 
 .agree_box {
