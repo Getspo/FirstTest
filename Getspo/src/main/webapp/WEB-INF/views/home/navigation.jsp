@@ -21,7 +21,7 @@
                alert("검색할 내용을 입력하세요");
                return;
             }
-            location.href="search.do?search_text="+encodeURIComponent(search_text);
+            location.href="event_list.do?search_text="+encodeURIComponent(search_text);
          }//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
       </script>
    </head>

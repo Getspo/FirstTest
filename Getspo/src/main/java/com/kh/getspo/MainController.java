@@ -57,7 +57,12 @@ public class MainController {
 
 	// 메인페이지
 	@RequestMapping(value = { "/", "main.do" })
-	public String Main() {
+	public String Main(Model model) {
+		// 다가오는 행사 리스트
+		List<EventVO> events = event_dao.fastevent();
+
+		model.addAttribute("events", events);
+
 		return Common.Main.VIEW_PATH + "main.jsp";
 	}
 
@@ -178,11 +183,6 @@ public class MainController {
 			// 파일 저장
 			FileUtils.copyInputStreamToFile(fileStream, targetFile);
 			jsonObject.addProperty("url", request.getContextPath() + "/resources/fileupload/" + savedFileName); // contextroot
-																												// +
-																												// resources
-																												// + 저장할
-																												// 내부
-																												// 폴더명
 			jsonObject.addProperty("responseCode", "success");
 		} catch (IOException e) {
 			// 저장된 파일 삭제
@@ -212,6 +212,12 @@ public class MainController {
 	@RequestMapping("withdrawalform.do")
 	public String withdrawalform() {
 		return Common.Mypage.VIEW_PATH + "withdraw_after.jsp";
+	}
+
+	// 행사신청내역 페이지
+	@RequestMapping("/applyEvent_list.do")
+	public String applyEvent_list() {
+		return Common.Mypage.VIEW_PATH + "mypage.jsp";
 	}
 
 }

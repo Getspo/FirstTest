@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+
 import java.util.UUID;
 
 import javax.servlet.ServletContext;
@@ -22,6 +23,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -51,8 +53,10 @@ public class EventController {
 	public EventController(EventDAO event_dao) {
 		this.event_dao = event_dao;
 	}
+	
+			
 
-	// 행사 전체 보기
+	//행사 전체보기
 	@RequestMapping("/event_list.do")
 	public String event_list(Model model, String page) {
 		int nowPage = 1;
@@ -85,7 +89,7 @@ public class EventController {
 		return Common.Event.VIEW_PATH + "event_list.jsp";
 	}
 
-	// 행사 상세보기 페이지
+	//행사 상세보기 페이지
 	@RequestMapping("/event_detail.do")
 	public String eventDetail(@RequestParam("event_idx") int event_idx, Model model) {
 		// 해당 이벤트정보 가져오기
@@ -124,13 +128,13 @@ public class EventController {
 		return Common.Event.VIEW_PATH + "event_detail.jsp";
 	}
 
-	// 이벤트개설 폼
+	//행사 개설 페이지
 	@RequestMapping("/event_new.do")
 	public String event_form() {
 		return Common.Event.VIEW_PATH + "event_new.jsp";
 	}
 
-	// 행사 개설하기
+	//행사 개설하기
 	@RequestMapping("/event_insert.do")
 	public String event_insert(@ModelAttribute EventVO vo,
 			@RequestParam("start_date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
@@ -141,7 +145,7 @@ public class EventController {
 			@RequestParam("apply_start_time") @DateTimeFormat(iso = DateTimeFormat.ISO.TIME) LocalTime applyStartTime,
 			@RequestParam("apply_end_date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate applyEndDate,
 			@RequestParam("apply_end_time") @DateTimeFormat(iso = DateTimeFormat.ISO.TIME) LocalTime applyEndTime,
-			@RequestParam("event_content") String eventContent) {
+			@RequestParam("event_content") String event_content) {
 
 		try {
 			UserVO user = (UserVO) session.getAttribute("user");
@@ -158,7 +162,7 @@ public class EventController {
 				vo.setEvent_h_end(eventHEnd);
 				vo.setEvent_r_start(eventRStart);
 				vo.setEvent_r_end(eventREnd);
-				vo.setEvent_content(eventContent);
+				vo.setEvent_content(event_content);
 
 				// 파일업로드 경로설정
 				String webPath = "/resources/upload/";
@@ -206,8 +210,8 @@ public class EventController {
 
 		return "redirect:hostMain.do";
 	}
-
-	// 썸머노트
+	
+	//썸머노트
 	@RequestMapping(value = "/uploadSummernoteImageFile", produces = "application/json; charset=utf8")
 	@ResponseBody
 	public String uploadSummernoteImageFile(@RequestParam("file") MultipartFile multipartFile,
@@ -227,12 +231,7 @@ public class EventController {
 		try (InputStream fileStream = multipartFile.getInputStream()) {
 			// 파일 저장
 			FileUtils.copyInputStreamToFile(fileStream, targetFile);
-			jsonObject.addProperty("url", request.getContextPath() + "/resources/fileupload/" + savedFileName); // contextroot
-																												// +
-																												// resources
-																												// + 저장할
-																												// 내부
-																												// 폴더명
+			jsonObject.addProperty("url", request.getContextPath() + "/resources/fileupload/" + savedFileName); 																								
 			jsonObject.addProperty("responseCode", "success");
 		} catch (IOException e) {
 			// 저장된 파일 삭제
@@ -244,7 +243,7 @@ public class EventController {
 		return jsonObject.toString();
 	}
 
-	// 행사 신청하기
+	//행사 신청하기
 	@RequestMapping("/event_apply.do")
 	public String event_apply() {
 		return Common.Event.VIEW_PATH + "event_apply.jsp";

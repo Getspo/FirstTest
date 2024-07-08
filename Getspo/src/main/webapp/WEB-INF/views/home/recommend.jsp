@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 	<html>
 	<head>
@@ -19,126 +21,37 @@
 
 		<!-- 대회썸네일 -->
 		<table align="center" width="1200px;">
+		<c:forEach var="event" items="${events}" varStatus="status">
+			<c:if test="${status.index % 4 == 0}">
 			<tr>
+			</c:if>
 				<td>
-					<div style="cursor:pointer" class="container" onclick="location.href='event_detail.do'">
-					    <img class="thumbnail" src="/getspo/resources/img/thumbnail/thumbnail.jpg" alt="">
+					<div style="cursor:pointer" class="container" onclick="location.href='event_detail.do?event_idx=${event.event_idx}'">
+					    <img class="thumbnail" src="/getspo/resources/upload/${event.event_thumbnail}" alt="${event.event_name}">
 					    <div class="overlay">
 					       <p class="hover_text">대회종료</p>
 					    </div>
-					    <a class="event_date">2024년 7월 7일 / 강원 태백</a><br>
-						<a class="event_name">태100 블루레이스</a><br>
-						<a class="price">110,000원</a>
-						<a class="view">조회수 100</a>	
+					    <a class="event_date">${event.getFormattedEventHStart()} / ${event.event_loc}</a><br>
+						<a class="event_name">${event.event_name}</a><br>
+						<c:choose>
+                           <c:when test="${event.event_price > 0}">
+                              <a class="price"><fmt:formatNumber value="${event.event_price}" type="number" groupingUsed="true" />원</a>
+                           </c:when>
+                           <c:otherwise>
+                              <a class="price">무료</a>
+                           </c:otherwise>
+                        </c:choose>
+						<a class="view">조회수 ${event.event_viewCount}</a>	
 					</div>
 				</td>	
-					
 				<td class="gutter"></td>
-					
-				<td>
-					<div class="container">
-					    <img class="thumbnail" src="/getspo/resources/img/thumbnail/thumbnail2.jpg" alt="">
-					    <div class="overlay">
-					       <p class="hover_text">대회매진</p>
-					    </div>
-					    <a class="event_date">2024년 8월 17일 / 부산 해운대</a><br>
-						<a class="event_name">부산썸머비치울트라마라톤</a><br>
-						<a class="price">매진</a>
-						<a class="view">조회수 100</a>	
-					</div>
-				</td>	
-				
-				<td class="gutter"></td>
-					
-				<td>
-					<div class="container">
-					    <img class="thumbnail" src="/getspo/resources/img/thumbnail/thumbnail3.jpg" alt="">
-					    <div class="overlay">
-					       <p class="hover_text">참가신청</p>
-					    </div>
-					    <a class="event_date">2024년 8월 18일 / 전남 구례</a><br>
-						<a class="event_name">지리산화대종주트레일러닝</a><br>
-						<a class="price">55,000원</a>
-						<a class="view">조회수 100</a>	
-					</div>
-				</td>	
-				
-				<td class="gutter"></td>				
-				
-				<td>
-					<div class="container">
-					    <img class="thumbnail" src="/getspo/resources/img/thumbnail/thumbnail4.jpg" alt="">
-					    <div class="overlay">
-					       <p class="hover_text">참가신청</p>
-					    </div>
-					    <a class="event_date">2024년 8월 18일 / 서울 여의도</a><br>
-						<a class="event_name">김대중 평화 마라톤대회</a><br>
-						<a class="price">45,000원</a>
-						<a class="view">조회수 100</a>	
-					</div>
-				</td>	
-			</tr>	
-			
-			<tr>
-				<td>
-					<div class="container">
-					    <img class="thumbnail" src="/getspo/resources/img/thumbnail/thumbnail5.jpg" alt="">
-					    <div class="overlay">
-					       <p class="hover_text">참가신청</p>
-					    </div>
-					    <a class="event_date">2024년 8월 25일 / 강원 평창</a><br>
-						<a class="event_name">GO대관령 트레일런</a><br>
-						<a class="price">100,000원</a>
-						<a class="view">조회수 100</a>	
-					</div>
-				</td>	
-					
-				<td class="gutter"></td>
-					
-				<td>
-					<div class="container">
-					    <img class="thumbnail" src="/getspo/resources/img/thumbnail/thumbnail6.jpg" alt="">
-					    <div class="overlay">
-					       <p class="hover_text">참가신청</p>
-					    </div>
-					    <a class="event_date">2024년 8월 31일 / 충북 단양</a><br>
-						<a class="event_name">단양달빛레이스</a><br>
-						<a class="price">30,000원</a>
-						<a class="view">조회수 100</a>	
-					</div>
-				</td>	
-					
-				<td class="gutter"></td>				
-									
-				<td>
-					<div class="container">
-					    <img class="thumbnail" src="/getspo/resources/img/thumbnail/thumbnail7.jpg" alt="">
-					    <div class="overlay">
-					       <p class="hover_text">참가신청</p>
-					    </div>
-					    <a class="event_date">2024년 8월 31일 / 경북 포항</a><br>
-						<a class="event_name">포항철강마라톤</a><br>
-						<a class="price">35,000원</a>
-						<a class="view">조회수 100</a>	
-					</div>
-				</td>	
-				
-				<td class="gutter"></td>				
-				
-				<td>
-					<div class="container">
-					    <img class="thumbnail" src="/getspo/resources/img/thumbnail/thumbnail8.jpg" alt="">
-					    <div class="overlay">
-					       <p class="hover_text">참가신청</p>
-					    </div>
-					    <a class="event_date">2024년 9월 1일 / 서울 여의도</a><br>
-						<a class="event_name">스마일RUN</a><br>
-						<a class="price">50,000원</a>
-						<a class="view">조회수 100</a>	
-					</div>
-				</td>	
-			</tr>
-			
+				<c:if test="${status.index % 4 == 3}">
+				</tr>
+       			</c:if>
+			</c:forEach>
+			<c:if test="${status.count % 4 != 0}">
+		        </tr>
+		    </c:if>
 		</table>
 		</div>
 	</body>

@@ -45,6 +45,23 @@
 
       document.addEventListener('DOMContentLoaded', function() {
           addInputListeners();
+          
+
+          // 엔터 키 이벤트 리스너 추가
+          document.getElementById('user_id').addEventListener('keydown', function(event) {
+              if (event.key === 'Enter') {
+                  event.preventDefault(); // 폼 제출 방지
+                  document.querySelector('.login_btn').click(); // 로그인 버튼 클릭
+              }
+          });
+
+          document.getElementById('user_pwd').addEventListener('keydown', function(event) {
+              if (event.key === 'Enter') {
+                  event.preventDefault(); // 폼 제출 방지
+                  document.querySelector('.login_btn').click(); // 로그인 버튼 클릭
+              }
+          });
+          
       });
       
       /* Warning 메세지 */

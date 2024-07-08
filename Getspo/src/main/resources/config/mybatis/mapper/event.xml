@@ -92,4 +92,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	update getspo_event set event_viewcount = event_viewcount + 1 where event_idx = #{event_idx}
 </update>
 
+<!-- 다가오는 행사 리스트 -->
+<select id="fast_event" resultType="event">
+	SELECT * FROM getspo_event WHERE event_h_start >= TRUNC(SYSDATE)
+	ORDER BY event_h_start ASC
+</select>
+
+ 
 </mapper>
+
+
+
+
+
+
+
+
+
+
+
+

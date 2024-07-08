@@ -233,10 +233,10 @@
             <div class="apply_box">
                 <div class="apply_category">
                     <a href="javascript:" onclick="location.href='sports_view.do'" id="sports"><!-- 스포츠종목 카테고리 전체보기 컨트롤러 추가 필요-->
-                        <span>러닝</span><!-- ${vo.category_sports} -->
+                        <span>${event.event_sports_idx}</span><!-- ${vo.category_sports} -->
                     </a>
                     <a href="javascript:" onclick="location.href='sports_view.do'" id="loc"><!-- 지역 카테고리 전체보기 컨트롤러 추가 필요-->
-                        <span>서울</span><!-- ${vo.category_loc} -->
+                        <span>${event.event_loc}</span><!-- ${vo.category_loc} -->
                     </a>
                 </div>
                 
