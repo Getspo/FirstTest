@@ -59,7 +59,7 @@ public class EventDAO {
 	}
 
 	// 전체 이벤트 조회
-	public List<EventVO> allevents() {
+	public List<EventVO> allevents(Map<String, Object>map) {
 		return sqlSession.selectList("e.allevents");
 	}
 
@@ -91,6 +91,12 @@ public class EventDAO {
 	// 다가오는 행사 리스트
 	public List<EventVO> fastevent() {
 		return sqlSession.selectList("e.fast_event");
+	}
+	
+	//전체 이벤트 목록 수[0708]
+	public int getRowTotal(Map<String, Object> map) {
+		int count = sqlSession.selectOne("e.event_count", map);
+		return count;
 	}
 
 }

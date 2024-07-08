@@ -21,7 +21,8 @@
                alert("검색할 내용을 입력하세요");
                return;
             }
-            location.href="event_list.do?search_text="+encodeURIComponent(search_text);
+            location.href="event_list.do?search_text="+encodeURIComponent(search_text)+
+			"&page=1";
          }//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
       </script>
    </head>
@@ -36,8 +37,7 @@
          </div>
          
          <div class="left">
-            <input type="text" id="search_text"
-                  class="searchbox" placeholder="검색어를 입력해주세요.">&nbsp;
+            <input type="text" id="search_text" class="searchbox" placeholder="검색어를 입력해주세요.">&nbsp;
             <a  href="javascript:" onclick="search();">
                <img src="/getspo/resources/img/logo/돋보기아이콘.png" class="searchbutton">
             </a>

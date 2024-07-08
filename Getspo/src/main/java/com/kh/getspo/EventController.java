@@ -7,8 +7,9 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-
+import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.ServletContext;
@@ -53,35 +54,57 @@ public class EventController {
 	public EventController(EventDAO event_dao) {
 		this.event_dao = event_dao;
 	}
-	
-			
 
-	//행사 전체보기
+	// 행사 전체보기 [07/08]
 	@RequestMapping("/event_list.do")
-	public String event_list(Model model, String page) {
+	public String event_list(Model model, String page, String search_text) {
 		int nowPage = 1;
 		if (page != null && !page.isEmpty()) {
 			nowPage = Integer.parseInt(page);
 		}
-		// 한 페이지당 게시물 수
-		int rowTotal = event_dao.allevents().size(); // 전체 게시글 수
-		int totalPage = (int) Math.ceil((double) rowTotal / Common.Board.BLOCKLIST); // 전체 페이지 수 계산
-
-		// 시작과 끝 인덱스 계산
+		// 한 페이지에 표시되는 게시물의 시작과 끝 번호를 계산
+		// ?page=2
 		int start = (nowPage - 1) * Common.Board.BLOCKLIST + 1;
-		int end = Math.min(start + Common.Board.BLOCKLIST - 1, rowTotal); // 끝 인덱스를 전체 게시글 수를 넘지 않도록 조정
+		int end = start + Common.Board.BLOCKLIST - 1;
 
-		// 실제 이벤트 데이터를 생성
-		// 전체 이벤트 목록에서 현재 페이지에 해당하는 데이터만 가져오기 위해 subList 사용
-		List<EventVO> events = event_dao.allevents();
+		// start, end변수를 Map에 저장
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("start", start);
+		map.put("end", end);
 
-		// 페이징 처리 문자열 생성
-		String pageMenu = Paging.getPaging("event_list.do", nowPage, rowTotal, Common.Board.BLOCKLIST,
+		// 검색할 내용이 있는 경우
+		if (search_text != null && !search_text.equals("")) {
+			if (search_text.equals("event_name")) {
+				map.put("event_name", search_text);
+
+			} else if (search_text.equals("event_ticketname")) {
+				map.put("event_ticketname", search_text);
+
+			} else if (search_text.equals("event_content")) {
+				map.put("event_content", search_text);
+			} else if (search_text.equals("event_addr")) {
+				map.put("event_addr", search_text);
+			}
+
+		}
+
+		// 전체 이벤트 목록 가져오기 및 검색 목록
+		List<EventVO> events = event_dao.allevents(map);
+		
+		// 전체 이벤트 수 가져오기
+		int row_Total = event_dao.getRowTotal(map);
+		
+		// 페이지 메뉴 생성
+		String search_param = String.format("search_text=%s", search_text);
+		String pageMenu = Paging.getPaging("event_list.do", nowPage, row_Total, 
+				search_param,
+				Common.Board.BLOCKLIST,
 				Common.Board.BLOCKPAGE);
-
+				
+		
+		
 		// 모델에 데이터 추가
 		model.addAttribute("events", events);
-		model.addAttribute("totalEvent", rowTotal);// 전체 이벤트 수
 		model.addAttribute("pageMenu", pageMenu);
 		model.addAttribute("nowPage", nowPage); // 현재 페이지 번호 추가
 
@@ -89,7 +112,7 @@ public class EventController {
 		return Common.Event.VIEW_PATH + "event_list.jsp";
 	}
 
-	//행사 상세보기 페이지
+	// 행사 상세보기 페이지
 	@RequestMapping("/event_detail.do")
 	public String eventDetail(@RequestParam("event_idx") int event_idx, Model model) {
 		// 해당 이벤트정보 가져오기
@@ -128,13 +151,13 @@ public class EventController {
 		return Common.Event.VIEW_PATH + "event_detail.jsp";
 	}
 
-	//행사 개설 페이지
+	// 행사 개설 페이지
 	@RequestMapping("/event_new.do")
 	public String event_form() {
 		return Common.Event.VIEW_PATH + "event_new.jsp";
 	}
 
-	//행사 개설하기
+	// 행사 개설하기
 	@RequestMapping("/event_insert.do")
 	public String event_insert(@ModelAttribute EventVO vo,
 			@RequestParam("start_date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
@@ -210,8 +233,8 @@ public class EventController {
 
 		return "redirect:hostMain.do";
 	}
-	
-	//썸머노트
+
+	// 썸머노트
 	@RequestMapping(value = "/uploadSummernoteImageFile", produces = "application/json; charset=utf8")
 	@ResponseBody
 	public String uploadSummernoteImageFile(@RequestParam("file") MultipartFile multipartFile,
@@ -231,7 +254,7 @@ public class EventController {
 		try (InputStream fileStream = multipartFile.getInputStream()) {
 			// 파일 저장
 			FileUtils.copyInputStreamToFile(fileStream, targetFile);
-			jsonObject.addProperty("url", request.getContextPath() + "/resources/fileupload/" + savedFileName); 																								
+			jsonObject.addProperty("url", request.getContextPath() + "/resources/fileupload/" + savedFileName);
 			jsonObject.addProperty("responseCode", "success");
 		} catch (IOException e) {
 			// 저장된 파일 삭제
@@ -243,7 +266,7 @@ public class EventController {
 		return jsonObject.toString();
 	}
 
-	//행사 신청하기
+	// 행사 신청하기
 	@RequestMapping("/event_apply.do")
 	public String event_apply() {
 		return Common.Event.VIEW_PATH + "event_apply.jsp";
