@@ -19,5 +19,9 @@
 		<constructor-arg ref="sqlSessionBean"/>
 	</bean>
 	
+	<bean id="order_daoBean" class="dao.OrderDAO">
+		<constructor-arg ref="sqlSessionBean"/>
+	</bean>
+	
 	
 </beans>

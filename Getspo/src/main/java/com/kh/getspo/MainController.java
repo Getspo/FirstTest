@@ -58,51 +58,71 @@ public class MainController {
 	}
 
 	// 메인페이지
-	@RequestMapping(value = { "/", "main.do" })
-	public String Main(Model model) {
-		//다가오는 행사 리스트
-		List<EventVO> events = event_dao.fastevent();
-		
-		model.addAttribute("events", events);
-		
-		
-		return Common.Main.VIEW_PATH + "main.jsp";
-	}
-
-	// 호스트페이지
-	@RequestMapping("/hostMain.do")
-	public String hostMain(Model model) {
-		try {
-			UserVO user = (UserVO) session.getAttribute("user");
-			if (user != null) {
-				List<EventVO> events = event_dao.selectEventByUser(user.getUser_idx());
-				model.addAttribute("events", events);
-			}
-		} catch (Exception e) {
-			// TODO: handle exception
+		@RequestMapping(value = { "/", "main.do" })
+		public String Main(Model model) {
+			//다가오는 행사 리스트
+			List<EventVO> events = event_dao.fastevent();
+			model.addAttribute("events", events);
+			
+			return Common.Main.VIEW_PATH + "main.jsp";
 		}
-		return Common.Host.VIEW_PATH + "host.jsp";
-	}
 
-	// 호스트이벤트관리
-	@RequestMapping("/host_event_management.do")
-	public String host_event_management(@RequestParam("event_idx") int event_idx, Model model) {
+		// 호스트페이지
+		@RequestMapping("/hostMain.do")
+		public String hostMain(Model model) {
+			try {
+				UserVO user = (UserVO) session.getAttribute("user");
+				if (user != null) {
+					List<EventVO> events = event_dao.selectEventByUser(user.getUser_idx());
+					model.addAttribute("events", events);
+				}
+			} catch (Exception e) {
+				// TODO: handle exception
+				e.printStackTrace();
+			}
+			return Common.Host.VIEW_PATH + "host.jsp";
+		}
+		
+		// 7/9수정
+		// 호스트이벤트관리
+		@RequestMapping("/host_event_management.do")
+		public String host_event_management(@RequestParam("event_idx") int event_idx, Model model) {
 
-		// 해당 이벤트 정보 가져오기
-		EventVO event = event_dao.eventByIdx(event_idx);
-		model.addAttribute("event", event);
+		    try {
+		        // 해당 이벤트 정보 가져오기
+		        EventVO event = event_dao.eventByIdx(event_idx);
+		        model.addAttribute("event", event);
+		        
+		        UserVO user = (UserVO) session.getAttribute("user");
+		        if (user != null) {
+		        	List<EventVO> events = event_dao.selectEventByUser(user.getUser_idx());
+		        	model.addAttribute("events", events);
+		        }
+		    } catch (Exception e) {
+		        // 예외 처리
+		        e.printStackTrace();
+		    }
+		    return Common.Host.VIEW_PATH + "host_event_management.jsp";
+		}
+		
+		// 7/9수정
+	    // 호스트사이드바에서 이벤트 목록 조회 메소드
+	    @RequestMapping("/getEventList")
+	    public String getEventList(Model model) {
+	        // 내 행사 리스트
+	        List<EventVO> events = event_dao.fastevent();
+	        model.addAttribute("events", events);
+	        return Common.Host.VIEW_PATH + "host_sidebar.jsp";
+	    }
 
-		return Common.Host.VIEW_PATH + "host_event_management.jsp";
-	}
-
-	// 7/4 수정
-	// 호스트이벤트수정폼으로 이동
-	@RequestMapping("/host_event_modify.do")
-	public String host_event_modify(@RequestParam("event_idx") int event_idx, Model model) {
-		EventVO event = event_dao.eventByIdx(event_idx);
-		model.addAttribute("event", event);
-		return Common.Host.VIEW_PATH + "host_event_modify.jsp";
-	}
+		// 7/4 수정
+		// 호스트이벤트수정폼으로 이동
+		@RequestMapping("/host_event_modify.do")
+		public String host_event_modify(@RequestParam("event_idx") int event_idx, Model model) {
+			EventVO event = event_dao.eventByIdx(event_idx);
+			model.addAttribute("event", event);
+			return Common.Host.VIEW_PATH + "host_event_modify.jsp";
+		}
 
 	@RequestMapping("/host_event_update.do")
 	public String host_event_update(@ModelAttribute EventVO vo,
@@ -167,41 +187,37 @@ public class MainController {
 		return "host_event_management.do";
 	}
 
-	@RequestMapping(value = "/hostuploadSummernoteImageFile", produces = "application/json; charset=utf8")
-	@ResponseBody
-	public String uploadSummernoteImageFile(@RequestParam("file") MultipartFile multipartFile,
-			HttpServletRequest request) {
-		JsonObject jsonObject = new JsonObject();
+	// 썸머노트
+		@RequestMapping(value = "/hostuploadSummernoteImageFile", produces = "application/json; charset=utf8")
+		@ResponseBody
+		public String uploadSummernoteImageFile(@RequestParam("file") MultipartFile multipartFile,
+				HttpServletRequest request) {
+			JsonObject jsonObject = new JsonObject();
 
-		// 내부경로로 저장
-		String contextRoot = new HttpServletRequestWrapper(request).getRealPath("/");
-		String fileRoot = contextRoot + "resources/fileupload/";
-		System.out.println("파일루트 경로: " + fileRoot);
+			// 내부경로로 저장
+			String contextRoot = new HttpServletRequestWrapper(request).getRealPath("/");
+			String fileRoot = contextRoot + "resources/fileupload/";
+			System.out.println("파일루트 경로: " + fileRoot);
 
-		String originalFileName = multipartFile.getOriginalFilename(); // 오리지날 파일명
-		String extension = originalFileName.substring(originalFileName.lastIndexOf(".")); // 파일 확장자
-		String savedFileName = UUID.randomUUID() + extension; // 저장될 파일 명
+			String originalFileName = multipartFile.getOriginalFilename(); // 오리지날 파일명
+			String extension = originalFileName.substring(originalFileName.lastIndexOf(".")); // 파일 확장자
+			String savedFileName = UUID.randomUUID() + extension; // 저장될 파일 명
 
-		File targetFile = new File(fileRoot + savedFileName);
-		try (InputStream fileStream = multipartFile.getInputStream()) {
-			// 파일 저장
-			FileUtils.copyInputStreamToFile(fileStream, targetFile);
-			jsonObject.addProperty("url", request.getContextPath() + "/resources/fileupload/" + savedFileName); // contextroot
-																												// +
-																												// resources
-																												// + 저장할
-																												// 내부
-																												// 폴더명
-			jsonObject.addProperty("responseCode", "success");
-		} catch (IOException e) {
-			// 저장된 파일 삭제
-			FileUtils.deleteQuietly(targetFile);
-			jsonObject.addProperty("responseCode", "error");
-			e.printStackTrace();
+			File targetFile = new File(fileRoot + savedFileName);
+			try (InputStream fileStream = multipartFile.getInputStream()) {
+				// 파일 저장
+				FileUtils.copyInputStreamToFile(fileStream, targetFile);
+				jsonObject.addProperty("url", request.getContextPath() + "/resources/fileupload/" + savedFileName);
+				jsonObject.addProperty("responseCode", "success");
+			} catch (IOException e) {
+				// 저장된 파일 삭제
+				FileUtils.deleteQuietly(targetFile);
+				jsonObject.addProperty("responseCode", "error");
+				e.printStackTrace();
+			}
+
+			return jsonObject.toString();
 		}
-
-		return jsonObject.toString();
-	}
 
 	// 호스트페이지에서 참가자확인페이지 이동(0703 추가)
 	@RequestMapping("/register_list.do")

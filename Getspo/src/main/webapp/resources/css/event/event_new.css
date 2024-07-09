@@ -231,7 +231,7 @@
 }
 
 /*------------ 경고 메세지-------------- */
-#eventSportCtWarning, #eventLocWarning, #contactTelWarning, #endDateWarning, #applyEndDateWarning, #eventNameWarning{
+#contactTelWarning, #endDateWarning, #applyEndDateWarning, #totalWarning{
     font-size: 12px; /* 원하는 크기로 조정 */
     color: red; /* 경고 색상 */
 }

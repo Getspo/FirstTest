@@ -12,6 +12,7 @@ import java.util.regex.Pattern;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.multipart.MultipartFile;
 
 import vo.EventVO;
@@ -19,6 +20,7 @@ import vo.EventVO;
 
 public class EventDAO {
 	
+	@Autowired
 	SqlSession sqlSession;
 	
 	public EventDAO(SqlSession sqlSession) {

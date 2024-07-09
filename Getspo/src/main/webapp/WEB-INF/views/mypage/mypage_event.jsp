@@ -11,8 +11,8 @@
 </head>
 
 <body>
-	<div class="contents_div1">
-		<h3>참가 행사 목록</h3>
+	<div class="content_event">
+		<h2>참가 행사 목록</h2>
 	
 		<div>
 			<c:if test="${not empty events}">

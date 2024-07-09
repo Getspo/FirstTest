@@ -1,113 +1,304 @@
 @charset "UTF-8";
+
 *{
-	margin: 0;
-	padding: 0;
+   margin: 0;
+   padding: 0;
+   font-family: "Noto Sans KR", sans-serif;
 }
 
+/* 메뉴별 페이지 화면 공통 설정 */
 .container {
     width: 1200px;
     margin: 100px auto;
 }
 
-.ul_div {
+/* 참여행사 화면 설정 */
+.content_event {
+   width: 918px;
+   float: right;
+   padding: 30px;
+   min-height: 200px;
+}
+
+/* 정보수정, 회원탈퇴 화면 설정 */
+.content_modify {
+   width: 918px;
+   float: right;
+   padding: 30px;
+   min-height: 200px;
+   display: none;
+}
+
+/* 회원탈퇴 화면 설정 */
+.content_withdraw {
+   width: 918px;
+   float: right;
+   padding: 30px;
+   min-height: 200px;
+   display: none;
+}
+
+/* ------------------------------ 마이페이지메뉴 ------------------------------ */
+
+.mypage_menu {
     width: 200px;
     height: 200px;
     position: fixed;
     float: left;
-    background-color: ivory;
     border: none;
     padding: 10px;
 }
 
-.contents_div1 {
-	width: 918px;
-	float: right;
-	padding: 30px;
-	border: 1px dashed #0099bc;
-	min-height: 200px;
+.mypage_menu{
+   margin-top: 10px;
+   padding: 20px;
 }
 
-.contents_div2 {
-	width: 918px;
-	float: right;
-	padding: 30px;
-	border: 1px dashed #0099bc;
-	min-height: 200px;
-	display: none;
-}
-.contents_div3 {
-	width: 918px;
-	float: right;
-	padding: 30px;
-	border: 1px dashed #0099bc;
-	min-height: 200px;
-	display: none;
-}
-
-.ul_div ul {
-	list-style-type: none;
-	padding: 0;
+.mypage_menu ul {
+   list-style-type: none;
+   padding: 0;
 }
 
 h2 {
-	color: #0099bc;
-	margin-bottom: 10px;
+   margin-bottom: 10px;
 }
 
-.ul_div ul li {
-	margin-bottom: 10px;
+.mypage_menu ul li {
+   margin-bottom: 10px;
 }
 
-.ul_div ul li a {
-	display: block;
-	padding: 5px 10px;
-	text-decoration: none;
-	color: #333;
-	border-radius: 5px;
-	cursor: pointer;
+.mypage_menu ul li a {
+   display: block;
+   padding: 5px 10px;
+   text-decoration: none;
+   color: #333;
+   border-radius: 5px;
+   cursor: pointer;
 }
 
-.ul_div ul li a:hover {
-	background-color: skyblue;
+.mypage_menu ul li a:hover {
+   background-color: skyblue;
 }
+
+/* -------------------------------- 참가행사 -------------------------------- */
+
 .menu li a.clicked {
-	color: white;
-	text-shadow: 0 0 15px magenta;
+   color: white;
+   text-shadow: 0 0 15px magenta;
 }
 .tr{
-	height: 50%;
+   height: 50%;
 }
 
 .recommend {
-	width: 350px;
+   width: 350px;
     height: 350px;
     margin: 30px;
 }
 
 .thumbnail {
-	width: 250px;
+   width: 250px;
     height: 200px;
 }
 
 .information {
-	margin: 30px;
+   margin: 30px;
 }
 
+/* -------------------------------- 정보수정 -------------------------------- */
+
 .inp{
-	width: 300px;
-	margin-bottom: 30px;
+   width: 300px;
+   height: 10px;
+   padding: 14px 12px;
+   margin-top:5px;   
+   font-size: 15px;
+   margin-bottom: 25px;
 }
+
+input[type="text"], 
+input[type="tel"],
+input[type="date"],
+input[type="password"]{
+   border: 1px solid #ccc;
+   border-radius: 4px;
+}
+
+input[type="text"]:focus, 
+input[type="tel"]:focus,
+input[type="date"]:focus,
+input[type="password"]:focus{
+   transition: box-shadow 0.2s ease, border 0.1s ease; /* 부드러운 전환 효과 */
+   border: 2px solid #0099bc; /* 포커스 시 테두리 색상 */
+   outline: none; /* 기본 포커스 효과 제거 */
+}
+
+#user_email{
+   font-size: 15px;
+   color:#878D91;
+   margin-top: -10px;
+}
+
+.addr_group{
+   margin-bottom: 20px;
+   margin-top:-13px;
+}
+
 .addrinp{
-	width: 300px;
-	margin-bottom: 10px;
+   width: 300px;
+   height: 10px;
+   padding: 12px 10px;
+   margin-bottom: 10px;
+   font-size: 15px;
 }
-.btn{
-	width: 50px;
+
+/* 주소 찾기 버튼 */
+.btn {
+   width: 50px;
+   height: 25px;
+   margin-left: 241px;
+   background-color: white;
+   color: #0099bc;
+   border: 1px solid #0099bc;
+   border-radius: 4px;
 }
-.last_btn{
-	width: 50px;
-	margin-bottom: 10px;
+
+/* 취소 버튼 */
+#cancel_btn {
+    width: 80px;
+    height: 38px;    
+    margin-bottom: 10px;
+    background-color: white;
+    color: #878D91;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 15px;
+    padding: 0 10px;
+    margin-right: 30px;
+    cursor: pointer;
 }
-.last_btn_div{
-	margin-left: 95px;
+
+#cancel_btn:active {
+    background-color: #ddd;
+    border-color: #bbb;
+}
+
+/* 확인 버튼 */
+#ok_btn {
+    width: 80px;
+    height: 38px;    
+    margin-bottom: 10px;
+    background-color: #0099bc;
+    color: white;
+    border: 1px solid #0099bc;
+    border-radius: 4px;
+    font-size: 15px;
+    padding: 0 10px;
+    cursor: pointer;
+}
+
+#ok_btn:active {
+    background-color: #007a99;
+    border-color: #007a99;
+}
+
+
+/* -------------------------------- 회원탈퇴 -------------------------------- */
+.content_withdraw h3{
+   margin-top: 15px;
+}   
+
+.ment {
+   font-size: 14px;
+   margin: 30px 0 0 0;
+}
+
+.Guidelines {
+   background-color: #FCFCFC;
+   padding: 48px;
+   border: 1px solid #ccc;
+   border-radius: 4px;
+   margin-top: 40px;
+}
+
+.Guide_first {
+   margin: 0 0 10px;
+   font-size: 13px;
+}
+
+.Guide {
+   margin: 12px 0 10px;
+   font-size: 13px;
+}
+
+.Guide_last {
+   margin: 12px 0 0;
+   font-size: 13px;
+}
+
+.withdraw_input {
+   margin-bottom: 50px;
+   text-align: left; /* 입력 필드는 왼쪽 정렬 유지 */
+}
+
+.agree {
+    display: flex;
+    align-items: center;
+    margin: 16px 0 0;
+}
+
+.agree input[type=checkbox] {
+   width: 15px;
+   height: 15px;
+   margin: 2px 5px 0 0;
+   padding-top:5px;
+   accent-color: #0099bc;
+}
+
+.agree label {
+   font-size: 14px;
+   cursor: pointer;
+}
+
+.pwd{
+   margin: 70px 0 0 0;
+}
+
+.pwd p{
+   font-size: 14px;
+   margin-bottom: 10px;
+}
+
+.pwd input[type=password] {
+   width: 250px;
+   height: 17px;
+   padding: 10px 15px;
+   border: 1px solid #ccc; /* 기본 테두리 색상 */
+      border-radius: 4px; /* 모서리  */
+      outline: none;
+}
+
+.pwd input[type=password]:focus{
+   border: 2px solid #0099bc;
+}   
+
+/* 회원탈퇴 버튼 */
+.pwd input[type=button] {
+    width: 100px;
+    height: 38px;    
+    background-color: #0099bc;
+    color: white;
+    border: 1px solid #0099bc;
+    border-radius: 4px;
+    font-size: 14px;
+    float: right;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.pwd input[type=button]:active {
+    background-color: #007a99;
+    border-color: #007a99;
 }

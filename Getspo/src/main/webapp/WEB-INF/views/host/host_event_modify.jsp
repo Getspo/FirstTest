@@ -47,7 +47,7 @@
    <body>
 	<jsp:include page="host_navigation.jsp"/>
 	<jsp:include page="host_sidebar.jsp"/>
-    <form class="new_event_form" method="post" action="host_event_update.do" enctype="multipart/form-data">
+    <form id="eventForm" class="new_event_form" method="post" action="host_event_update.do" enctype="multipart/form-data">
     	<input type="hidden" name="event_idx" value="${event.event_idx}">
             <div class="form-group">
                 <h2>구상 중인 행사를 개설해보세요! </h2>
@@ -55,16 +55,16 @@
 
             <div class="form-group" id="event_category_group">
                 <h5>카테고리</h5>
-                <select id="event_sport_idx" name="event_sports_idx">
-                    <option selected disabled>종목 선택</option>
+                <select id="event_sport_idx" name="event_sports_idx" required>
+                    <option value="" disabled selected>종목 선택</option>
                     <option value="1">러닝</option>
                     <option value="2">철인3종</option>
                     <option value="3">기타</option>
                 </select>
                 
                 <!-- 07/04 value변경 -->
-                <select id="category_loc" name="event_loc">
-                    <option selected disabled>지역 선택</option>
+                <select id="category_loc" name="event_loc" required>
+                    <option value="" disabled selected>지역 선택</option>
                     <option value="서울">서울</option>
                     <option value="경기">경기</option>
                     <option value="인천">인천</option>
@@ -94,13 +94,14 @@
                 <h5>행사 기간</h5>
                 <div>
                     <p class="start_date">시작 날짜</p>
-                    <input type="date" id="start_date" name="start_date">
-                    <input type="time" id="start_time" name="start_time">
+                    <input type="date" id="start_date" name="start_date" required>
+                    <input type="time" id="start_time" name="start_time" required>
                 </div>
                 <div>
                     <p class="end_date">종료 날짜 </p> 
-                    <input type="date" id="end_date" name="end_date">
-                    <input type="time" id="end_time" name="end_time">
+                    <input type="date" id="end_date" name="end_date" required>
+                    <input type="time" id="end_time" name="end_time" required>
+                    <span id="endDateWarning"></span>
                 </div>
                 <p id="comment">* 종료날짜는 시작날짜 보다 뒤로 설정해주세요!</p>
              </div>    
@@ -109,13 +110,15 @@
                 <h5>모집 기간</h5>
                 <div>
                     <p class="start_date">시작 날짜</p>
-                    <input type="date" id="apply_start_date" name="apply_start_date">
-                    <input type="time" id="apply_start_time" name="apply_start_time">
+                    <input type="date" id="apply_start_date" name="apply_start_date" required>
+                    <input type="time" id="apply_start_time" name="apply_start_time" required>
                 </div>
                 <div>
                     <p class="end_date">종료 날짜 </p> 
-                    <input type="date" id="apply_end_date" name="apply_end_date">
-                    <input type="time" id="apply_end_time" name="apply_end_time">
+                    <input type="date" id="apply_end_date" name="apply_end_date" required>
+                    <input type="time" id="apply_end_time" name="apply_end_time" required>
+                    <span id="applyEndDateWarning"></span>
+                    <span id="totalWarning"></span>
                 </div>
                 <p id="comment">* 종료날짜는 시작날짜 보다 뒤로 설정해주세요!</p>
             </div>
@@ -203,17 +206,19 @@
                   </span>
             </div>    
             
-         <div class="form-group" id="event_pay_group">
+          <div class="form-group" id="event_pay_group">
             <h5>결제방식</h5>
             <div class="radio-group">
-               <input type="radio" id="free" name="event_paymethod" value="free" required>
+               <input type="radio" id="free" name="event_paymethod" value="free" required checked="checked">
+               <c:if test="${event.event_paymethod eq 'free'}"></c:if>
                <label for="free">무료</label>
-               <input type="radio" id="paid" name="event_paymethod" value="paid" required>
+               <input type="radio" id="paid" name="event_paymethod" value="paid" required checked="checked">
+               <c:if test="${event.event_paymethod eq 'paid'}"></c:if>
                <label for="paid">유료</label>
             </div>
             
          <div class="paid_choice" id="paid_choice">
-               <select id="bank" name="event_bank">
+               <select id="bank" name="event_bank" value="${event.event_bank}">
                 <option value="" disabled selected>은행 선택</option>
                 <option value="kookmin">국민은행</option>
                 <option value="shinhan">신한은행</option>
@@ -235,9 +240,11 @@
                
              <div class="radio-group">
              <p>잔여수량</p>   
-                 <input type="radio" id="remain_open" name="event_ticket_open" value="open" required>
+                 <input type="radio" id="remain_open" name="event_ticket_open" value="open" required checked="checked">
+                 <c:if test="${event.event_ticket_open eq 'open'}"></c:if>
                  <label for="remain_open">공개</label>
-                 <input type="radio" id="remain_close" name="event_ticket_open" value="close" required>
+                 <input type="radio" id="remain_close" name="event_ticket_open" value="close" required checked="checked">
+                 <c:if test="${event.event_ticket_open eq 'close'}"></c:if>
                  <label for="remain_close">비공개</label>
              </div>
             </div>   
@@ -249,7 +256,8 @@
                 <p>이메일 주소</p>
                 <input id="contact_email" name="event_contact_email" type="text" value="${event.event_contact_email}" required>
                 <p>전화번호</p>
-                <input id="contact_tel" name="event_contact_tel" type="text" value="${event.event_contact_tel}" required>
+                <input id="contact_tel" name="event_contact_tel" type="text" placeholder="(010)-0000-0000" value="${event.event_contact_tel}" required>
+                <span id="contactTelWarning"></span>
             </div>
              
                       
@@ -267,7 +275,7 @@
 			        height: 500, // 에디터 높이
 			        minHeight: null, // 최소 높이
 			        maxHeight: null, // 최대 높이
-			        focus: true, // 에디터 로딩 후 포커스 설정
+			        focus: false, // 에디터 로딩 후 포커스 설정
 			        lang: 'ko-KR', // 언어 설정 (한국어)
 			        toolbar: [
 			            ['style', ['style']], // 글자 스타일 설정 옵션
@@ -366,39 +374,47 @@
 			    });
 			}
       
-            /* 결제방식에 따른 티켓 금액 입력창 활성화/비활성화 함수 */
-               document.addEventListener('DOMContentLoaded', function() {
-                   const freeRadio = document.getElementById('free');
-                   const paidRadio = document.getElementById('paid');
-                   const paidChoice = document.getElementById('paid_choice');
-                   const ticketAmount = document.getElementById('ticket_amount');
-   
-                   freeRadio.addEventListener('change', function() {
-                       if (freeRadio.checked) {
-                           paidChoice.style.display = 'none';
-                           paidChoice.querySelectorAll('input, select').forEach(input => {
-                               input.value = '';
-                               input.required = false;
-                           });
-                           ticketAmount.disabled = true;
-                           ticketAmount.value = '';
-                           
-                           ticketAmount.classList.add('disabled-input');
-                       }
-                   });
-   
-                   paidRadio.addEventListener('change', function() {
-                       if (paidRadio.checked) {
-                           paidChoice.style.display = 'block';
-                           paidChoice.querySelectorAll('input, select').forEach(input => {
-                               input.required = true;
-                           });
-                           ticketAmount.disabled = false;
-                           
-                           ticketAmount.classList.remove('disabled-input');
-                       }
-                   });
-               });
+			/* 결제방식에 따른 티켓 금액 입력창 활성화/비활성화 함수 */
+            document.addEventListener('DOMContentLoaded', function() {
+                const freeRadio = document.getElementById('free');
+                const paidRadio = document.getElementById('paid');
+                const paidChoice = document.getElementById('paid_choice');
+                const ticketAmount = document.getElementById('ticket_amount');
+
+                freeRadio.addEventListener('change', function() {
+                    if (freeRadio.checked) {
+                 	   paidChoice.style.display = 'block';
+                 	   paidChoice.querySelectorAll('input, select').forEach(input => {
+                            
+                     	   input.value = '';
+                            input.required = false;
+                            input.disabled = true;
+                        });
+                        ticketAmount.disabled = true;
+                        ticketAmount.value = '';
+                        ticketAmount.classList.add('disabled-input');
+                    }
+                });
+
+                paidRadio.addEventListener('change', function() {
+                    if (paidRadio.checked) {
+                 	   paidChoice.style.display = 'block';
+                 	   paidChoice.querySelectorAll('input, select').forEach(input => {
+                            input.required = true;
+                            input.disabled = false;
+                        });
+                        ticketAmount.disabled = false;
+                        ticketAmount.classList.remove('disabled-input');
+                    }
+                });
+
+                // Initialize the form based on the initial state of the radio buttons
+                if (freeRadio.checked) {
+                    freeRadio.dispatchEvent(new Event('change'));
+                } else if (paidRadio.checked) {
+                    paidRadio.dispatchEvent(new Event('change'));
+                }
+            });
             
             /* 참가자 정보 모집 새 항목 추가 함수 */
                function addNewItem() {
@@ -529,6 +545,56 @@
 				        }
 				    }
 				});
+               
+               //유효성 검사
+               document.getElementById('eventForm').addEventListener('submit', function(event) {
+                   const startDate = new Date(document.getElementById('start_date').value);
+                   const endDate = new Date(document.getElementById('end_date').value);
+                   const applyStartDate = new Date(document.getElementById('apply_start_date').value);
+                   const applyEndDate = new Date(document.getElementById('apply_end_date').value);
+                   const contactTel = document.getElementById('contact_tel').value;
+                   
+                   const endDateWarning = document.getElementById('endDateWarning');
+                   const applyEndDateWarning = document.getElementById('applyEndDateWarning');
+                   const totalWarning = document.getElementById('totalWarning');
+                   const contactTelWarning = document.getElementById('contactTelWarning');
+				   
+                   let valid = true;
+               	   
+                   if (startDate && endDate && endDate < startDate) {
+                	   endDateWarning.textContent = "행사 종료 날짜는 시작 날짜 이후여야 합니다";
+                	   valid = false;
+                   }else {
+                       endDateWarning.textContent = "";
+                   }
+
+                   if (applyStartDate && applyEndDate && applyEndDate < applyStartDate) {
+                	   applyEndDateWarning.textContent = "모집 종료 날짜는 시작 날짜 이후여야 합니다";
+                	   valid = false;
+                   }else {
+                       applyEndDateWarning.textContent = "";
+                   }
+
+                   if (applyStartDate && startDate && (applyStartDate > startDate || applyEndDate > startDate)) {
+                       totalWarning.textContent = "모집 날짜는 행사 시작 날짜 이전이어야 합니다";
+                       valid = false;
+                   } else {
+                	   totalWarning.textContent = "";
+                   }
+                   
+                   let telpattern = /^\d{3}-\d{4}-\d{4}$/;
+                   if (!telpattern.test(contactTel)) {
+                	   contactTelWarning.textContent = "올바른 전화번호를 입력하세요";
+                	   valid = false;
+                   } else {
+                       contactTelWarning.textContent = "";
+                       console.log("올바른 전화번호");
+                   }
+                   if (!valid) {
+                       event.preventDefault();
+                   }
+                   
+               });
                
                          	
                /* 삭제 버튼 보류

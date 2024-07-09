@@ -13,7 +13,8 @@
 		<typeAlias type="vo.EventVO" alias="event"/>
 		<typeAlias type="vo.UserVO" alias="user"/>
 		<typeAlias type="vo.PasswordResetTokenVO" alias="reset"/>
-		<typeAlias type="vo.EventVO" alias="event"/>
+		<typeAlias type="vo.OrderVO" alias="order"/>
+		<typeAlias type="vo.PayVO" alias="pay"/>
 	</typeAliases>
 	
 	<mappers>
@@ -21,5 +22,6 @@
 		<mapper resource="config/mybatis/mapper/user.xml" />
 		<mapper resource="config/mybatis/mapper/passwordresettoken.xml" />
 		<mapper resource="config/mybatis/mapper/event.xml" />
+		<mapper resource="config/mybatis/mapper/order.xml" />
 	</mappers>
 </configuration>

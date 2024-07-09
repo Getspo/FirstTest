@@ -35,11 +35,13 @@ body, html {
 
 .logo {
     display: inline-block;
+
 }
 
 .logo_img {
     width: 100px;
     height: 70px;
+    cursor: pointer;
 }
 
 .right {

@@ -116,6 +116,7 @@
                     <input type="date" id="apply_end_date" name="apply_end_date" required>
                     <input type="time" id="apply_end_time" name="apply_end_time" required>
                     <span id="applyEndDateWarning"></span>
+                    <span id="totalWarning"></span>
                 </div>
                 <p id="comment">* 종료날짜는 시작날짜 보다 뒤로 설정해주세요!</p>
             </div>
@@ -507,36 +508,41 @@
                    const endDate = new Date(document.getElementById('end_date').value);
                    const applyStartDate = new Date(document.getElementById('apply_start_date').value);
                    const applyEndDate = new Date(document.getElementById('apply_end_date').value);
-                   const contactTel = new Date(document.getElementById('contact_tel').value);
-	
+                   const contactTel = document.getElementById('contact_tel').value;
+				   
+                   let valid = true;
                	   
                    if (startDate && endDate && endDate < startDate) {
                 	   endDateWarning.textContent = "행사 종료 날짜는 시작 날짜 이후여야 합니다";
-                       event.preventDefault();
+                	   valid = false;
                    }else {
                        endDateWarning.textContent = "";
                    }
 
                    if (applyStartDate && applyEndDate && applyEndDate < applyStartDate) {
                 	   applyEndDateWarning.textContent = "모집 종료 날짜는 시작 날짜 이후여야 합니다";
-                       event.preventDefault();
+                	   valid = false;
                    }else {
                        applyEndDateWarning.textContent = "";
                    }
 
-                   if (applyEndDate && startDate && applyEndDate > startDate) {
-                	   applyEndDateWarning.textContent = "모집 날짜는 행사 시작 날짜 이전이어야 합니다";
-                       event.preventDefault();
-                   }else {
-                       applyEndDateWarning.textContent = "";
+                   if (applyStartDate && startDate && (applyStartDate > startDate || applyEndDate > startDate)) {
+                       totalWarning.textContent = "모집 날짜는 행사 시작 날짜 이전이어야 합니다";
+                       valid = false;
+                   } else {
+                	   totalWarning.textContent = "";
                    }
                    
                    let telpattern = /^\d{3}-\d{4}-\d{4}$/;
                    if (!telpattern.test(contactTel)) {
                 	   contactTelWarning.textContent = "올바른 전화번호를 입력하세요";
-                	   event.preventDefault();
+                	   valid = false;
                    } else {
                        contactTelWarning.textContent = "";
+                       console.log("올바른 전화번호");
+                   }
+                   if (!valid) {
+                       event.preventDefault();
                    }
                    
                });

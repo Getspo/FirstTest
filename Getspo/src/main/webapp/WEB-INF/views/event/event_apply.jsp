@@ -9,6 +9,15 @@
     <meta charset="UTF-8">
     <title>이벤트 신청페이지</title>
     <link rel="stylesheet" href="/getspo/resources/css/event/event_apply.css">
+    <!-- ajax -->
+	<script src="/getspo/resources/js/httpRequest.js"></script>
+	
+	<!-- 포트원결제api -->
+	<script src="https://cdn.iamport.kr/v1/iamport.js"></script>
+	
+	<!-- JQuery  -->
+	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    
     <script>
 			/* 수량 조절 버튼 */
 	        function minus(button) {
@@ -57,7 +66,98 @@
 			        });
 			    });
 			});
+	       	
+	        //신청할때
+	        function join(f){
+	        	f.method="post";
+	        	f.action="order.do";
+	        	f.submit();
+	        }
+	        
+	        //결제할때
+	        function mypayment() {
+			    IMP.init("imp03484531");
+			    IMP.request_pay({
+			        pg: "html5_inicis",
+			        pay_method: "card",
+			        name: "${event.event_name}",
+			        amount: 1, /* ${event.event_price}, */
+			        buyer_email: "${user.user_email}",
+			        buyer_name: "${user.user_name}",
+			        buyer_tel: "${user.user_tel}",
+			        buyer_addr: "${user.user_addr}${user.user_addrdetail}",
+			        buyer_postcode: "${user.user_idx}"
+			    }, function (response) {
+			        if (response.success) {
+			            console.log(response);
+			
+			            // AJAX를 사용하여 결제 정보를 서버로 전송
+			            $.ajax({
+			                type: "POST",
+			                url: "payment.do",
+			                data: {
+			                    imp_uid: response.imp_uid,
+			                    merchant_uid: response.merchant_uid,
+			                    paid_amount: response.paid_amount,
+			                    apply_num: response.apply_num,
+			                    order_idx: "${event.event_idx}",
+			                    user_idx: "${user.user_idx}"
+			                },
+			                success: function (data) {
+			                    if (data === "success") {
+			                        alert("결제가 완료되었습니다.");
+			                        
+			                        // 결제 성공 후 폼 데이터를 전송
+			                        var form = document.createElement("form");
+			                        form.method = "post";
+			                        form.action = "payafter.do";
+			
+			                        let orderGen = document.querySelector('input[name="order_gen"]:checked').value;
+			                        let orderAge = document.getElementById('age').value;
+			
+			                        var fields = [
+			                            { name: "user_idx", value: "${user.user_idx}" },
+			                            { name: "event_idx", value: "${event.event_idx}" },
+			                            { name: "order_name", value: "${user.user_name}" },
+			                            { name: "order_tel", value: "${user.user_tel}" },
+			                            { name: "order_email", value: "${user.user_email}" },
+			                            { name: "order_addr", value: "${user.user_addr}" },
+			                            { name: "order_gen", value: orderGen },
+			                            { name: "order_age", value: orderAge },
+			                            { name: "imp_uid", value: response.imp_uid } // 추가
+			                        ];
+			
+			                        fields.forEach(function(field) {
+			                            var input = document.createElement("input");
+			                            input.type = "hidden";
+			                            input.name = field.name;
+			                            input.value = field.value;
+			                            form.appendChild(input);
+			                        });
+			
+			                        document.body.appendChild(form);
+			                        form.submit();
+			                    } else {
+			                        alert("결제 처리에 실패했습니다. 관리자에게 문의하세요.");
+			                    }
+			                },
+			                error: function (xhr, status, error) {
+			                    console.error(xhr.responseText);
+			                    alert("결제 처리에 실패했습니다. 관리자에게 문의하세요.");
+			                }
+			            });
+			        } else {
+			            console.log(response);
+			            alert("결제에 실패했습니다. 에러 내용: " + response.error_msg);
+			        }
+			    });
+			}
+	        
 		</script>
+		
+	
+		
+		
 </head>
 <body>
     <jsp:include page="../home/navigation.jsp"></jsp:include>
@@ -65,6 +165,9 @@
     <br>
 
     <form>
+    	<input type="hidden" name="user_idx" value="${event.user_idx}">
+    	<input type="hidden" name="event_idx" value="${event.event_idx}">
+    	<input type="hidden" name="order_addr" value="${user.user_addr}">
         <div class="apply_form">
             <div class="info_line">
                 <div class="event_info">
@@ -123,18 +226,36 @@
                     </div>
                     <div class="user_name">
                         <p id="name">이름 <span>*</span></p>
-                        <input type="text" id="name" name="name" value="${user.user_name}" required>
+                        <input type="text" id="name" name="order_name" value="${user.user_name}" required>
                     </div>
                     
                     <div class="user_email">
 					    <p class="email">이메일 <span>*</span></p>
-					    <input type="email" id="email" name="email" value="${user.user_email}" autocomplete="off" disabled>
+					    <input type="email" id="email" name="order_email" value="${user.user_email}" autocomplete="off" readonly>
 					</div>
                     
                     <div class="user_tel">
                         <p id="tel">전화번호 <span>*</span></p>
-                        <input type="tel" id="tel" name="tel" value="${user.user_tel}" required>
+                        <input type="tel" id="tel" name="order_tel" value="${user.user_tel}" required>
                     </div>
+                     <!-- 성별 선택 체크박스 -->
+				    <div class="user_gender">
+				        <p id="gender">성별 <span>*</span></p>
+				        <label><input type="radio" id="order_gen" name="order_gen" value="male" required> 남성</label>
+				        <label><input type="radio" id="order_gen" name="order_gen" value="female" required> 여성</label>
+				    </div>
+				
+				    <!-- 나이 선택 드롭다운 -->
+				    <div class="user_age">
+				        <p id="age">나이 <span>*</span></p>
+				        <select id="age" name="order_age" required>
+				            <option value="">선택하세요</option>
+				            <!-- 14세부터 100세까지 옵션 추가 -->
+				            <c:forEach var="i" begin="14" end="100">
+				                <option value="${i}">${i}세</option>
+				            </c:forEach>
+				        </select>
+				    </div>
                 </div>
             </div>
             
@@ -210,11 +331,21 @@
                     </div>
                     
                     <div class="submit_button">
-                        <button type="submit">신청하기</button>
-                    </div>
+	                    <c:choose>
+						    <c:when test="${event.event_price > 0}">
+						        <input type="button" value="결제하기" onclick="mypayment(this.form);"/>
+						    </c:when>
+						    <c:otherwise>
+						        <input type="button" value="신청하기" onclick="join(this.form);"/>
+						    </c:otherwise>
+						</c:choose>
+                    </div>					
                 </div>
             </div>
         </div>    
+        
+    	
     </form>
+	
 </body>
 </html>
