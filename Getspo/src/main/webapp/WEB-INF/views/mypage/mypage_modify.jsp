@@ -13,15 +13,19 @@
 	function modify(f) {
 
 		let url = "userinfo_modify.do";
-		let param = "user_idx=" + f.user_idx.value + "&user_name="
-				+ f.user_name.value + "&user_pwd=" + f.new_pwd.value
-				+ "&user_tel=" + f.user_tel.value + "&user_birth="
-				+ f.user_birth.value + "&user_addrcode="
-				+ f.user_addrcode.value + "&user_addr=" + f.user_addr.value
-				+ "&user_addrdetail=" + f.user_addrdetail.value;
+		let param = "user_idx=" + f.user_idx.value 
+					+ "&user_name="+ f.user_name.value 
+					+ "&user_pwd=" + f.new_pwd.value
+					+ "&user_tel=" + f.user_tel.value 
+					+ "&user_email=" + f.user_email.value 
+					+ "&user_birth=" + f.user_birth.value 
+					+ "&user_addrcode=" + f.user_addrcode.value 
+					+ "&user_addr=" + f.user_addr.value
+					+ "&user_addrdetail=" + f.user_addrdetail.value;
 
 		sendRequest(url, param, resultFn, "post");
 	}
+	
 	function resultFn() {
 		if (xhr.readyState == 4 && xhr.status == 200) {
 			let data = xhr.responseText;
