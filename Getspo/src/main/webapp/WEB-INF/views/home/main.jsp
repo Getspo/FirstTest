@@ -17,7 +17,7 @@
    
       <jsp:include page="navigation.jsp"></jsp:include><br>
       <jsp:include page="banner.jsp"></jsp:include><br>
-      <jsp:include page="sport.jsp"></jsp:include><br>
+      <%-- <jsp:include page="sport.jsp"></jsp:include><br> --%>
       <jsp:include page="loc.jsp"></jsp:include><br>
       <jsp:include page="recommend.jsp"></jsp:include> 
       

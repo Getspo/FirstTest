@@ -19,11 +19,11 @@
          
          <table border="1">
          <tr>
-            <th>카테고리</th>
-            <th>이벤트명</th>
-            <th>개최지역</th>
-            <th>이벤트일시</th>
-            <th>신청날자</th>
+            <th>스포츠종목</th>
+            <th>행사이름</th>
+            <th>행사지역</th>
+            <th>행사날짜</th>
+            <th>신청날짜</th>
          </tr>
          
          <c:forEach var="order" items="${order}">

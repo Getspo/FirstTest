@@ -18,8 +18,8 @@ let currSlide = 1;
 const pagination = document.querySelector(".slide_pagination");
 
 for (let i = 0; i < maxSlide; i++) {
-  if (i === 0) pagination.innerHTML += `<li class="active">•</li>`;
-  else pagination.innerHTML += `<li>•</li>`;
+  if (i === 0) pagination.innerHTML += `<li class="active">━━</li>`;
+  else pagination.innerHTML += `<li>━━</li>`;
 }
 
 const paginationItems = document.querySelectorAll(".slide_pagination > li");
@@ -193,12 +193,12 @@ let loopInterval = setInterval(() => {
   nextMove();
 }, 3000);
 
-// 슬라이드에 마우스가 올라간 경우 루프 멈추기
+// 슬라이드에 마우스가 올라간 경우 루프 멈추
 slide.addEventListener("mouseover", () => {
   clearInterval(loopInterval);
 });
 
-// 슬라이드에서 마우스가 나온 경우 루프 재시작하기
+// 슬라이드에서 마우스가 나온 경우 루프 재시작하기 ※마우스가 벗어난 시점부터 카운트 됨
 slide.addEventListener("mouseout", () => {
   loopInterval = setInterval(() => {
     nextMove();

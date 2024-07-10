@@ -92,9 +92,33 @@ h2 {
 }
 
 /* -------------------------------- 참가행사 -------------------------------- */
-.menu li a.clicked {
-	color: white;
-	text-shadow: 0 0 15px magenta;
+
+.content_event table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.content_event table th, .content_event table td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: center;
+}
+
+.content_event table th {
+    background-color: #f0f0f0; /* 선택적으로 헤더 배경색 설정 */
+}
+
+.content_event table td {
+    vertical-align: middle;
+}
+
+.content_event table a {
+    color: #0099bc; /* 링크 색상 설정 */
+    text-decoration: none;
+}
+
+.content_event table a:hover {
+    text-decoration: underline; /* 링크 호버 시 밑줄 효과 */
 }
 
 .tr {
