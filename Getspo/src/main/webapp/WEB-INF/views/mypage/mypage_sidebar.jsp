@@ -8,50 +8,32 @@
 <meta charset="UTF-8">
 <title>Mypage_sidebar</title>
 
-	<!-- 마이페이지(ul)안의 li(a)선택에 따라 출력되는 화면의 전환에 관한 js -->
-	<!-- <script src="/getspo/resources/js/link.js"></script> -->
-	
 	<script>
+	/* 마이페이지(ul)안의 li(a)선택에 따라 출력되는 화면의 전환에 관한 js */
 	document.addEventListener("DOMContentLoaded", function() {
-	    function showContent(menu) {
-	        document.querySelector(".content_event").style.display = "none";
-	        document.querySelector(".content_modify").style.display = "none";
-	        document.querySelector(".content_withdraw").style.display = "none";
-	
-	        if (menu === 'link1') {
-	            document.querySelector(".content_event").style.display = "block";
-	        } else if (menu === 'link2') {
-	            document.querySelector(".content_modify").style.display = "block";
-	        } else if (menu === 'link3') {
-	            document.querySelector(".content_withdraw").style.display = "block";
-	        }
-	    }
-	
-	    /* URL의 쿼리 파라미터 확인 */
-	    const urlParams = new URLSearchParams(window.location.search);
-	    const menu = urlParams.get('menu');
-	
-	    if (menu) {
-	        showContent(menu);
-	    } else {
-	        // 기본으로 보여줄 메뉴 설정 (예: link1)
-	        showContent('link1');
-	    }
-	
-	    /* link1 클릭 시 */
-	    document.querySelector("#link1").addEventListener("click", function(event) {
-	        showContent('link1');
-	    });
-	
-	    /* link2 클릭 시 */
-	    document.querySelector("#link2").addEventListener("click", function(event) {
-	        showContent('link2');
-	    });
-	
-	    /* link3 클릭 시 */
-	    document.querySelector("#link3").addEventListener("click", function(event) {
-	        showContent('link3');
-	    });
+		/* link1 클릭 시 */
+		document.querySelector("#link1").addEventListener(
+		"click", function(event) {
+			document.querySelector(".content_event").style.display = "block"; /* contents_div1 보이기 */
+			document.querySelector(".content_modify").style.display = "none"; /* contents_div2 숨기기 */
+			document.querySelector(".content_withdraw").style.display = "none"; /* contents_div3 숨기기 */
+		});
+
+		/* link2 클릭 시 */
+		document.querySelector("#link2").addEventListener(
+		"click", function(event) {
+			document.querySelector(".content_event").style.display = "none"; /* contents_div1 숨기기 */
+			document.querySelector(".content_modify").style.display = "block"; /* contents_div2 보이기 */
+			document.querySelector(".content_withdraw").style.display = "none"; /* contents_div3 숨기기 */
+		});
+		
+		/* link3 클릭 시 */
+		document.querySelector("#link3").addEventListener(
+		"click", function(event) {
+			document.querySelector(".content_event").style.display = "none"; /* contents_div1 숨기기 */
+			document.querySelector(".content_modify").style.display = "none"; /* contents_div2 숨기기 */
+			document.querySelector(".content_withdraw").style.display = "block"; /* contents_div3 보이기 */
+		});
 	});
 	</script>
 	
