@@ -1,293 +1,337 @@
 @charset "UTF-8";
 
-body, .eventSection {
-    margin: 0;
-    padding: 0;
-    font-family: "Noto Sans KR", sans-serif;
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: "Noto Sans KR", sans-serif;
 }
 
-/* 전체 컨테이너 스타일 */
-.container {
-	padding: 20px; /* 내부 여백 설정 */
-	width: 1200px; /* 너비 설정 */
-	margin: 25px auto; /* 가운데 정렬 */
-	display: flex; /* 자식 요소들을 가로로 배치 */
-	flex-wrap: wrap; /* 자식 요소들이 한 줄에 다 들어가지 않으면 다음 줄로 넘어가도록 설정 */
+body {
+	font-family: "Noto Sans KR", sans-serif;
 }
 
-.container label {
-	margin-bottom: 10px; /* 아래 여백 설정 */
+.event_detail_page {
+	display: flex; /* Flexbox 사용 */
+	justify-content: space-between; /* 요소들 간의 간격을 균등하게 */
+	align-items: flex-start; /* 세로 정렬 기준을 위쪽으로 */
+	width: 1200px;
+	margin: 110px auto; /* 중앙 정렬 */
 }
 
-/* 이벤트 섹션 스타일 */
-.eventSection {
-	flex: 3; /* 가용 공간의 3/4 차지 */
-	margin: 20px 0; /* 위아래 여백 설정 */
+/* 행사 정보 라인 -------------------------------------------- */
+.event_line {
+	width: 68%; /* 왼쪽 영역의 너비 */
 }
 
-/* 특정 영역의 검색박스 스타일 */
-.eventSection input[type="text"] {
-    width: 300px;
-    height: 20px;
-    border: 1px solid #ccc;
-    border-radius: 20px;
-    padding: 10px 20px;
-    font-size: 15px;
-    outline: none;
+#event_image {
+	width: 830px;
+	height: 460px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
 }
 
-/* 검색 상자 스타일 */
-.search-box {
-	margin-bottom: 20px; /* 아래 여백 설정 */
+.button_bar {
+	display: flex; /* Flexbox 사용 */
+	margin-top: 20px;
 }
 
-/* 전체 행사 개수 박스 스타일 */
-.total-box {
-	font-size: 18px; /* 글꼴 크기 설정 */
-	text-align: center; /* 텍스트 가운데 정렬 */
-	margin-top: 45px;
-	margin-bottom: 20px; /* 아래 여백 설정 */
+.button_bar ul {
+	display: flex;
+	padding: 0;
+	list-style-type: none; /* 리스트 스타일 제거 */
+	width: 100%;
+	justify-content: space-between;
 }
 
-/* 행사 개수 텍스트 스타일 */
-.total-event {
-	color: #0099bc; /* 글꼴 색상 설정 */
+.button_bar li {
+	flex: 1;
 }
 
-/* 아이템 박스 스타일 */
-.item-box {
-	display: grid; /* 그리드 레이아웃 사용 */
-	grid-template-columns: repeat(3, minmax(0, 1fr)); /* 3열 그리드 설정 */
-	gap: 16px; /* 그리드 간격 조절 */
-	padding: 10px; /* 내부 여백 설정 */
+.button_bar button {
+	position: relative;
+	width: 100%;
+	padding: 10px 0;
+	border: none;
+	background-color: white;
+	color: gray;
+	cursor: pointer;
+	font-size: 14px;
 }
 
-/* 컨텐츠 박스 스타일 */
-.content {
-	background-color: white; /* 배경색 흰색 */
-	border: 1px solid #e2e8f0; /* 테두리 색상 설정 */
-	border-radius: 6px; /* 둥근 모서리 설정 */
-	overflow: hidden; /* 넘치는 내용 숨김 */
-	transition-duration: 300ms; /* 전환 효과 시간 설정 */
-	padding: 10px; /* 내부 여백 설정 */
-	margin-bottom: 10px; /* 아래 여백 설정 */
+.button_bar button::after {
+	content: "";
+	position: absolute;
+	bottom: 0;
+	left: 50%;
+	width: 50%; /* 버튼 너비의 50%로 설정 */
+	height: 2px;
+	background-color: transparent;
+	transform: translateX(-50%);
+	transition: background-color 0.3s;
 }
 
-/* 컨텐츠 박스 호버 시 이미지 링크 크기 변경 */
-.content:hover .img-link {
-	transform: scale(1.10); /* 크기 확대 */
+.button_bar button.active::after, .button_bar button:hover::after {
+	background-color: #0099bc; /* 클릭 시 및 호버 시 변경될 border-bottom 색상 */
 }
 
-/* 이미지 링크 스타일 */
-.img-link {
-	display: block; /* 블록 요소로 설정 */
-	width: 100%; /* 너비 100% 설정 */
-	height: 160px; /* 높이 설정 */
-	object-fit: cover; /* 이미지 잘림 없이 채우기 */
-	object-position: center; /* 이미지 중앙 정렬 */
-	transition-duration: 300ms; /* 전환 효과 시간 설정 */
+.button_bar button.active, .button_bar button:hover {
+	color: #0099bc;
 }
 
-/* 날짜, 장소 박스 스타일 */
-.dayloc-box {
-	display: flex; /* 플렉스 박스로 설정 */
-	align-items: center; /* 아이템 수직 중앙 정렬 */
-	justify-content: flex-start; /* 아이템 왼쪽 정렬 */
-	font-size: 14px; /* 글꼴 크기 설정 */
-	color: gray; /* 글꼴 색상 설정 */
-	margin: 7px 0; /* 위아래 여백 설정 */
+section {
+	margin-bottom: 30px;
 }
 
-/* 날짜 텍스트 스타일 */
-.openday {
-	margin-right: 3px; /* 오른쪽 여백 설정 */
+h4 {
+	margin-bottom: 15px;
 }
 
-/* 타이틀 박스 스타일 */
-.title-box {
-	font-weight: bold; /* 글꼴 두께 설정 */
-	margin-bottom: 5px; /* 아래 여백 설정 */
+.place #loc {
+	color: gray;
 }
 
-/* 타이틀 링크 스타일 */
-.title-link {
-	text-decoration: none; /* 텍스트 장식 제거 */
-	color: #1a202c; /* 글꼴 색상 설정 */
+.notice_box, .ask_box {
+	padding: 10px;
+	background-color: #F8FAFB;
+	text-align: center;
+	font-size: 14px;
 }
 
-/* 정보 박스 스타일 */
-.info-box {
-	display: flex; /* 플렉스 박스로 설정 */
-	align-items: center; /* 아이템 수직 중앙 정렬 */
-	justify-content: space-between; /* 아이템 사이 간격 균등 */
-	margin-bottom: 5px; /* 아래 여백 설정 */
+.cancel_box {
+	padding: 10px 20px;
+	background-color: #F8FAFB;
+	text-align: left;
+	font-size: 14px;
 }
 
-/* 결제 박스 스타일 */
-.pay-box {
-	color: #0099bc; /* 글꼴 색상 설정 */
-	font-weight: bold; /* 글꼴 두께 설정 */
+.contact {
+	background-color: #F8FAFB;
+	padding: 10px 20px;
+	font-size: 14px;
 }
 
-/* 체크 박스 스타일 */
-.check-box {
-	font-size: 12px; /* 글꼴 크기 설정 */
-	color: black; /* 글꼴 색상 설정 */
+.contact_category {
+	color: gray;
+	display: inline-block;
+	width: 100px;
 }
 
-/* 조회 수 스타일 */
-.check-count {
-	color: #878D91; /* 글꼴 색상 설정 */
+.contact #name, #email {
+	margin-bottom: 30px;
 }
 
-/* 필터 섹션 스타일 */
-.filterSection {
-	flex: 1; /* 가용 공간을 균등하게 나눔 */
-	min-width: 200px; /* 최소 너비 200픽셀 설정 */
-	margin-right: 20px; /* 오른쪽에 20픽셀의 마진 추가 */
-	margin-top: 80px; /* 필터 섹션을 아래로 내리기 위해 상단 마진 추가 */
+.contact_category span {
+	display: inline-block;
+	margin-right: 5px;
 }
 
-.filter-box {
-	display: flex; /* 플렉스 박스로 설정 */
-	flex-direction: column; /* 세로 정렬 */
-	gap: 10px; /* 각 필터 아이템 간의 간격 */
-	padding: 10px; /* 안쪽 여백 */
+.contact_db {
+	display: inline-block;
+	vertical-align: top; /* 수직 정렬 설정 */
 }
 
-/* 필터 아이템 스타일 */
-.filter-item {
-	gap: 20px; /* 라벨과 컨트롤 간의 간격 */
-	margin: 10px 0; /* 위아래 여백 설정 */
+/* 신청하기 라인 -------------------------------------------- */
+.apply_line {
+	width: 30%;
+	position: sticky; /* 스크롤 시 상단에 고정 */
+	top: 110px;
+	height: auto;
 }
 
-.filter-item label {
-	font-weight: bold; /* 라벨의 글씨를 굵게 */
-	margin-bottom: 4px; /* 아래 여백 설정 */
-	display: block; /* 블록 요소로 설정 */
-	font-size: 15px;
+.apply_box {
+	height: 300px;
+	border: 1px solid white;
+	border-radius: 4px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
+	padding: 20px; /* 콘텐츠에 여백 추가 */
+	background-color: white; /* 배경색 추가 (그림자가 더 잘 보이도록) */
 }
 
-/* 체크박스 그룹 스타일 */
-.checkbox-group>div:not(:last-child) {
-	margin-bottom: 8px; /* 아래 여백 설정 */
+.apply_category a {
+	text-decoration: none;
+	color: black;
+	font-size: 13px;
 }
 
-.checkbox-group div {
-	padding: 0.5rem; /* 안쪽 여백 설정 */
-	border-radius: 6px; /* 둥근 모서리 설정 */
-	transition: background-color 0.3s ease; /* 배경색 전환 효과 */
-	display: flex; /* 플렉스 박스로 설정 */
-	align-items: center; /* 아이템 수직 중앙 정렬 */
+.apply_category #sports {
+	border-right: 1px solid #ccc;
+	padding: 0 8px 0 0;
 }
 
-.checkbox-group input[type="checkbox"] {
-	margin-right: 0.5rem;
-	width: 16px;
-	height: 16px;
-	accent-color: #0099bc;
+.apply_category #loc {
+	padding: 0 8px;
 }
 
-.checkbox-group label {
-	font-size: 0.875rem; /* 글꼴 크기 설정 */
-	color: black; /* 글꼴 색상 설정 */
-	cursor: pointer; /* 커서 설정 */
+.apply_name {
+	font-size: 20px;
+	font-weight: bold;
+	margin: 16px 0 0;
 }
 
-.text-xs {
-	font-size: 0.75rem; /* 글꼴 크기 설정 */
-	color: #ef4444; /* 글꼴 색상 설정 */
+.apply_ticket {
+	width: 100%;
+	padding: 16px;
+	background-color: #F8FAFB;
+	text-align: left;
+	font-size: 14px;
+	margin: 16px 0 0;
 }
 
-.text-danger-500 {
-	color: #ef4444; /* 글꼴 색상 설정 */
+.ticket_details {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin-top: 10px;
 }
 
-.block {
-	display: block; /* 블록 요소로 설정 */
+.amount_btn {
+	display: flex;
+	align-items: center;
+	background-color: #ffff;
+	border: 1px solid #ccc;
+	border-radius: 4px;
 }
 
-.cursor-pointer {
-	cursor: pointer; /* 마우스 포인터 설정 */
+.amount_btn input[type="button"] {
+	width: 25px;
+	height: 25px;
+	font-size: 16px;
+	background-color: #ffff;
+	border: none;
+	cursor: pointer;
 }
 
-.mt-1 {
-	margin-top: 4px; /* 위쪽 여백 설정 */
+.amount_btn .quantity {
+	width: 25px;
+	text-align: center;
 }
 
-.show-all-button {
-	color: #9ca3af; /* 글꼴 색상 설정 */
-	background: none; /* 배경 없음 */
-	border: none; /* 테두리 없음 */
-	cursor: pointer; /* 마우스 포인터 설정 */
-	display: flex; /* 플렉스 박스로 설정 */
-	align-items: center; /* 아이템 수직 중앙 정렬 */
-	padding: 0; /* 안쪽 여백 없음 */
-	transition: color 0.3s ease; /* 글꼴 색상 전환 효과 */
+.quantity {
+	border-left: 1px solid #ccc;
+	border-right: 1px solid #ccc;
 }
 
-.show-all-button:hover {
-	color: #6b7280; /* hover 시 글꼴 색상 변경 */
+.remain {
+	margin-left: 10px;
+	color: gray;
 }
 
-.show-all-button svg {
-	margin-left: 0.25rem; /* 왼쪽 여백 설정 */
-	transition: transform 0.3s ease; /* 변환 전환 효과 */
+.price {
+	margin-left: auto;
+	color: #0099bc;
 }
 
-.show-all-button:hover svg {
-	transform: rotate(90deg); /* hover 시 90도 회전 */
+#apply_btn {
+	width: 100%;
+	height: 45px;
+	margin: 16px 0 0;
+	background-color: #0099bc;
+	color: white;
+	border-radius: 4px;
+	border: 1px solid #0099bc;
+	cursor: pointer;
 }
 
-/* 필터 섹션의 제목 스타일 */
-.filterSection .filter {
-	padding-left: 10px;
-	font-size: 16px; /* 글자 크기 조정 */
-	color: #0099bc; /* 글자 색상 조정 */
-	display: flex; /* 플렉스 박스로 설정 */
-	justify-content: space-between; /* 아이템 사이 간격 균등 */
-	align-items: center; /* 아이템 수직 중앙 정렬 */
+#apply_btn:hover {
+	background-color: #0077a8;
+	border: 1px solid #0077a8;
 }
 
-/* 초기화 버튼 스타일 */
-.reset-button {
-	font-size: 16px; /* 초기화 버튼 글자 크기 */
-	color: gray; /* 초기화 버튼 글자 색상 */
-	background: none; /* 배경 없음 */
-	border: none; /* 테두리 없음 */
-	cursor: pointer; /* 마우스 포인터 설정 */
-	transition: color 0.3s ease; /* 글자색 전환 효과 */
+/* 모달창 -------------------------------------------- */
+h3 {
+	text-align: left;
+	margin-bottom: 25px;
 }
 
-.reset-button:hover {
-	color: #333; /* hover 시 진한 회색 글자 색상 */
+.modal_popup p {
+	text-align: left;
+	color: gray;
+	font-size: 14px;
+	margin-bottom: 10px;
 }
 
-/* location 클래스의 스타일 설정 */
-.location {
-	display: block; /* 블록 레벨 요소로 설정 */
-	width: 100%; /* 너비 100% 설정 */
-	padding: 0.5rem 1rem; /* 안쪽 여백 설정 (위아래 0.5rem, 좌우 1rem) */
-	border: 1px solid #e2e8f0; /* 연한 회색 테두리 */
-	border-radius: 6px; /* 둥근 모서리 */
-	background-color: white; /* 흰색 배경 */
-	color: #6b7280; /* 텍스트 색상 */
-	font-size: 1rem; /* 기본 글꼴 크기 */
-	line-height: 1.5; /* 줄 간격 */
-	transition: border-color 0.3s ease, box-shadow 0.3s ease;
-	/* 테두리와 그림자의 부드러운 전환 효과 */
-	appearance: none; /* 기본 화살표 제거 */
-	background-image:
-		url('data:image/svg+xml;charset=US-ASCII,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><path fill="%236b7280" d="M10 12.5l-5-5h10l-5 5z"/></svg>');
-	/* 커스텀 화살표 */
-	background-repeat: no-repeat; /* 배경 이미지 반복 안함 */
-	background-position: right 0.75rem center;
-	/* 배경 이미지 위치 설정 (오른쪽 0.75rem, 가운데) */
-	background-size: 1rem; /* 배경 이미지 크기 설정 */
+.modal_btn {
+	padding: 7px;
+	background-color: white;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	color: gray;
+	cursor: pointer;
+	float: right;
+	justify-content: center;
 }
 
-.location:focus {
-	outline: none; /* 기본 포커스 아웃라인 제거 */
-	border-color: #3b82f6; /* 포커스 시 파란색 테두리 */
-	box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3); /* 포커스 시 파란색 그림자 */
+.modal_btn:active, .close_btn:active {
+	transform: scale(0.95); /* 버튼을 눌렀을 때 크기 축소 효과 */
+	background-color: #e0e0e0; /* 눌렀을 때 배경색 변화 */
+}
+
+/*모달 팝업 영역 스타일링*/
+/* 모달창 스타일 */
+.modal {
+	display: none;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.5);
+	z-index: 1000; /* 모달창이 최상위에 위치하도록 설정 */
+}
+
+.modal_popup {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 380px;
+	padding: 20px;
+	background: #ffffff;
+	border-radius: 8px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
+	text-align: center;
+}
+
+.modal_popup textarea {
+	width: 100%;
+	height: 150px;
+	padding: 10px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	margin-top: 15px;
+	font-size: 14px;
+	outline: 2px solid #0099bc;
+	resize: vertical;
+}
+
+.submit_btn, .close_btn {
+	display: inline-block;
+	padding: 7px;
+	margin: 5px;
+	border-radius: 4px;
+	cursor: pointer;
+	transition: background-color 0.2s;
+}
+
+.submit_btn {
+	width: 80px;
+	background-color: #0099bc;
+	color: white;
+	border: 1px solid #0099bc;
+}
+
+.submit_btn {
+	background-color: #0077a8;
+}
+
+.close_btn {
+	width: 50px;
+	background-color: white;
+	color: black;
+	border: 1px solid #ccc;
+}
+
+.close_btn:hover {
+	background-color: #ccc;
 }
