@@ -1,5 +1,11 @@
 @charset "UTF-8";
 
+* {
+   margin: 0;
+   padding: 0;
+   font-family: "Noto Sans KR", sans-serif;
+}
+
 /* 전체 body 스타일 */
 body {
     font-family: "Noto Sans KR", sans-serif; /* 폰트 설정 */
@@ -10,7 +16,7 @@ body {
 
 /* 전체 컨테이너 스타일 */
 .container {
-    padding: 20px; /* 내부 여백 설정 */
+    padding: 20px; 
     width: 1200px; /* 너비 설정 */
     margin: 25px auto; /* 가운데 정렬 */
     display: flex; /* 자식 요소들을 가로로 배치 */
