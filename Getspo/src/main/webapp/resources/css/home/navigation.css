@@ -11,8 +11,9 @@
     width: 100%;
     height: 85px;
     position: fixed;
-    background: #0099bc;
+    background: white;
     z-index: 1000; /* 높은 z-index 값 설정 */
+    font-family: "Noto Sans KR", sans-serif;
 }
 
 /* 네비게이션 바의 해상도 */
@@ -28,14 +29,15 @@
     margin: 5px;
 }
 
-.sponiverse_logo {
-	width:75px;
-	height:75px;
+.main_logo {
+	width:150px;
+	height:50px;
+	margin-top: 10px;
     border-radius: 0;
     transition-duration: 1s;
 }
 
-.sponiverse_logo:hover {
+.main_logo:hover {
     transform: rotate(360deg);
     border-radius: 50px;
 }
@@ -52,10 +54,11 @@
 .searchbox {
     width: 300px;
     height: 20px;
-    border: none;
-    border-radius: 10px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
     padding: 10px 20px;
     font-size: 15px;
+    outline: none;
 }
 
 /* 검색 버튼 */
@@ -77,14 +80,14 @@
 /* 로그인, 회원가입 */
 .signin, .signup {
     text-decoration: none;
-    color: white;
-    background-color: #0099bc;
+    color: black;
+    background-color: white;
     border-radius: 5px; /* 모서리 둥글게 */
     padding: 7px;
 }
 
-/* 무료행사개설, 호스트센터 */
-.hostpage {
+/* 무료행사개설 */
+.new_event {
     text-decoration: none;
     color: #0099bc; /* 텍스트 색상 */
     background-color: white; /* 배경색 */
@@ -93,12 +96,21 @@
     margin-left: 10px; /* 왼쪽 여백 */
 }
 
-/* 네비게이션바 버튼 클릭시 */
-.signin:active, .signup:active, .hostpage:active {
-    transform: scale(0.95); /* 버튼을 눌렀을 때 크기 축소 효과 */
-    background-color: #e0e0e0; /* 눌렀을 때 배경색 변화 */
+/* 호스트센터 */
+.hostpage {
+    text-decoration: none;
+    color: #0099bc; /* 텍스트 색상 */
+    background-color: #e6f7fd; /* 배경색 */
+    border-radius: 5px; /* 모서리 둥글게 */
+    padding: 7px; /* 내부 여백 */
+    margin-left: 10px; /* 왼쪽 여백 */
 }
 
+/* 호스트센터 버튼 클릭시 */
+.hostpage:active {
+    transform: scale(0.95); /* 버튼을 눌렀을 때 크기 축소 효과 */
+    background-color: #cceff9; /* 눌렀을 때 배경색 변화 */
+}
 
 /* 로그인-마이페이지 메뉴 바 */
 #menu-items {
@@ -145,7 +157,7 @@
     padding: 8px 16px;
     font-size: 12px;
     text-align: left;
-    color: #dc2626;
+    color: #BF4545;
     border: none;
     outline: none;
     cursor: pointer;
@@ -188,7 +200,7 @@ a.joinevent:hover {
     background-color: #f5f5f5; /* hover:bg-gray-100 */
 }
 
-/* #menu-2 스타일링 */
+/* 마이페이지메뉴 라인 */
 #menu-2.border-t {
-    border-top: 1px solid; /* 기본적으로 border-top 스타일을 적용 */
+    border-top: 0.5px solid #ccc;
 }

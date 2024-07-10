@@ -156,7 +156,7 @@ body{
 }
 
 .apply_info span{
-	color: red;
+	color: #BF4545;
 }
 
 .apply_info_title{
@@ -201,6 +201,17 @@ body{
 	
 }
 
+/* 성별 선택 라디오 버튼 */
+.user_gender {
+    padding: 20px;
+    accent-color: #0099bc;
+}
+
+.user_gender label {
+    margin-right: 10px;
+    font-size: 15px;
+}
+
 /* radio 버튼 스타일 */
 .user_gender input[type="radio"] {
     width: auto; /* 기본 너비 */
@@ -210,26 +221,29 @@ body{
     box-shadow: none; /* 기본 그림자 제거 */
 }
 
+/* 나이 선택 드롭다운 */
+.user_age {
+    padding: 10px 20px 20px 20px;
+    position: relative;
+}
+
 /* select 요소 스타일 */
 .user_age select {
 	width: 80%;
-	margin: 10px 0 0;
+    margin: 10px 0 0;
     padding: 14px 12px;
     border-radius: 4px;
     border: 1px solid #ccc;
     outline: none;
-    transition: box-shadow 0.2s ease, border 0.2s ease; /* 부드러운 전환 효과 */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* 입체감을 위한 그림자 추가 */
-    appearance: none; /* 기본 화살표 제거 (크로스 브라우저) */
-    -webkit-appearance: none; /* 사파리 브라우저 */
-    -moz-appearance: none; /* 파이어폭스 브라우저 */
+    transition: box-shadow 0.2s ease, border 0.2s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
     background: #fff url('data:image/svg+xml;charset=US-ASCII,<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10"><path fill="none" stroke="%23333" stroke-width="1.5" d="M1 1l4 4 4-4"/></svg>') no-repeat right 10px center;
     background-size: 10px;
 }
 
-.user_age {
-    position: relative;
-}
 
 /******************************************************/
 
@@ -291,7 +305,7 @@ body{
 
 #comment_title {
     font-weight: bold;
-    color: red;
+    color: #BF4545;
     font-size: 13px;
     amrgin
     margin-bottom: 5px;
@@ -354,7 +368,7 @@ body{
     padding: 32px 0 0;
 }
 
-.submit_button button {
+.submit_button input[type="button"] {
     width: 100%;
     height: 48px;
     padding: 0 16px;
@@ -363,4 +377,8 @@ body{
     font-size: 15px;
     border: 1px solid #0099bc;
     border-radius: 4px;
+}
+.submit_button input[type="button"]:hover{
+    background-color: #007b99;
+    border-color: #007b99;
 }

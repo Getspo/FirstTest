@@ -62,6 +62,11 @@ input[type="text"].warning, input[type="password"].warning {
    margin-bottom: 20px;
 }
 
+.login_tool input[type="checkbox"]{
+	accent-color: #0099bc;
+	margin-right: 5px;
+}
+
 .login_tool a {
    margin-left: auto;
    color: #0099bc;

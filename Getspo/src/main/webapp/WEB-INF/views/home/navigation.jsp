@@ -8,7 +8,7 @@
       <title>네비게이션 바</title>
       
       <link rel="stylesheet" href="/getspo/resources/css/home/navigation.css">
-      
+  
       <!-- 네이게이션js -->
 	  <script src="/getspo/resources/js/navigation.js"></script>
 	
@@ -24,14 +24,14 @@
             location.href="event_list.do?search_text="+encodeURIComponent(search_text);
          }//━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
       </script>
-   </head>
+<!--    </head> -->
    
    <body>
       <nav class="navibar">
       <div class="resolution">
          <div class="logo_div">
             <a href="main.do">
-            	<img class="sponiverse_logo" src="/getspo/resources/img/logo/정사각형로고.png">
+            	<img class="main_logo" src="/getspo/resources/img/logo/메인로고.png">
             </a>
          </div>
          
@@ -53,10 +53,12 @@
 		                </svg>
 		            </button>
 	                <div id="menu-items" role="menu" tabindex="0">
+	                	<!-- 아이디, 마이페이지 메뉴-->
 		                <div id="menu-1">
 		                    <p>${sessionScope.user.user_id}</p>
 		                     <a href="mypageform.do?user_idx=${sessionScope.user.user_idx}">마이페이지 &gt;</a>
 		                </div>
+		                <!-- 마이페이지메뉴 라인 -->
 		                <div id="menu-2" class="border-t"></div>
 		                <form action="logout.do" method="post">
 		                    <button id="logout-button">로그아웃</button>
@@ -68,7 +70,7 @@
 	                <a href="javascript:" onclick="location.href='signupform.do'" class="signup">회원가입</a>&nbsp;
 	            </c:if>
 	        </div>
-            <a href="javascript:" onclick="location.href='event_new.do'" class="hostpage">무료행사개설</a>&nbsp;
+            <a href="javascript:" onclick="location.href='event_new.do'" class="new_event">무료행사개설</a>&nbsp;
             <a href="javascript:" onclick="location.href='hostMain.do'" class="hostpage">호스트센터</a>
          </div>
       </div>

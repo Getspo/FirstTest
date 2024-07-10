@@ -11,11 +11,14 @@
 <script>
 	//회원정보 수정
 	function modify(f) {
+	   let user_idx = f.user_idx.value;
+	   let input_pwd = f.input_pwd.value;//입력받은 비밀번호
+
 
 		let url = "userinfo_modify.do";
-		let param = "user_idx=" + f.user_idx.value 
+		let param = "user_idx=" + user_idx 
 					+ "&user_name="+ f.user_name.value 
-					+ "&user_pwd=" + f.new_pwd.value
+					+ "&user_pwd=" + encodeURIComponent(input_pwd)
 					+ "&user_tel=" + f.user_tel.value 
 					+ "&user_email=" + f.user_email.value 
 					+ "&user_birth=" + f.user_birth.value 
@@ -26,20 +29,25 @@
 		sendRequest(url, param, resultFn, "post");
 	}
 	
-	function resultFn() {
-		if (xhr.readyState == 4 && xhr.status == 200) {
-			let data = xhr.responseText;
-			let json = (new Function('return ' + data))();
+	  function resultFn() {
+	      if (xhr.readyState == 4 && xhr.status == 200) {
+	         
+	         let data = xhr.responseText;
+	         let json = (new Function('return ' + data))();
 
-			if (json[0].result == "fail") {
-				alert("수정실패");
-			} else {
-				alert("수정완료");
-				location.href = 'mypageform.do?user_idx=${vo.user_idx}&menu=link2';
+	         if (json[0].result == 'wrong') {
+	            alert("비밀번호 불일치");
+	            return;
+	         } else if (json[0].result == 'fail') {
+	            alert("수정실패");
+	            return;
+	         } else {
+	            alert("수정완료");
+	            location.href = 'mypageform.do?user_idx=${vo.user_idx}&menu=link1';
+	         }
 
-			}
-		}
-	}
+	      }
+	   }
 </script>
 
 </head>
@@ -78,8 +86,8 @@
 					<input type="text" id="user_addrdetail" name="user_addrdetail" class="addrinp" value="${vo.user_addrdetail}">
 				</div>
 
-				<h4>새 비밀번호</h4>
-				<input type="password" id="user_pwd" name="new_pwd" class="inp" required>
+				<h4>수정을 위한 비밀번호 입력</h4>
+            	<input type="password" id="input_pwd" name="input_pwd" class="inp" required>
 				
 				<div class="last_btn_div">
 					<input type="button" id="cancel_btn" value="취소" onclick="location.href='mypageform.do?user_idx=${vo.user_idx}'">

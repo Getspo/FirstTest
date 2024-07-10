@@ -19,141 +19,163 @@
 	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     
     <script>
-			/* 수량 조절 버튼 */
-	        function minus(button) {
-	            // 부모 요소에서 .quantity 클래스를 가진 요소를 찾음
-	            var quantitySpan = button.parentNode.querySelector('.quantity');
-	            var currentQuantity = parseInt(quantitySpan.innerText);
-	            if (currentQuantity > 1) {  // 최소 수량을 1로 설정
-	                quantitySpan.innerText = currentQuantity - 1;
-	            }
-	        }
-	
-	        function plus(button) {
-	            // 부모 요소에서 .quantity 클래스를 가진 요소를 찾음
-	            var quantitySpan = button.parentNode.querySelector('.quantity');
-	            var currentQuantity = parseInt(quantitySpan.innerText);
-	            quantitySpan.innerText = currentQuantity + 1;
-	        }
-	        
-	        /* 전체 동의하기 체크박스 클릭 시 모든 체크박스를 체크하거나 체크 해제 */
-	        function toggleAllCheckboxes(checkbox) {
-	            var checkboxes = document.querySelectorAll('.sub_agree input[type="checkbox"]');
-	            checkboxes.forEach(function(cb) {
-	                cb.checked = checkbox.checked;
-	            });
-	        }
-	        
-	        /* 결제수단 버튼 유지 */
-	        document.addEventListener('DOMContentLoaded', (event) => {
-			    const buttons = document.querySelectorAll('.option_btn input[type="button"]');
-			    const virtualAccountBtn = document.getElementById('virtualAccountBtn');
-			    const accountComment = document.querySelector('.account_comment');
-			    
-			    buttons.forEach(button => {
-			        button.addEventListener('click', () => {
-			            // 모든 버튼에서 active 클래스 제거
-			            buttons.forEach(btn => btn.classList.remove('active'));
-			            // 클릭된 버튼에 active 클래스 추가
-			            button.classList.add('active');
-			            
-			            // 가상계좌 버튼 클릭 시 약관 표시
-			            if (button === virtualAccountBtn) {
-			                accountComment.style.display = 'block';
-			            } else {
-			                accountComment.style.display = 'none';
-			            }
-			        });
-			    });
-			});
-	       	
-	        //신청할때
-	        function join(f){
-	        	f.method="post";
-	        	f.action="order.do";
-	        	f.submit();
-	        }
-	        
-	        //결제할때
-	        function mypayment() {
-			    IMP.init("imp03484531");
-			    IMP.request_pay({
-			        pg: "html5_inicis",
-			        pay_method: "card",
-			        name: "${event.event_name}",
-			        amount: 1, /* ${event.event_price}, */
-			        buyer_email: "${user.user_email}",
-			        buyer_name: "${user.user_name}",
-			        buyer_tel: "${user.user_tel}",
-			        buyer_addr: "${user.user_addr}${user.user_addrdetail}",
-			        buyer_postcode: "${user.user_idx}"
-			    }, function (response) {
-			        if (response.success) {
-			            console.log(response);
-			
-			            // AJAX를 사용하여 결제 정보를 서버로 전송
-			            $.ajax({
-			                type: "POST",
-			                url: "payment.do",
-			                data: {
-			                    imp_uid: response.imp_uid,
-			                    merchant_uid: response.merchant_uid,
-			                    paid_amount: response.paid_amount,
-			                    apply_num: response.apply_num,
-			                    order_idx: "${event.event_idx}",
-			                    user_idx: "${user.user_idx}"
-			                },
-			                success: function (data) {
-			                    if (data === "success") {
-			                        alert("결제가 완료되었습니다.");
-			                        
-			                        // 결제 성공 후 폼 데이터를 전송
-			                        var form = document.createElement("form");
-			                        form.method = "post";
-			                        form.action = "payafter.do";
-			
-			                        let orderGen = document.querySelector('input[name="order_gen"]:checked').value;
-			                        let orderAge = document.getElementById('age').value;
-			
-			                        var fields = [
-			                            { name: "user_idx", value: "${user.user_idx}" },
-			                            { name: "event_idx", value: "${event.event_idx}" },
-			                            { name: "order_name", value: "${user.user_name}" },
-			                            { name: "order_tel", value: "${user.user_tel}" },
-			                            { name: "order_email", value: "${user.user_email}" },
-			                            { name: "order_addr", value: "${user.user_addr}" },
-			                            { name: "order_gen", value: orderGen },
-			                            { name: "order_age", value: orderAge },
-			                            { name: "imp_uid", value: response.imp_uid } // 추가
-			                        ];
-			
-			                        fields.forEach(function(field) {
-			                            var input = document.createElement("input");
-			                            input.type = "hidden";
-			                            input.name = field.name;
-			                            input.value = field.value;
-			                            form.appendChild(input);
-			                        });
-			
-			                        document.body.appendChild(form);
-			                        form.submit();
-			                    } else {
-			                        alert("결제 처리에 실패했습니다. 관리자에게 문의하세요.");
-			                    }
-			                },
-			                error: function (xhr, status, error) {
-			                    console.error(xhr.responseText);
-			                    alert("결제 처리에 실패했습니다. 관리자에게 문의하세요.");
-			                }
-			            });
-			        } else {
-			            console.log(response);
-			            alert("결제에 실패했습니다. 에러 내용: " + response.error_msg);
-			        }
-			    });
-			}
-	        
-		</script>
+         /* 수량 조절 버튼 */
+           function minus(button) {
+               // 부모 요소에서 .quantity 클래스를 가진 요소를 찾음
+               var quantitySpan = button.parentNode.querySelector('.quantity');
+               var currentQuantity = parseInt(quantitySpan.innerText);
+               if (currentQuantity > 1) {  // 최소 수량을 1로 설정
+                   quantitySpan.innerText = currentQuantity - 1;
+               }
+           }
+   
+           function plus(button) {
+               // 부모 요소에서 .quantity 클래스를 가진 요소를 찾음
+               var quantitySpan = button.parentNode.querySelector('.quantity');
+               var currentQuantity = parseInt(quantitySpan.innerText);
+               quantitySpan.innerText = currentQuantity + 1;
+           }
+           
+           /* 전체 동의하기 체크박스 클릭 시 모든 체크박스를 체크하거나 체크 해제 */
+           function toggleAllCheckboxes(checkbox) {
+               var checkboxes = document.querySelectorAll('.sub_agree input[type="checkbox"]');
+               checkboxes.forEach(function(cb) {
+                   cb.checked = checkbox.checked;
+               });
+           }
+           
+           /* 결제수단 버튼 유지 */
+           document.addEventListener('DOMContentLoaded', (event) => {
+             const buttons = document.querySelectorAll('.option_btn input[type="button"]');
+             const virtualAccountBtn = document.getElementById('virtualAccountBtn');
+             const accountComment = document.querySelector('.account_comment');
+             
+             buttons.forEach(button => {
+                 button.addEventListener('click', () => {
+                     // 모든 버튼에서 active 클래스 제거
+                     buttons.forEach(btn => btn.classList.remove('active'));
+                     // 클릭된 버튼에 active 클래스 추가
+                     button.classList.add('active');
+                     
+                     // 가상계좌 버튼 클릭 시 약관 표시
+                     if (button === virtualAccountBtn) {
+                         accountComment.style.display = 'block';
+                     } else {
+                         accountComment.style.display = 'none';
+                     }
+                 });
+             });
+         });
+             
+           //신청할때
+           function join(f){
+              f.method = "post";
+               f.action = "orderevent.do";
+               f.submit();
+           }
+           
+          // 결제할때
+          function sendRequest(url, param, callback, method) {
+    xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = callback;
+    xhr.open(method, url, true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.setRequestHeader("Accept", "application/json");
+    console.log(`Sending request to ${url} with params:`, param);
+    xhr.send(param);
+}
+
+function submitOrderForm(f) {
+    const url = "order.do";
+    const param = new URLSearchParams(new FormData(f)).toString();
+    console.log("Sending request to order.do with data:", param);
+    sendRequest(url, param, resultFn, "POST");
+}
+
+function resultFn() {
+    if (xhr.readyState == 4 && xhr.status == 200) {
+        console.log("order.do 응답 상태:", xhr.status);
+        console.log("order.do 응답 데이터:", xhr.responseText);
+
+        const order_idx = xhr.responseText;
+
+        console.log("Received order_idx:", order_idx);
+
+        if (order_idx !== "no") {
+            mypayment(order_idx);
+        } else {
+            alert("주문 처리에 실패했습니다.");
+        }
+    } else if (xhr.readyState == 4) {
+        alert("주문 처리에 실패했습니다.");
+    }
+}
+
+function mypayment(order_idx) {
+    console.log("Initiating payment with order_idx:", order_idx);
+
+    IMP.init("imp03484531"); // Example: imp00000000
+    IMP.request_pay({
+        pg: "html5_inicis",
+        pay_method: "card",
+        name: "노르웨이 회전 의자",
+        amount: 1,
+        buyer_email: "${user.user_email}",
+        buyer_name: "${user.user_name}",
+        buyer_tel: "${user.user_tel}",
+        buyer_addr: "${user.user_addr}" + "${user.user_addrdetail}",
+        buyer_postcode: "${user.user_idx}",
+    }, function (response) {
+        if (response.success) {
+            console.log("Payment success response:", response);
+            const data = {
+                imp_uid: response.imp_uid,
+                merchant_uid: response.merchant_uid,
+                paid_amount: response.paid_amount,
+                apply_num: response.apply_num,
+                order_idx: order_idx,
+                user_idx: ${user.user_idx}, // user_idx를 명시적으로 설정
+            };
+            console.log("Sending payment data to payment.do:", data);
+            sendRequest("payment.do", new URLSearchParams(data).toString(), paymentResultFn, "POST");
+        } else {
+            alert("결제에 실패했습니다. 다시 시도해 주세요.");
+        }
+    });
+}
+
+function paymentResultFn() {
+    if (xhr.readyState == 4 && xhr.status == 200) {
+        const response = xhr.responseText;
+        console.log("payment.do 응답 데이터:", response);
+        if (response === "success") {
+            alert("결제가 완료되었습니다.");
+            window.location.href = "mypageform.do";
+        } else {
+            alert("else 결제 처리에 실패했습니다. 관리자에게 문의하세요.");
+        }
+    } else if (xhr.readyState == 4) {
+        alert("xhr==4 결제 처리에 실패했습니다. 관리자에게 문의하세요.");
+    }
+}
+      
+      function paymentResultFn() {
+          if (xhr.readyState == 4 && xhr.status == 200) {
+              const response = xhr.responseText;
+              console.log("payment.do 응답 데이터:", response); // 추가된 로그
+              if (response === "success") {
+                  alert("결제가 완료되었습니다.");
+                  location.href="main.do";
+              } else {
+                  alert("else 결제 처리에 실패했습니다. 관리자에게 문의하세요.");
+              }
+          } else if (xhr.readyState == 4) {
+              alert("xhr==4 결제 처리에 실패했습니다. 관리자에게 문의하세요.");
+          }
+      }
+         
+      </script>
+
 		
 	
 		
@@ -249,7 +271,7 @@
 				    <div class="user_age">
 				        <p id="age">나이 <span>*</span></p>
 				        <select id="age" name="order_age" required>
-				            <option value="">선택하세요</option>
+				            <option value="" disabled selected>선택하세요</option>
 				            <!-- 14세부터 100세까지 옵션 추가 -->
 				            <c:forEach var="i" begin="14" end="100">
 				                <option value="${i}">${i}세</option>
@@ -277,11 +299,14 @@
                     </div>
                     
                     <div class="pay_option">
-                    	<div class="pay_option_text">
+                    	<!-- <div class="pay_option_text">
                         	<span>결제방법</span>
-                    	</div>
+                    	</div> -->
 					   <div class="option_btn">
 						    <c:if test="${event.event_price > 0}">
+							    <div class="pay_option_text">
+	                        		<span>결제방법</span>
+	                    		</div>
 						        <input type="button" value="신용카드/간편결제" onclick="console.log('신용카드/간편결제 버튼 클릭됨')">
 						        <input type="button" value="가상계좌" id="virtualAccountBtn" onclick="console.log('가상계좌 버튼 클릭됨')">
 						        <div class="account_comment">
@@ -331,20 +356,18 @@
                     </div>
                     
                     <div class="submit_button">
-	                    <c:choose>
-						    <c:when test="${event.event_price > 0}">
-						        <input type="button" value="결제하기" onclick="mypayment(this.form);"/>
-						    </c:when>
-						    <c:otherwise>
-						        <input type="button" value="신청하기" onclick="join(this.form);"/>
-						    </c:otherwise>
-						</c:choose>
-                    </div>					
+                       <c:choose>
+                      <c:when test="${event.event_price > 0}">
+                          <input type="button" value="결제하기" onclick="submitOrderForm(this.form);"/>
+                      </c:when>
+                      <c:otherwise>
+                          <input type="button" value="신청하기" onclick="join(this.form);"/>
+                      </c:otherwise>
+                  </c:choose>
+                    </div>               
                 </div>
             </div>
         </div>    
-        
-    	
     </form>
 	
 </body>

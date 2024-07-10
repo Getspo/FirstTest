@@ -4,24 +4,30 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="o">
 
-<insert id="user_order" parameterType="order">
-	INSERT INTO getspo_order VALUES (seq_order_idx.nextVal, #{user_idx}, #{event_idx}, 
-      sysdate,
-      #{order_name},
-      #{order_tel},
-      #{order_email},
-      #{order_addr},
-      #{order_gen},
-      #{order_age}      
-      )
+<insert id="user_order" parameterType="order" useGeneratedKeys="true" keyProperty="order_idx" keyColumn="order_idx">
+    INSERT INTO getspo_order (
+        order_idx, user_idx, event_idx, order_date, order_name, order_tel, order_email, order_addr, order_gen, order_age
+    ) VALUES (
+        seq_order_idx.nextVal, 
+        #{user_idx, jdbcType=INTEGER}, 
+        #{event_idx, jdbcType=INTEGER}, 
+        sysdate, 
+        #{order_name, jdbcType=VARCHAR}, 
+        #{order_tel, jdbcType=VARCHAR}, 
+        #{order_email, jdbcType=VARCHAR}, 
+        #{order_addr, jdbcType=VARCHAR}, 
+        #{order_gen, jdbcType=VARCHAR}, 
+        #{order_age, jdbcType=INTEGER}
+    )
 </insert>
 
+
 <insert id="user_pay" parameterType="pay">
-	INSERT INTO getspo_pay (
+   INSERT INTO getspo_pay (
             pay_idx, order_idx, user_idx, pay_price, imp_uid, merchant_uid, apply_num
         ) VALUES (
             seq_pay_idx.nextVal, 
-            #{order_idx, jdbcType=NULL}, 
+            #{order_idx}, 
             #{user_idx}, 
             #{pay_price}, 
             #{imp_uid}, 
@@ -30,12 +36,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         )
 </insert>
 
-<!-- 결제정보 업데이트 order_idx추가  -->
-<update id="update_pay_order_idx">
-    UPDATE getspo_pay
-    SET order_idx = #{order_idx}
-    WHERE imp_uid = #{imp_uid}
-</update>
 
 
  

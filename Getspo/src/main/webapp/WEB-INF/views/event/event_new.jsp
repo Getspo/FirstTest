@@ -15,29 +15,22 @@
 		<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
 	
 		<!-- 주소 찾기 -->
-		<script
-			src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+		<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 		<script src="/getspo/resources/js/eventaddr.js"></script>
 		
 		<!-- 에디터 -->
-		<link
-			href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
-			rel="stylesheet">
+		<link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
 		<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-		<script
-			src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+		
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 		
 		<!-- include summernote css/js -->
-		<link
-			href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css"
-			rel="stylesheet">
-		<script
-			src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+		<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css"	rel="stylesheet">
+		<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
 		
 		<!-- Cropper.js -->
 		<link href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css" rel="stylesheet">
-		<script
-			src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script>
+		<script	src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script>
 			
 		<!-- ajax -->
 		<script src="/getspo/resources/js/httpRequest.js"></script>
@@ -179,8 +172,8 @@
          </div>
          
             <div class="form-group" id="entry_group">
-            <h5>참가자 정보 수집
-               <input type="button" class="add-item-btn" onclick="addNewItem()" value="새 항목 추가">
+               <h5>참가자 정보 수집
+               		<input type="button" class="add-item-btn" onclick="addNewItem()" value="새 항목 추가">
                </h5>
                    <span>
                       <input id="entry_name" name="user_name" type="checkbox" value="이름" checked disabled>
@@ -235,7 +228,7 @@
                <input id="ticket_amount" name="event_price" type="number" min="0" max="1000000"step="1000" placeholder="티켓금액" required>
                
              <div class="radio-group">
-             <p>잔여수량</p>   
+             <h5>잔여수량</h5>   
                  <input type="radio" id="remain_open" name="event_ticket_open" value="open" required>
                  <label for="remain_open">공개</label>
                  <input type="radio" id="remain_close" name="event_ticket_open" value="close" required>
@@ -258,9 +251,7 @@
         <input type="submit" class="event_btn" value="행사 등록하기"> 
     </form>
        
-    
-    
-      <script>
+    <script>
             /* 상세정보 입력창 관련 함수 */
 			$(document).ready(function () {
 			    $('#summernote').summernote({

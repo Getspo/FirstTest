@@ -1,6 +1,5 @@
 package dao;
 
-
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -17,7 +16,10 @@ public class OrderDAO {
 
 	// 유저행사신청
 	public int orderevent(OrderVO user) {
-		return sqlSession.insert("o.user_order", user);
+		int res = sqlSession.insert("o.user_order", user);
+		System.out.println("inser res = " + res);
+		System.out.println("order_idx = " + user.getOrder_idx());
+		return res;
 	}
 
 	// 결제

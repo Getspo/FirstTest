@@ -272,16 +272,27 @@ public class UserController {
 	@ResponseBody
 	public String modify(UserVO vo) {
 
-		// 비밀번호 암호화
-		String encodePwd = Common.SecurePwd.encodePwd(vo.getUser_pwd());
-		vo.setUser_pwd(encodePwd);
+		// db에 존재하는 실제 비번을 복호화해서 입력된 값과 비교
+		boolean isValid = Common.SecurePwd.decodePwd(vo, user_dao);
 
-		int res = user_dao.update_userInfo(vo);
-		if (res > 0) {
-			return "[{'result':'clear'}]";
-		} else {
-			return "[{'result':'fail'}]";
+		if (isValid) {// 복호화된 비번이 일치될 경우 정보 수정 진행 ㄱㄱ
+
+			// 비밀번호 다시 암호화해서 vo에 담기
+			String encodePwd = Common.SecurePwd.encodePwd(vo.getUser_pwd());
+			vo.setUser_pwd(encodePwd);
+
+			int res = user_dao.update_userInfo(vo);
+
+			if (res > 0) {
+				return "[{'result':'clear'}]";// 수정 성공시 돌아갈 콜백메시지
+			} else {
+				return "[{'result':'fail'}]";// 수정 실패시 돌아갈 콜백메시지
+			}
+
+		} else {// 복호화된 비번이 틀릴 경우 정보 수정 진행 ㄴㄴ
+			return "[{'result':'wrong'}]";// 비밀번호 틀리면 돌아갈 콜백메시지
 		}
+
 	}
 
 	// 회원탈퇴(DB삭제)
