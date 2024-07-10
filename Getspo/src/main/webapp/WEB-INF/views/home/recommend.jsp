@@ -41,7 +41,7 @@
                               <a class="price">무료</a>
                            </c:otherwise>
                         </c:choose>
-						<a class="view">조회수 ${event.event_viewCount}</a>	
+						<a class="view">조회 ${event.event_viewCount}</a>	
 					</div>
 				</td>	
 				<td class="gutter"></td>
