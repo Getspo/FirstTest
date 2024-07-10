@@ -8,7 +8,12 @@
 <head>
     <meta charset="UTF-8">
     <title>이벤트 신청페이지</title>
+    
     <link rel="stylesheet" href="/getspo/resources/css/event/event_apply.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
+    
     <!-- ajax -->
    <script src="/getspo/resources/js/httpRequest.js"></script>
    
