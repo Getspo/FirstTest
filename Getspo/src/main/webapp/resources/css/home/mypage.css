@@ -133,7 +133,7 @@ input[type="password"]:focus{
    outline: none; /* 기본 포커스 효과 제거 */
 }
 
-#user_id, #user_email{
+#user_id{
    font-size: 15px;
    color:#878D91;
    margin-top: -10px;

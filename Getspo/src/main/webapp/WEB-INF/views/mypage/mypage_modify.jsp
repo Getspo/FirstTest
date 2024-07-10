@@ -57,7 +57,7 @@
 				<input type="tel" id="user_tel" name="user_tel" class="inp" value="${vo.user_tel}" required>
 				
 				<h4>이메일</h4>
-				<p id="user_email" name="user_email" class="inp">${vo.user_email}</p>
+				<input type="text" id="user_email" name="user_email" class="inp" value="${vo.user_email}" required>
 				
 				<h4>생년월일</h4>
 				<input type="date" id="user_birth" name="user_birth" class="inp" value="${vo.user_birth}" required>
