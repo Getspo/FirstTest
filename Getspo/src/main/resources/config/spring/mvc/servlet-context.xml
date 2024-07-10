@@ -27,6 +27,7 @@
 		<beans:constructor-arg ref="user_daoBean"/>
 		<beans:constructor-arg ref="event_daoBean"/>
 		<beans:constructor-arg ref="category_daoBean"/>
+		<beans:constructor-arg ref="order_daoBean"/>
 	</beans:bean>
 	
 	<beans:bean class="com.kh.getspo.UserController">

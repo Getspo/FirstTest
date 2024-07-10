@@ -1,5 +1,7 @@
 package dao;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -27,29 +29,9 @@ public class OrderDAO {
 		return sqlSession.insert("o.user_pay", pay);
 	}
 
-	// 결제정보 업데이트
-	// 결제 정보 업데이트
-	public int updatePayOrderIdx(String impUid, int orderIdx) {
-		return sqlSession.update("o.updatePayOrderIdx", new UpdatePayOrderIdxParams(impUid, orderIdx));
-	}
-
-	// 업데이트 파라미터 클래스
-	public static class UpdatePayOrderIdxParams {
-		private String impUid;
-		private int orderIdx;
-
-		public UpdatePayOrderIdxParams(String impUid, int orderIdx) {
-			this.impUid = impUid;
-			this.orderIdx = orderIdx;
-		}
-
-		public String getImpUid() {
-			return impUid;
-		}
-
-		public int getOrderIdx() {
-			return orderIdx;
-		}
+	// 사용자가 신청한 행사 리스트
+	public List<OrderVO> selectEventByorder(int user_idx) {
+		return sqlSession.selectList("o.user_order_list", user_idx);
 	}
 
 }
