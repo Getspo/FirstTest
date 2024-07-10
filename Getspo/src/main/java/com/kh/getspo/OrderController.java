@@ -41,7 +41,7 @@ public class OrderController {
          order_dao.orderevent(user);
          
          model.addAttribute("user", user);
-         return "main.do";
+         return "mypageform.do";
 
       }
       

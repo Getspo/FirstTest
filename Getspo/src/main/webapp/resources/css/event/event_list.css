@@ -14,12 +14,6 @@ body {
 	background-color: white;
 }
 
-/* 네비게이션 바의 검색 입력창 스타일 추가 */
-.navibar .searchbox {
-	font-family: "Noto Sans KR", sans-serif;
-    font-size: 15px; 
-}
-
 /* 전체 컨테이너 스타일 */
 .container {
 	padding: 20px;
