@@ -1,15 +1,9 @@
 @charset "UTF-8";
 
-* {
-	font-family: "Noto Sans KR", sans-serif;
-}
-
-/* 전체 body 스타일 */
-body {
-	font-family: "Noto Sans KR", sans-serif;
-	margin: 0; /* 외부 여백 제거 */
-	padding: 0; /* 내부 여백 제거 */
-	background-color: white; /* 배경색 흰색 */
+body, .eventSection {
+    margin: 0;
+    padding: 0;
+    font-family: "Noto Sans KR", sans-serif;
 }
 
 /* 전체 컨테이너 스타일 */
@@ -29,6 +23,17 @@ body {
 .eventSection {
 	flex: 3; /* 가용 공간의 3/4 차지 */
 	margin: 20px 0; /* 위아래 여백 설정 */
+}
+
+/* 특정 영역의 검색박스 스타일 */
+.eventSection input[type="text"] {
+    width: 300px;
+    height: 20px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    padding: 10px 20px;
+    font-size: 15px;
+    outline: none;
 }
 
 /* 검색 상자 스타일 */
