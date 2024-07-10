@@ -16,38 +16,9 @@ body {
 
 /* 네비게이션 바의 검색 입력창 스타일 추가 */
 .navibar .searchbox {
-	font : "Noto Sans KR", sans-serif;
+	font-family: "Noto Sans KR", sans-serif;
     font-size: 15px; 
 }
-
-/* 네비게이션 바의 a 태그 스타일 추가 */
-.navibar .signin,
-.navibar .signup,
-.navibar .new_event,
-.navibar .hostpage {
-    height: 35px; /* 원하는 높이로 조정 */
-    line-height: 35px; /* 수직 정렬을 위해 line-height를 높이와 동일하게 설정 */
-    display: inline-block;
-    text-align: center; /* 텍스트 가운데 정렬 */
-    padding: 0 10px; /* 좌우 패딩 추가 */
-}
-
-.navibar .signin {
-    width: 55.41px;
-}
-
-.navibar .signup {
-    width: 69.2px;
-}
-
-.navibar .new_event {
-    width: 96.81px;
-}
-
-.navibar .hostpage {
-    width: 83px;
-}
-
 
 /* 전체 컨테이너 스타일 */
 .container {

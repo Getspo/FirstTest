@@ -10,13 +10,13 @@
     <title>이벤트 신청페이지</title>
     <link rel="stylesheet" href="/getspo/resources/css/event/event_apply.css">
     <!-- ajax -->
-	<script src="/getspo/resources/js/httpRequest.js"></script>
-	
-	<!-- 포트원결제api -->
-	<script src="https://cdn.iamport.kr/v1/iamport.js"></script>
-	
-	<!-- JQuery  -->
-	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+   <script src="/getspo/resources/js/httpRequest.js"></script>
+   
+   <!-- 포트원결제api -->
+   <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
+   
+   <!-- JQuery  -->
+   <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     
     <script>
          /* 수량 조절 버튼 */
@@ -76,96 +76,72 @@
            
           // 결제할때
           function sendRequest(url, param, callback, method) {
-    xhr = new XMLHttpRequest();
-    xhr.onreadystatechange = callback;
-    xhr.open(method, url, true);
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.setRequestHeader("Accept", "application/json");
-    console.log(`Sending request to ${url} with params:`, param);
-    xhr.send(param);
-}
-
-function submitOrderForm(f) {
-    const url = "order.do";
-    const param = new URLSearchParams(new FormData(f)).toString();
-    console.log("Sending request to order.do with data:", param);
-    sendRequest(url, param, resultFn, "POST");
-}
-
-function resultFn() {
-    if (xhr.readyState == 4 && xhr.status == 200) {
-        console.log("order.do 응답 상태:", xhr.status);
-        console.log("order.do 응답 데이터:", xhr.responseText);
-
-        const order_idx = xhr.responseText;
-
-        console.log("Received order_idx:", order_idx);
-
-        if (order_idx !== "no") {
-            mypayment(order_idx);
-        } else {
-            alert("주문 처리에 실패했습니다.");
-        }
-    } else if (xhr.readyState == 4) {
-        alert("주문 처리에 실패했습니다.");
-    }
-}
-
-function mypayment(order_idx) {
-    console.log("Initiating payment with order_idx:", order_idx);
-
-    IMP.init("imp03484531"); // Example: imp00000000
-    IMP.request_pay({
-        pg: "html5_inicis",
-        pay_method: "card",
-        name: "노르웨이 회전 의자",
-        amount: 1,
-        buyer_email: "${user.user_email}",
-        buyer_name: "${user.user_name}",
-        buyer_tel: "${user.user_tel}",
-        buyer_addr: "${user.user_addr}" + "${user.user_addrdetail}",
-        buyer_postcode: "${user.user_idx}",
-    }, function (response) {
-        if (response.success) {
-            console.log("Payment success response:", response);
-            const data = {
-                imp_uid: response.imp_uid,
-                merchant_uid: response.merchant_uid,
-                paid_amount: response.paid_amount,
-                apply_num: response.apply_num,
-                order_idx: order_idx,
-                user_idx: ${user.user_idx}, // user_idx를 명시적으로 설정
-            };
-            console.log("Sending payment data to payment.do:", data);
-            sendRequest("payment.do", new URLSearchParams(data).toString(), paymentResultFn, "POST");
-        } else {
-            alert("결제에 실패했습니다. 다시 시도해 주세요.");
-        }
-    });
-}
-
-function paymentResultFn() {
-    if (xhr.readyState == 4 && xhr.status == 200) {
-        const response = xhr.responseText;
-        console.log("payment.do 응답 데이터:", response);
-        if (response === "success") {
-            alert("결제가 완료되었습니다.");
-            window.location.href = "mypageform.do";
-        } else {
-            alert("else 결제 처리에 실패했습니다. 관리자에게 문의하세요.");
-        }
-    } else if (xhr.readyState == 4) {
-        alert("xhr==4 결제 처리에 실패했습니다. 관리자에게 문의하세요.");
-    }
-}
+          xhr = new XMLHttpRequest();
+          xhr.onreadystatechange = callback;
+          xhr.open(method, url, true);
+          xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+          xhr.setRequestHeader("Accept", "application/json");
+          console.log(`Sending request to ${url} with params:`, param);
+          xhr.send(param);
+      }
+      
+      function submitOrderForm(f) {
+          const url = "order.do";
+          const param = new URLSearchParams(new FormData(f)).toString();
+          sendRequest(url, param, resultFn, "POST");
+      }
+      
+      function resultFn() {
+          if (xhr.readyState == 4 && xhr.status == 200) {
+              const order_idx = xhr.responseText;
+              if (order_idx !== "no") {
+                  mypayment(order_idx);
+              } else {
+                  alert("주문 처리에 실패했습니다.");
+              }
+          } else if (xhr.readyState == 4) {
+              alert("주문 처리에 실패했습니다.");
+          }
+      }
+      
+      function mypayment(order_idx) {
+          IMP.init("imp03484531"); // Example: imp00000000
+          IMP.request_pay({
+              pg: "html5_inicis",
+              pay_method: "card",
+              name: "노르웨이 회전 의자",
+              amount: 1,
+              buyer_email: "${user.user_email}",
+              buyer_name: "${user.user_name}",
+              buyer_tel: "${user.user_tel}",
+              buyer_addr: "${user.user_addr}" + "${user.user_addrdetail}",
+              buyer_postcode: "${user.user_idx}",
+          }, function (response) {
+              if (response.success) {
+                  console.log("Payment success response:", response);
+                  const data = {
+                      imp_uid: response.imp_uid,
+                      merchant_uid: response.merchant_uid,
+                      paid_amount: response.paid_amount,
+                      apply_num: response.apply_num,
+                      order_idx: order_idx,
+                      user_idx: ${user.user_idx}, // user_idx를 명시적으로 설정
+                  };
+                  console.log("Sending payment data to payment.do:", data);
+                  sendRequest("payment.do", new URLSearchParams(data).toString(), paymentResultFn, "POST");
+              } else {
+                  alert("결제에 실패했습니다. 다시 시도해 주세요.");
+              }
+          });
+      }
       
       function paymentResultFn() {
           if (xhr.readyState == 4 && xhr.status == 200) {
               const response = xhr.responseText;
-              console.log("payment.do 응답 데이터:", response); // 추가된 로그
+              console.log("payment.do 응답 데이터:", response);
               if (response === "success") {
                   alert("결제가 완료되었습니다.");
-                  location.href="main.do";
+                  location.href="mypageform.do?user_idx=${user.user_idx}";
               } else {
                   alert("else 결제 처리에 실패했습니다. 관리자에게 문의하세요.");
               }
@@ -173,13 +149,14 @@ function paymentResultFn() {
               alert("xhr==4 결제 처리에 실패했습니다. 관리자에게 문의하세요.");
           }
       }
-         
+            
+            
+               
       </script>
-
-		
-	
-		
-		
+      
+   
+      
+      
 </head>
 <body>
     <jsp:include page="../home/navigation.jsp"></jsp:include>
@@ -187,9 +164,9 @@ function paymentResultFn() {
     <br>
 
     <form>
-    	<input type="hidden" name="user_idx" value="${event.user_idx}">
-    	<input type="hidden" name="event_idx" value="${event.event_idx}">
-    	<input type="hidden" name="order_addr" value="${user.user_addr}">
+       <input type="hidden" name="user_idx" value="${event.user_idx}">
+       <input type="hidden" name="event_idx" value="${event.event_idx}">
+       <input type="hidden" name="order_addr" value="${user.user_addr}">
         <div class="apply_form">
             <div class="info_line">
                 <div class="event_info">
@@ -210,33 +187,33 @@ function paymentResultFn() {
                 <div class="event_ticket">
                     <div class="ticket_details">
                         <div id="ticketname">
-                        	${event.event_ticketname}
+                           ${event.event_ticketname}
                         </div>
                         
                         <div class="ticket_etc">
-	                        <div class="amount_btn">
-	                            <input type="button" onclick="minus(this)" value="-">
-	                            <span class="quantity">1</span>
-	                            <input type="button" onclick="plus(this)" value="+">
-	                        </div>
-	                        
-	                        <div id="remainSection" class="remain">
-	                            <c:if test="${event.event_ticket_open eq 'open'}">
-	                                <span>잔여수량 : ${remainticket}</span>
-	                            </c:if>
-	                        </div>
-	                        
-	                        <div id="event_price">
-								<c:choose>
-							        <c:when test="${event.event_price > 0}">
-							            <fmt:formatNumber value="${event.event_price}" type="number" groupingUsed="true" />원
-							        </c:when>
-							        <c:otherwise>
-							            <span>무료</span>
-							        </c:otherwise>
-							    </c:choose>
-							</div>
-						</div>	
+                           <div class="amount_btn">
+                               <input type="button" onclick="minus(this)" value="-">
+                               <span class="quantity">1</span>
+                               <input type="button" onclick="plus(this)" value="+">
+                           </div>
+                           
+                           <div id="remainSection" class="remain">
+                               <c:if test="${event.event_ticket_open eq 'open'}">
+                                   <span>잔여수량 : ${remainticket}</span>
+                               </c:if>
+                           </div>
+                           
+                           <div id="event_price">
+                        <c:choose>
+                             <c:when test="${event.event_price > 0}">
+                                 <fmt:formatNumber value="${event.event_price}" type="number" groupingUsed="true" />원
+                             </c:when>
+                             <c:otherwise>
+                                 <span>무료</span>
+                             </c:otherwise>
+                         </c:choose>
+                     </div>
+                  </div>   
                     </div>
                 </div>
             
@@ -252,32 +229,32 @@ function paymentResultFn() {
                     </div>
                     
                     <div class="user_email">
-					    <p class="email">이메일 <span>*</span></p>
-					    <input type="email" id="email" name="order_email" value="${user.user_email}" autocomplete="off" readonly>
-					</div>
+                   <p class="email">이메일 <span>*</span></p>
+                   <input type="email" id="email" name="order_email" value="${user.user_email}" autocomplete="off" readonly>
+               </div>
                     
                     <div class="user_tel">
                         <p id="tel">전화번호 <span>*</span></p>
                         <input type="tel" id="tel" name="order_tel" value="${user.user_tel}" required>
                     </div>
                      <!-- 성별 선택 체크박스 -->
-				    <div class="user_gender">
-				        <p id="gender">성별 <span>*</span></p>
-				        <label><input type="radio" id="order_gen" name="order_gen" value="male" required> 남성</label>
-				        <label><input type="radio" id="order_gen" name="order_gen" value="female" required> 여성</label>
-				    </div>
-				
-				    <!-- 나이 선택 드롭다운 -->
-				    <div class="user_age">
-				        <p id="age">나이 <span>*</span></p>
-				        <select id="age" name="order_age" required>
-				            <option value="" disabled selected>선택하세요</option>
-				            <!-- 14세부터 100세까지 옵션 추가 -->
-				            <c:forEach var="i" begin="14" end="100">
-				                <option value="${i}">${i}세</option>
-				            </c:forEach>
-				        </select>
-				    </div>
+                <div class="user_gender">
+                    <p id="gender">성별 <span>*</span></p>
+                    <label><input type="radio" id="order_gen" name="order_gen" value="male" required> 남성</label>
+                    <label><input type="radio" id="order_gen" name="order_gen" value="female" required> 여성</label>
+                </div>
+            
+                <!-- 나이 선택 드롭다운 -->
+                <div class="user_age">
+                    <p id="age">나이 <span>*</span></p>
+                    <select id="age" name="order_age" required>
+                        <option value="">선택하세요</option>
+                        <!-- 14세부터 100세까지 옵션 추가 -->
+                        <c:forEach var="i" begin="14" end="100">
+                            <option value="${i}">${i}세</option>
+                        </c:forEach>
+                    </select>
+                </div>
                 </div>
             </div>
             
@@ -289,37 +266,34 @@ function paymentResultFn() {
                     
                     <div id="apply_price">
                         <c:choose>
-					        <c:when test="${event.event_price > 0}">
-					            <fmt:formatNumber value="${event.event_price}" type="number" groupingUsed="true" />원
-					        </c:when>
-					        <c:otherwise>
-					            <span>무료</span>
-					        </c:otherwise>
-					    </c:choose>
+                       <c:when test="${event.event_price > 0}">
+                           <fmt:formatNumber value="${event.event_price}" type="number" groupingUsed="true" />원
+                       </c:when>
+                       <c:otherwise>
+                           <span>무료</span>
+                       </c:otherwise>
+                   </c:choose>
                     </div>
                     
                     <div class="pay_option">
-                    	<!-- <div class="pay_option_text">
-                        	<span>결제방법</span>
-                    	</div> -->
-					   <div class="option_btn">
-						    <c:if test="${event.event_price > 0}">
-							    <div class="pay_option_text">
-	                        		<span>결제방법</span>
-	                    		</div>
-						        <input type="button" value="신용카드/간편결제" onclick="console.log('신용카드/간편결제 버튼 클릭됨')">
-						        <input type="button" value="가상계좌" id="virtualAccountBtn" onclick="console.log('가상계좌 버튼 클릭됨')">
-						        <div class="account_comment">
-						            <div id="comment_title">*가상계좌 입금 안내</div>
-						            <div id="comment_ment">
-						                <span><b><fmt:formatDate value="${currentDate}" pattern="MM월 dd일" /></b> 이전에 입금을 완료해 주세요.</span>
-						                <span>기한 내 입금이 확인되지 않을 경우, 신청은 <b>자동 취소</b>됩니다.</span>
-						            </div>
-						        </div>
-						    </c:if>
-						</div>
-					</div>
-					                    
+                       <div class="pay_option_text">
+                           <span>결제방법</span>
+                       </div>
+                  <div class="option_btn">
+                      <c:if test="${event.event_price > 0}">
+                          <input type="button" value="신용카드/간편결제" onclick="console.log('신용카드/간편결제 버튼 클릭됨')">
+                          <input type="button" value="가상계좌" id="virtualAccountBtn" onclick="console.log('가상계좌 버튼 클릭됨')">
+                          <div class="account_comment">
+                              <div id="comment_title">*가상계좌 입금 안내</div>
+                              <div id="comment_ment">
+                                  <span><b><fmt:formatDate value="${currentDate}" pattern="MM월 dd일" /></b> 이전에 입금을 완료해 주세요.</span>
+                                  <span>기한 내 입금이 확인되지 않을 경우, 신청은 <b>자동 취소</b>됩니다.</span>
+                              </div>
+                          </div>
+                      </c:if>
+                  </div>
+               </div>
+                                   
                     <div class="agree_box">
                         <div class="allagree">
                             <div>
@@ -368,7 +342,9 @@ function paymentResultFn() {
                 </div>
             </div>
         </div>    
+        
+       
     </form>
-	
+   
 </body>
 </html>
