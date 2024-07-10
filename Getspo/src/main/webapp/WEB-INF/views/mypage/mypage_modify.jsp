@@ -46,16 +46,19 @@
 		<div class="information">
 			<form>
 				<input type="hidden" name="user_idx" value="${vo.user_idx}">
-
-				<h4>이메일(ID)</h4>
-				<p id="user_email" name="user_email" class="inp">${vo.user_email}</p>
+				
+				<h4>ID</h4>
+				<p id="user_id" name="user_id" class="inp">${vo.user_id}</p>
 				
 				<h4>이름</h4>
 				<input type="text" id="user_name" name="user_name" class="inp" value="${vo.user_name}" required>
 
 				<h4>전화번호</h4>
 				<input type="tel" id="user_tel" name="user_tel" class="inp" value="${vo.user_tel}" required>
-
+				
+				<h4>이메일</h4>
+				<p id="user_email" name="user_email" class="inp">${vo.user_email}</p>
+				
 				<h4>생년월일</h4>
 				<input type="date" id="user_birth" name="user_birth" class="inp" value="${vo.user_birth}" required>
 
