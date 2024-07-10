@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>MypageForm</title>
+<title>마이페이지</title>
 
 <!-- css -->
 <link rel="stylesheet" href="/getspo/resources/css/home/mypage.css">
