@@ -92,7 +92,7 @@
         
         <!-- 이벤트 섹션  -->
         <div class="eventSection" id="eventSection">
-            <div class="search-box">
+            <div class="search-group">
                 <div class="total-box">
                     <span class="total-event">${totalEvent}</span> <span>개의 행사가 검색되었습니다</span>
                 </div>

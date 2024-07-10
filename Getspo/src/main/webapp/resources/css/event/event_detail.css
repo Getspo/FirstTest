@@ -11,6 +11,17 @@ body {
 	font-family: "Noto Sans KR", sans-serif;
 }
 
+/* 네비게이션 바의 검색 입력창 스타일 추가 (절대 수정하지 말것!) */
+.navibar .searchbox {
+    width: 342px; 
+    height: 42px;
+    border: 1px solid #ccc;
+    border-radius: 20px; 
+    padding: 10px 20px;
+    font-size: 15px; 
+    outline: none;
+}
+
 .event_detail_page {
 	display: flex; /* Flexbox 사용 */
 	justify-content: space-between; /* 요소들 간의 간격을 균등하게 */
