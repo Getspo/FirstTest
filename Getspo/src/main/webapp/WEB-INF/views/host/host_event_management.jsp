@@ -5,7 +5,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>Insert title here</title>
+		<title>행사 관리</title>
 		
 		<!-- css -->
         <link rel="stylesheet" href="/getspo/resources/css/host/host_event_management.css">
@@ -16,7 +16,7 @@
 		<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>                
 	</head>
 	<body>
-	<jsp:include page="host_navigation.jsp"/>
+	<jsp:include page="host_event_navigation.jsp"/>
 	<jsp:include page="host_sidebar.jsp"/>
 	
 	<article id="event_info_section" class="event_info_section">

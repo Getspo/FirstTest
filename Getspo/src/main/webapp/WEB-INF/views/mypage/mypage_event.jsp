@@ -22,8 +22,8 @@
             <th>카테고리</th>
             <th>행사이름</th>
             <th>행사장소</th>
-            <th>행사날짜</th>
-            <th>신청날짜</th>
+            <th>행사일자</th>
+            <th>신청일자</th>
          </tr>
          
          <c:forEach var="order" items="${order}">

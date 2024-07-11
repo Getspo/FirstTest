@@ -8,7 +8,7 @@
     <title>호스트 네비게이션 바</title>
 
     <!-- css -->
-    <link rel="stylesheet" href="/getspo/resources/css/host/host_navigation.css">
+    <link rel="stylesheet" href="/getspo/resources/css/host/host_event_navigation.css">
 
     <!-- 폰트 설정 -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
