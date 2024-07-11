@@ -20,12 +20,11 @@
       pagination="true" pagination-clickable="true" navigation="true" slidesPerView="1" space-between="30" loop="true"
       centered-slides="true" autoplay-delay="3000" effect="fade"
       > <!-- grabCursor="true" pauseOnMouseEnter="true" 얘네 두개는 왜 적용안될까요? -->
-      <swiper-slide><img class="banner_img" src="resources/img/banner/광고배너1(마라톤).png" /></swiper-slide>
-      <swiper-slide><img class="banner_img" src="resources/img/banner/광고문의-001.png" /></swiper-slide>
-      <swiper-slide><img class="banner_img" src="resources/img/banner/basketball.jpg" /></swiper-slide>
-      <swiper-slide><img class="banner_img" src="resources/img/banner/football_1.jpg" /></swiper-slide>
-      <swiper-slide><img class="banner_img" src="resources/img/banner/football_2.jpg" /></swiper-slide>
-      <swiper-slide><img class="banner_img" src="resources/img/banner/tennis.jpg" /></swiper-slide>
+      <swiper-slide><img class="banner_img" src="resources/img/banner/광고배너(마라톤).png" /></swiper-slide>
+      <swiper-slide><img class="banner_img" src="resources/img/banner/광고배너(축구).png" /></swiper-slide>
+      <swiper-slide><img class="banner_img" src="resources/img/banner/광고배너(테니스).png" /></swiper-slide>
+      <swiper-slide><img class="banner_img" src="resources/img/banner/광고배너(라이딩).png" /></swiper-slide>
+      <swiper-slide><img class="banner_img" src="resources/img/banner/광고배너(배구).png" /></swiper-slide>
       
    </swiper-container>
 
