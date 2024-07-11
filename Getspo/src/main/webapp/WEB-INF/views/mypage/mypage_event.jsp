@@ -19,9 +19,9 @@
          
          <table border="1">
          <tr>
-            <th>스포츠종목</th>
+            <th>카테고리</th>
             <th>행사이름</th>
-            <th>행사지역</th>
+            <th>행사장소</th>
             <th>행사날짜</th>
             <th>신청날짜</th>
          </tr>
@@ -47,7 +47,7 @@
                ${order.event_name}
                </a>
             </td>
-            <td>${order.event_loc}</td>
+            <td>${order.event_addr}</td>
             <td>${order.formattedEventHStart}</td>
             <td>${order.formattedOrderDate}</td>
          </tr>

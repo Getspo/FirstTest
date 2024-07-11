@@ -7,7 +7,6 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import dao.OrderDAO;
 import vo.OrderVO;
 import vo.PayVO;
+import vo.UserVO;
 
 @Controller
 public class OrderController {
@@ -37,24 +37,54 @@ public class OrderController {
    
    // 이벤트 신청
       @RequestMapping("/orderevent.do")
-      public String orderEventTwo(OrderVO user, Model model) {
-         order_dao.orderevent(user);
+      @ResponseBody
+      public String orderEventTwo(@RequestParam("event_idx") int eventIdx, OrderVO order) {
+         UserVO user = (UserVO) session.getAttribute("user");
+           
+         // 사용자가 로그인하지 않은 경우
+         if (user == null) {
+             return "redirect:/signinform.do?event_idx";
+         } 
+         int userIdx = user.getUser_idx();
+
+          // 이미 신청한 이벤트인지 확인
+          boolean alreadyRegistered = order_dao.isAlreadyRegistered(userIdx, eventIdx);
+          if (alreadyRegistered) {
+              return "already_registered"; // 이미 신청한 이벤트
+          }
          
-         model.addAttribute("user", user);
-         return "mypageform.do";
+         order_dao.orderevent(order);
+         
+         return "success";
 
       }
       
       @RequestMapping(value = "/order.do", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
       @ResponseBody
       public String orderEvent(OrderVO order) {
+         UserVO user = (UserVO) session.getAttribute("user");
+
+          // 사용자가 로그인하지 않은 경우
+          if (user == null) {
+              return "redirect:/signinform.do";
+          }
+          
+          int userIdx = user.getUser_idx();
+          int eventIdx = order.getEvent_idx();
+          
+          // 이미 신청한 이벤트인지 확인
+          boolean alreadyRegistered = order_dao.isAlreadyRegistered(userIdx, eventIdx);
+
+          if (alreadyRegistered) {
+              return "already_registered"; // 이미 신청한 이벤트
+          }
+          
           int res = order_dao.orderevent(order);
           String result = "no";
           if (res > 0) {
               String orderIdx = String.valueOf(order.getOrder_idx());
               result = orderIdx;
           }
-          System.out.println("Order Event Response: " + result); // 추가된 로그
           return result;
       }
 
@@ -67,10 +97,6 @@ public class OrderController {
               @RequestParam("apply_num") String applyNum,
               @RequestParam("user_idx") Integer userIdx,
               @RequestParam("order_idx") Integer orderIdx) {
-         
-
-          System.out.println("Received user_idx: " + userIdx); // 로그 추가
-          System.out.println("Received order_idx: " + orderIdx); // 로그 추가
 
           PayVO pay = new PayVO();
           pay.setImp_uid(impUid);

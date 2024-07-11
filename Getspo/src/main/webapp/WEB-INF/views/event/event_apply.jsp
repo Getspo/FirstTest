@@ -2,7 +2,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,175 +14,180 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
     
     <!-- ajax -->
-   <script src="/getspo/resources/js/httpRequest.js"></script>
+    <script src="/getspo/resources/js/httpRequest.js"></script>
    
-   <!-- 포트원결제api -->
-   <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
+    <!-- 포트원결제api -->
+    <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
    
-   <!-- JQuery  -->
-   <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <!-- JQuery  -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     
     <script>
-         /* 수량 조절 버튼 */
-           function minus(button) {
-               // 부모 요소에서 .quantity 클래스를 가진 요소를 찾음
-               var quantitySpan = button.parentNode.querySelector('.quantity');
-               var currentQuantity = parseInt(quantitySpan.innerText);
-               if (currentQuantity > 1) {  // 최소 수량을 1로 설정
-                   quantitySpan.innerText = currentQuantity - 1;
-               }
-           }
+        /* 수량 조절 버튼 */
+        function minus(button) {
+            var quantitySpan = button.parentNode.querySelector('.quantity');
+            var currentQuantity = parseInt(quantitySpan.innerText);
+            if (currentQuantity > 1) {
+                quantitySpan.innerText = currentQuantity - 1;
+            }
+        }
    
-           function plus(button) {
-               // 부모 요소에서 .quantity 클래스를 가진 요소를 찾음
-               var quantitySpan = button.parentNode.querySelector('.quantity');
-               var currentQuantity = parseInt(quantitySpan.innerText);
-               quantitySpan.innerText = currentQuantity + 1;
-           }
+        function plus(button) {
+            var quantitySpan = button.parentNode.querySelector('.quantity');
+            var currentQuantity = parseInt(quantitySpan.innerText);
+            quantitySpan.innerText = currentQuantity + 1;
+        }
            
-           /* 전체 동의하기 체크박스 클릭 시 모든 체크박스를 체크하거나 체크 해제 */
-           function toggleAllCheckboxes(checkbox) {
-               var checkboxes = document.querySelectorAll('.sub_agree input[type="checkbox"]');
-               checkboxes.forEach(function(cb) {
-                   cb.checked = checkbox.checked;
-               });
-               validateForm();
-           }
+        /* 전체 동의하기 체크박스 클릭 시 모든 체크박스를 체크하거나 체크 해제 */
+        function toggleAllCheckboxes(checkbox) {
+            var checkboxes = document.querySelectorAll('.sub_agree input[type="checkbox"]');
+            checkboxes.forEach(function(cb) {
+                cb.checked = checkbox.checked;
+            });
+            validateForm();
+        }
 
-           /* 폼 유효성 검사 */
-           function validateForm() {
-               const checkboxes = document.querySelectorAll('.sub_agree input[type="checkbox"]');
-               const requiredFields = document.querySelectorAll('.apply_info input[required], .apply_info select[required]');
-               const submitButton = document.querySelector('.submit_button input[type="button"]');
+        /* 폼 유효성 검사 */
+        function validateForm() {
+            const checkboxes = document.querySelectorAll('.sub_agree input[type="checkbox"]');
+            const requiredFields = document.querySelectorAll('.apply_info input[required], .apply_info select[required]');
+            const submitButton = document.querySelector('.submit_button input[type="button"]');
 
-               const allChecked = Array.from(checkboxes).every(checkbox => checkbox.checked);
-               const allFilled = Array.from(requiredFields).every(field => field.value.trim() !== '');
+            const allChecked = Array.from(checkboxes).every(checkbox => checkbox.checked);
+            const allFilled = Array.from(requiredFields).every(field => field.value.trim() !== '');
 
-               submitButton.disabled = !(allChecked && allFilled);
-           }
+            submitButton.disabled = !(allChecked && allFilled);
+        }
 
-           /* 결제수단 버튼 유지 */
-           document.addEventListener('DOMContentLoaded', (event) => {
-               const buttons = document.querySelectorAll('.option_btn input[type="button"]');
-               const virtualAccountBtn = document.getElementById('virtualAccountBtn');
-               const accountComment = document.querySelector('.account_comment');
-               const checkboxes = document.querySelectorAll('.sub_agree input[type="checkbox"]');
-               const requiredFields = document.querySelectorAll('.apply_info input[required], .apply_info select[required]');
+        /* 결제수단 버튼 유지 */
+        document.addEventListener('DOMContentLoaded', (event) => {
+            const buttons = document.querySelectorAll('.option_btn input[type="button"]');
+            const virtualAccountBtn = document.getElementById('virtualAccountBtn');
+            const accountComment = document.querySelector('.account_comment');
+            const checkboxes = document.querySelectorAll('.sub_agree input[type="checkbox"]');
+            const requiredFields = document.querySelectorAll('.apply_info input[required], .apply_info select[required]');
 
-               buttons.forEach(button => {
-                   button.addEventListener('click', () => {
-                       buttons.forEach(btn => btn.classList.remove('active'));
-                       button.classList.add('active');
+            buttons.forEach(button => {
+                button.addEventListener('click', () => {
+                    buttons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
                        
-                       if (button === virtualAccountBtn) {
-                           accountComment.style.display = 'block';
-                       } else {
-                           accountComment.style.display = 'none';
-                       }
-                   });
-               });
+                    if (button === virtualAccountBtn) {
+                        accountComment.style.display = 'block';
+                    } else {
+                        accountComment.style.display = 'none';
+                    }
+                });
+            });
 
-               checkboxes.forEach(checkbox => {
-                   checkbox.addEventListener('change', validateForm);
-               });
+            checkboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', validateForm);
+            });
 
-               requiredFields.forEach(field => {
-                   field.addEventListener('input', validateForm);
-               });
+            requiredFields.forEach(field => {
+                field.addEventListener('input', validateForm);
+            });
 
-               validateForm();  // 초기 상태 설정
-           });
+            validateForm();  // 초기 상태 설정
+        });
              
-           //신청할때
-           function join(f){
-              f.method = "post";
-               f.action = "orderevent.do";
-               f.submit();
-           }
+        //신청할때
+        function join(f){
+            let url = "orderevent.do";
+            let param = new URLSearchParams(new FormData(f)).toString();
+            sendRequest(url, param, resultJoin, "POST");
+        }
            
-          // 결제할때
-          function sendRequest(url, param, callback, method) {
-          xhr = new XMLHttpRequest();
-          xhr.onreadystatechange = callback;
-          xhr.open(method, url, true);
-          xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-          xhr.setRequestHeader("Accept", "application/json");
-          console.log(`Sending request to ${url} with params:`, param);
-          xhr.send(param);
-      }
+        function resultJoin(){
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                let data = xhr.responseText;
+                if (data == "already_registered") {
+                    alert("이미 신청한 이벤트입니다.");
+                } else if (data == "success") {
+                    alert("신청이 성공적으로 완료되었습니다.");
+                    location.href = "mypageform.do?user_idx=${user.user_idx}";
+                }
+            }
+        }
+           
+        // 결제할때
+        function sendRequest(url, param, callback, method) {
+            xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = callback;
+            xhr.open(method, url, true);
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xhr.setRequestHeader("Accept", "application/json");
+            console.log(`Sending request to ${url} with params:`, param);
+            xhr.send(param);
+        }
       
-      function submitOrderForm(f) {
-          const url = "order.do";
-          const param = new URLSearchParams(new FormData(f)).toString();
-          sendRequest(url, param, resultFn, "POST");
-      }
+        function submitOrderForm(f) {
+            const url = "order.do";
+            const param = new URLSearchParams(new FormData(f)).toString();
+            sendRequest(url, param, resultFn, "POST");
+        }
       
-      function resultFn() {
-          if (xhr.readyState == 4 && xhr.status == 200) {
-              const order_idx = xhr.responseText;
-              if (order_idx !== "no") {
-                  mypayment(order_idx);
-              } else {
-                  alert("주문 처리에 실패했습니다.");
-              }
-          } else if (xhr.readyState == 4) {
-              alert("주문 처리에 실패했습니다.");
-          }
-      }
+        function resultFn() {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                const order_idx = xhr.responseText;
+                if (order_idx === "already_registered") {
+                    alert("이미 신청한 이벤트입니다.");
+                } else if (order_idx !== "no") {
+                    mypayment(order_idx);
+                } else {
+                    alert("주문 처리에 실패했습니다.");
+                }
+            } else if (xhr.readyState == 4) {
+                alert("주문 처리에 실패했습니다.");
+            }
+        }
       
-      function mypayment(order_idx) {
-          IMP.init("imp03484531"); // Example: imp00000000
-          IMP.request_pay({
-              pg: "html5_inicis",
-              pay_method: "card",
-              name: "노르웨이 회전 의자",
-              amount: 1,
-              buyer_email: "${user.user_email}",
-              buyer_name: "${user.user_name}",
-              buyer_tel: "${user.user_tel}",
-              buyer_addr: "${user.user_addr}" + "${user.user_addrdetail}",
-              buyer_postcode: "${user.user_idx}",
-          }, function (response) {
-              if (response.success) {
-                  console.log("Payment success response:", response);
-                  const data = {
-                      imp_uid: response.imp_uid,
-                      merchant_uid: response.merchant_uid,
-                      paid_amount: response.paid_amount,
-                      apply_num: response.apply_num,
-                      order_idx: order_idx,
-                      user_idx: ${user.user_idx}, // user_idx를 명시적으로 설정
-                  };
-                  console.log("Sending payment data to payment.do:", data);
-                  sendRequest("payment.do", new URLSearchParams(data).toString(), paymentResultFn, "POST");
-              } else {
-                  alert("결제에 실패했습니다. 다시 시도해 주세요.");
-              }
-          });
-      }
+        function mypayment(order_idx) {
+            IMP.init("imp03484531"); // Example: imp00000000
+            IMP.request_pay({
+                pg: "html5_inicis",
+                pay_method: "card",
+                name: "노르웨이 회전 의자",
+                amount: 1,
+                buyer_email: "${user.user_email}",
+                buyer_name: "${user.user_name}",
+                buyer_tel: "${user.user_tel}",
+                buyer_addr: "${user.user_addr}" + "${user.user_addrdetail}",
+                buyer_postcode: "${user.user_idx}",
+            }, function (response) {
+                if (response.success) {
+                    console.log("Payment success response:", response);
+                    const data = {
+                        imp_uid: response.imp_uid,
+                        merchant_uid: response.merchant_uid,
+                        paid_amount: response.paid_amount,
+                        apply_num: response.apply_num,
+                        order_idx: order_idx,
+                        user_idx: ${user.user_idx}, // user_idx를 명시적으로 설정
+                    };
+                    console.log("Sending payment data to payment.do:", data);
+                    sendRequest("payment.do", new URLSearchParams(data).toString(), paymentResultFn, "POST");
+                } else {
+                    alert("결제에 실패했습니다. 다시 시도해 주세요.");
+                }
+            });
+        }
       
-      function paymentResultFn() {
-          if (xhr.readyState == 4 && xhr.status == 200) {
-              const response = xhr.responseText;
-              console.log("payment.do 응답 데이터:", response);
-              if (response === "success") {
-                  alert("결제가 완료되었습니다.");
-                  location.href="mypageform.do?user_idx=${user.user_idx}";
-              } else {
-                  alert("else 결제 처리에 실패했습니다. 관리자에게 문의하세요.");
-              }
-          } else if (xhr.readyState == 4) {
-              alert("xhr==4 결제 처리에 실패했습니다. 관리자에게 문의하세요.");
-          }
-      }
-            
-            
-               
-      </script>
-      
-   
-      
-      
+        function paymentResultFn() {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                const response = xhr.responseText;
+                console.log("payment.do 응답 데이터:", response);
+                if (response === "success") {
+                    alert("결제가 완료되었습니다.");
+                    location.href = "mypageform.do?user_idx=${user.user_idx}";
+                } else {
+                    alert("else 결제 처리에 실패했습니다. 관리자에게 문의하세요.");
+                }
+            } else if (xhr.readyState == 4) {
+                alert("xhr==4 결제 처리에 실패했습니다. 관리자에게 문의하세요.");
+            }
+        }
+    </script>
 </head>
 <body>
     <jsp:include page="../home/navigation.jsp"></jsp:include>
@@ -263,7 +267,8 @@
                         <p id="tel">전화번호 <span>*</span></p>
                         <input type="tel" id="tel" name="order_tel" value="${user.user_tel}" required>
                     </div>
-                     <!-- 성별 선택 체크박스 -->
+                    
+                    <!-- 성별 선택 체크박스 -->
                     <div class="user_gender">
                         <p id="gender">성별 <span>*</span></p>
                         <label><input type="radio" id="order_gen" name="order_gen" value="male" required> 남성</label>
@@ -303,9 +308,9 @@
                     <div class="pay_option">
                         <div class="option_btn">
                             <c:if test="${event.event_price > 0}">
-                            <div class="pay_option_text">
-                            <span>결제방법</span>
-                        </div>
+                                <div class="pay_option_text">
+                                    <span>결제방법</span>
+                                </div>
                                 <input type="button" value="신용카드/간편결제" onclick="console.log('신용카드/간편결제 버튼 클릭됨')">
                                 <input type="button" value="가상계좌" id="virtualAccountBtn" onclick="console.log('가상계좌 버튼 클릭됨')">
                                 <div class="account_comment">

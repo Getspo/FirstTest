@@ -13,7 +13,7 @@ public class OrderVO {
    private int event_sports_idx;
     private String event_name;
     private LocalDateTime event_h_start;
-    private String event_loc;
+    private String event_addr;
    
    public int getOrder_idx() {
       return order_idx;
@@ -102,11 +102,11 @@ public class OrderVO {
    public void setEvent_h_start(LocalDateTime event_h_start) {
       this.event_h_start = event_h_start;
    }
-   public String getEvent_loc() {
-      return event_loc;
+   public String getEvent_addr() {
+      return event_addr;
    }
-   public void setEvent_loc(String event_loc) {
-      this.event_loc = event_loc;
+   public void setEvent_addr(String event_addr) {
+      this.event_addr = event_addr;
    }
    
    //날짜변환

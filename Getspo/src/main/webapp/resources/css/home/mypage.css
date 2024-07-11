@@ -99,7 +99,7 @@ h2 {
 }
 
 .content_event table th, .content_event table td {
-    border: 1px solid #ccc;
+    border: 1px solid #ccc; /* 내부 셀 테두리 설정 */
     padding: 10px;
     text-align: center;
 }
@@ -122,22 +122,22 @@ h2 {
 }
 
 .tr {
-	height: 50%;
+    height: 50%;
 }
 
 .recommend {
-	width: 350px;
-	height: 350px;
-	margin: 30px;
+    width: 350px;
+    height: 350px;
+    margin: 30px;
 }
 
 .thumbnail {
-	width: 250px;
-	height: 200px;
+    width: 250px;
+    height: 200px;
 }
 
 .information {
-	margin: 30px;
+    margin: 30px;
 }
 
 /* -------------------------------- 정보수정 -------------------------------- */

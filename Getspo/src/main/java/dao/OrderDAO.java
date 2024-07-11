@@ -1,6 +1,8 @@
 package dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +24,15 @@ public class OrderDAO {
 		System.out.println("inser res = " + res);
 		System.out.println("order_idx = " + user.getOrder_idx());
 		return res;
+	}
+
+	// 사용자가 이미 신청한 이벤트인지 확인
+	public boolean isAlreadyRegistered(int userIdx, int eventIdx) {
+		Map<String, Integer> params = new HashMap<>();
+		params.put("user_idx", userIdx);
+		params.put("event_idx", eventIdx);
+		int count = sqlSession.selectOne("o.isAlreadyRegistered", params);
+		return count > 0;
 	}
 
 	// 결제
