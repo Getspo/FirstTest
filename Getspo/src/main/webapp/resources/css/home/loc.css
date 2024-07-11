@@ -29,16 +29,27 @@ img {
 
 /* Style for slick arrows */
 .slick-prev, .slick-next {
-	background-color: black;
-	color: white;
-	padding: 10px 15px;
-	border: none;
-	border-radius: 5px;
-	position: absolute;
-	top: 50%;
-	transform: translateY(-50%);
-	z-index: 10;
-	cursor: pointer;
+    background-color: white;
+    font-size: 18px;
+    font-weight: bold;
+    color: #43484c;
+    width: 40px;
+    height: 40px;
+    line-height: 30px; /* 텍스트 수직 중앙 정렬 */
+    text-align: center; /* 텍스트 수평 중앙 정렬 */
+    border: 1px solid #ccc;
+    border-radius: 12%; /* 테두리 둥근 정사각형을 위해 border-radius 값 조정 */
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* 부드러운 전환 효과 */
+}
+
+.slick-prev:hover, .slick-next:hover {
+    color: #1a1d20;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.15); /* 호버 시 중간에서 퍼지는 그림자 */
 }
 
 .slick-prev {

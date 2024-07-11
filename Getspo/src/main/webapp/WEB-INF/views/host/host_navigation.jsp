@@ -15,7 +15,7 @@
 		<nav class="hostCenterBar">
 			<div class="resolution">
 				<div class="logo">
-					<img class="logo_img"
+					<img class="hostlogo_img"
 						src="/getspo/resources/img/logo/host_logo.png">
 				</div>
 					

@@ -29,15 +29,15 @@
                 <div id="user-info">
                     <c:if test="${not empty sessionScope.user}">
                         <button class="user-button">
-                            <span class="user-name">${sessionScope.user.user_name} 님</span>
+                            <span class="user-name"><b>${sessionScope.user.user_name}</b> 님</span>
                             <svg class="user-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
                                 <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"></path>
                             </svg>
                         </button>
                         <div id="menu-items" role="menu" tabindex="0">
                             <div id="menu-1">
-                                <p>${sessionScope.user.user_id}</p>
-                                <a href="mypageform.do?user_idx=${sessionScope.user.user_idx}">마이페이지 &gt;</a>
+                                <p id="user_id">${sessionScope.user.user_id}</p>
+                                <a href="mypageform.do?user_idx=${sessionScope.user.user_idx}" id="mypage_btn">마이페이지</a>
                             </div>
                             <div id="menu-2" class="border-t"></div>
                             <form action="logout.do" method="post">

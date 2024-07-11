@@ -37,10 +37,12 @@
 	transition-duration: 1s;
 }
 
+/* 메인로고 hover
 .main_logo:hover {
 	transform: rotate(360deg);
 	border-radius: 50px;
 }
+ */
 
 /* 왼쪽 부분 */
 .left {
@@ -89,11 +91,11 @@
 /* 무료행사개설 */
 .new_event {
 	text-decoration: none;
-	color: #0099bc; 
-	background-color: white; 
-	border-radius: 5px; 
+	color: #0099bc;
+	background-color: white;
+	border-radius: 5px;
 	padding: 7px;
-	margin-left: 10px; 
+	margin-left: 10px;
 }
 
 /* 호스트센터 */
@@ -102,7 +104,7 @@
 	color: #0099bc;
 	background-color: #e6f7fd;
 	border-radius: 5px;
-	padding: 7px; 
+	padding: 7px;
 	margin-left: 10px;
 }
 
@@ -114,17 +116,19 @@
 
 /* 로그인-마이페이지 메뉴 바 */
 #menu-items {
-	display: none; 
+	display: none;
 	position: absolute;
 	top: 70%; /* 사용자 버튼 아래에 위치하도록 설정 */
-	margin-top: 10px; 
-	width: 160px; 
-	background-color: #ffffff; 
-	border: 1px solid #e5e7eb; 
+	margin-top: 10px;
+	padding: 12px 16px;
+	width: 160px;
+	background-color: #ffffff;
+	border: 1px solid #e5e7eb;
 	border-radius: 4px;
-	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 	z-index: 1000; /* 다른 요소 위에 나타나도록 설정 */
-	transform: translateX(-90px); /* 원하는 만큼 왼쪽으로 이동 */
+	transform: translateX(-110px); /* 위치 조정 */
+	border: 1px solid #e5e7eb; /* 원하는 만큼 왼쪽으로 이동 */
 }
 
 #menu-items.open {
@@ -139,23 +143,51 @@
 	align-items: center;
 }
 
+/* 유저이름 */
 .user-name {
 	margin-right: 5px;
 	color: black;
+	font-size: 15px;
 }
 
+/* 아래 화살표 */
 .user-icon {
 	fill: currentColor;
-	height: 1em;
-	width: 1em;
-	margin-left: 5px;
+	height: 17px;
+	width: 17px;
 }
 
+#menu-1 {
+	padding: 12px 16px; /* 상하 8px, 좌우 16px의 padding 설정 */
+	font-size: 14px; /* 텍스트 크기 설정 */
+	color: #4b5563; /* 회색 텍스트 색상 */
+	border-bottom: 1px solid #e5e7eb; /* 아래쪽 테두리 설정 */
+}
+
+/* 유저 아이디 */
+#menu-1 #user_id {
+	white-space: nowrap; /* p 요소의 텍스트가 넘칠 경우 줄 바꿈 금지 설정 */
+}
+
+/* 마이페이지 버튼 */
+#menu-1 #mypage_btn {
+	color: #7a7a7a; /* 링크 색상 설정 */
+	display: block; /* 블록 요소로 설정하여 전체 너비를 차지하도록 함 */
+	margin: 8px 0px 0px;
+	text-decoration: none; /* 밑줄 제거 */
+}
+
+/* 마이페이지메뉴 라인 */
+.border-t {
+	border-top: 0.5px solid #ccc;
+}
+
+/* 로그아웃 버튼 */
 #logout-button {
 	display: block;
 	width: 100%;
 	padding: 8px 16px;
-	font-size: 12px;
+	font-size: 14px;
 	text-align: left;
 	color: #BF4545;
 	border: none;
@@ -166,41 +198,4 @@
 
 #logout-button:hover {
 	background-color: #f3f4f6;
-}
-
-#menu-1 {
-	padding: 8px 16px; /* 상하 8px, 좌우 16px의 padding 설정 */
-	font-size: 12px; /* 텍스트 크기 설정 */
-	color: #4b5563; /* 회색 텍스트 색상 */
-	border-bottom: 1px solid #e5e7eb; /* 아래쪽 테두리 설정 */
-}
-
-#menu-1 p {
-	white-space: nowrap; /* p 요소의 텍스트가 넘칠 경우 줄 바꿈 금지 설정 */
-}
-
-#menu-1 a {
-	color: #7a7a7a; /* 링크 색상 설정 */
-	display: block; /* 블록 요소로 설정하여 전체 너비를 차지하도록 함 */
-	font-size: 12px; /* 텍스트 크기 설정 */
-	margin-top: 4px; /* 위쪽 마진 설정 */
-}
-
-a.joinevent {
-	display: block;
-	color: #7a7a7a;
-	padding-left: 1rem; /* px-4 */
-	padding-right: 1rem; /* px-4 */
-	padding-top: 0.5rem; /* py-2 */
-	padding-bottom: 0.5rem; /* py-2 */
-	font-size: 0.75rem; /* text-xs */
-}
-
-a.joinevent:hover {
-	background-color: #f5f5f5; /* hover:bg-gray-100 */
-}
-
-/* 마이페이지메뉴 라인 */
-#menu-2.border-t {
-	border-top: 0.5px solid #ccc;
 }
