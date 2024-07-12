@@ -27,15 +27,15 @@
            location.href = "event_list.do?page=1&search_text=" + encodeURIComponent(search_text);
        };
        
-	    // 엔터 키를 감지하여 search 함수 호출
-	       document.addEventListener('DOMContentLoaded', function() {
-	           document.getElementById("search_text").addEventListener("keydown", function(event) {
-	               if (event.key === "Enter") {
-	                   event.preventDefault();
-	                   myApp.search();
-	               }
-	           });
-	       });
+       // 엔터 키를 감지하여 search 함수 호출
+          document.addEventListener('DOMContentLoaded', function() {
+              document.getElementById("search_text").addEventListener("keydown", function(event) {
+                  if (event.key === "Enter") {
+                      event.preventDefault();
+                      myApp.search();
+                  }
+              });
+          });
     </script>
 </head>
 <body>
@@ -79,7 +79,12 @@
                         <a href="javascript:" onclick="location.href='signupform.do'" class="signup">회원가입</a>
                     </c:if>
                 </div>
-                <a href="javascript:" onclick="location.href='event_new.do'" class="new_event">무료행사개설</a>
+                <c:if test="${empty sessionScope.user}">
+                   <a href="javascript:" onclick="location.href='signinform.do'" class="new_event">무료행사개설</a>
+                </c:if>
+                <c:if test="${not empty sessionScope.user}">
+                   <a href="javascript:" onclick="location.href='event_new.do'" class="new_event">무료행사개설</a>
+                </c:if>
                 <c:if test="${empty sessionScope.user}">
                      <a href="javascript:" onclick="location.href='signinform.do'" class="hostpage">호스트센터</a>
                 </c:if>
