@@ -7,7 +7,9 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.ServletContext;
@@ -80,32 +82,58 @@ public class EventController {
 
 	// 행사 전체보기
 	@RequestMapping("/event_list.do")
-	public String event_list(Model model, String page) {
+	public String event_list(Model model, String page, String search_text) {
 		int nowPage = 1;
 		if (page != null && !page.isEmpty()) {
 			nowPage = Integer.parseInt(page);
 		}
-		// 한 페이지당 게시물 수
-		int rowTotal = event_dao.allevents().size(); // 전체 게시글 수
-		int totalPage = (int) Math.ceil((double) rowTotal / Common.Board.BLOCKLIST); // 전체 페이지 수 계산
 
-		// 시작과 끝 인덱스 계산
+		// 한 페이지에 표시되는 게시물의 시작과 끝 번호를 계산
+		// ?page=2
 		int start = (nowPage - 1) * Common.Board.BLOCKLIST + 1;
-		int end = Math.min(start + Common.Board.BLOCKLIST - 1, rowTotal); // 끝 인덱스를 전체 게시글 수를 넘지 않도록 조정
+		int end = start + Common.Board.BLOCKLIST - 1;
 
-		// 실제 이벤트 데이터를 생성
-		// 전체 이벤트 목록에서 현재 페이지에 해당하는 데이터만 가져오기 위해 subList 사용
-		List<EventVO> events = event_dao.allevents();
+		// start, end변수를 Map저장
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("start", start);
+		map.put("end", end);
+
+		// 검색어 관련 파라미터
+		// list.do?search_text=abc&page=2
+
+		// 검색어가 있는 경우
+		if (search_text != null && !search_text.isEmpty()) {
+			map.put("event_loc", search_text);
+			map.put("event_name", search_text);
+			map.put("event_content", search_text);
+			map.put("event_addr", search_text);
+			map.put("event_addrdetail", search_text);
+			map.put("event_h_start", search_text);
+			map.put("event_r_start", search_text);
+		}
+
+		// 전체목록 가져오기
+		List<EventVO> events = event_dao.allevents(map);
+
+		// 전체 게시글 수 가져오기
+		int row_total = event_dao.eventcount(map);
+
+		// 페이지 메뉴 생성
+		String search_param = "";
+		if (search_text != null && !search_text.isEmpty()) {
+			search_param = String.format("search_text=%s", search_text);
+		}
 
 		// 페이징 처리 문자열 생성
-		String pageMenu = Paging.getPaging("event_list.do", nowPage, rowTotal, Common.Board.BLOCKLIST,
+		String pageMenu = Paging.getPaging("event_list.do", nowPage, row_total, search_param, Common.Board.BLOCKLIST,
 				Common.Board.BLOCKPAGE);
 
 		// 모델에 데이터 추가
 		model.addAttribute("events", events);
-		model.addAttribute("totalEvent", rowTotal);// 전체 이벤트 수
 		model.addAttribute("pageMenu", pageMenu);
-		model.addAttribute("nowPage", nowPage); // 현재 페이지 번호 추가
+		model.addAttribute("totalEvent", row_total);// 전체 이벤트 수
+		// 조회수 증가를 위해 기록되있던 show정보를 삭제
+		session.removeAttribute("show");
 
 		// JSP 페이지로 포워딩
 		return Common.Event.VIEW_PATH + "event_list.jsp";
@@ -153,14 +181,13 @@ public class EventController {
 	// 행사 신청 페이지
 	@RequestMapping("/event_apply.do")
 	public String eventApply(@RequestParam("event_idx") int event_idx, Model model) {
-		
-		
+
 		// 해당 이벤트정보 가져오기
 		EventVO event = event_dao.eventByIdx(event_idx);
-		
+
 		// 바인딩
 		model.addAttribute("event", event);
-		
+
 		addEventDetailsToModel(event_idx, model);
 		return Common.Event.VIEW_PATH + "event_apply.jsp";
 	}

@@ -167,11 +167,11 @@ body {
 
 /* 체크박스 그룹 스타일 */
 .checkbox-group>div:not(:last-child) {
-	margin-bottom: 8px; /* 아래 여백 설정 */
+	margin-bottom: 2px; /* 아래 여백 설정 */
 }
 
 .checkbox-group div {
-	padding: 0.5rem; /* 안쪽 여백 설정 */
+	padding: 5px 5px 0px 5px; 
 	border-radius: 6px; /* 둥근 모서리 설정 */
 	transition: background-color 0.3s ease; /* 배경색 전환 효과 */
 	display: flex; /* 플렉스 박스로 설정 */
@@ -179,14 +179,15 @@ body {
 }
 
 .checkbox-group input[type="checkbox"] {
-	margin-right: 0.5rem;
+	margin-right: 5px;
 	width: 16px;
 	height: 16px;
 	accent-color: #0099bc;
 }
 
 .checkbox-group label {
-	font-size: 0.875rem; /* 글꼴 크기 설정 */
+	margin-top: 2px;
+	font-size: 15px; /* 글꼴 크기 설정 */
 	color: black; /* 글꼴 색상 설정 */
 	cursor: pointer; /* 커서 설정 */
 }

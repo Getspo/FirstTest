@@ -13,7 +13,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
     
     <!-- ajax -->
-	<script src="/getspo/resources/js/httpRequest.js"></script>
+   <script src="/getspo/resources/js/httpRequest.js"></script>
     
     <script>
         function goToPage(pageNumber) {
@@ -21,28 +21,28 @@
             form.page.value = pageNumber;
             form.submit();
         }
-		
-     	// 필터링 기능 구현
+      
+        // 필터링 기능 구현
         function filterEvents() {
-        	var location = document.getElementById('location').value;
-        	var sports = [];
-        	if (document.getElementById('running').checked) {
+           var location = document.getElementById('location').value;
+           var sports = [];
+           if (document.getElementById('running').checked) {
                 sports.push('running');
             }
             if (document.getElementById('triathlon').checked) {
                 sports.push('triathlon');
             }
-        	
+           
             let url = "event_list.do";
             let param = "event_loc=" + location;
             sendRequest(url, param, resultFn, "post");
         }
-     	function resultFn(){
-     		if(xhr.readyState == 4 && xhr.status == 200){
-				let data = xhr.responseText;
-				
-			}
-     	}
+        function resultFn(){
+           if(xhr.readyState == 4 && xhr.status == 200){
+            let data = xhr.responseText;
+            
+         }
+        }
 
         function resetFilters() {
             document.getElementById('location').value = 'all';
@@ -133,9 +133,9 @@
                                     </c:choose>
                                 </div>
                                 
-								<div class="check-box">
-								    <span class="check-count"> 조회 <fmt:formatNumber value="${event.event_viewCount}" type="number" groupingUsed="true" /></span>
-								</div>
+                        <div class="check-box">
+                            <span class="check-count"> 조회 <fmt:formatNumber value="${event.event_viewCount}" type="number" groupingUsed="true" /></span>
+                        </div>
                             </div>
                         </div>
                     </div>
@@ -146,8 +146,6 @@
             <div align="center">${pageMenu}</div>
         </div>
     </div>
-    <form id="pagingForm" method="get" action="/getspo/event_list.do">
-        <input type="hidden" name="page" value="${nowPage}">
-    </form>
+   
 </body>
 </html>

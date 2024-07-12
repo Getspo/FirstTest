@@ -8,6 +8,35 @@
     
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/home/navigation.css">
     <script src="${pageContext.request.contextPath}/resources/js/navigation.js"></script>
+    <script>
+       // 전역 네임스페이스를 오염시키지 않기 위해 myApp 객체 생성
+       var myApp = myApp || {};
+   
+       // myApp 객체에 search 함수를 정의
+       myApp.search = function() {
+           console.log("search function called"); // 함수 호출 확인
+           
+           // 검색어
+           let search_text = document.getElementById("search_text").value;
+           
+           if (search_text === '') {
+               location.href="event_list.do";
+           }
+           
+           // URL 파라미터로 검색어를 추가
+           location.href = "event_list.do?page=1&search_text=" + encodeURIComponent(search_text);
+       };
+       
+	    // 엔터 키를 감지하여 search 함수 호출
+	       document.addEventListener('DOMContentLoaded', function() {
+	           document.getElementById("search_text").addEventListener("keydown", function(event) {
+	               if (event.key === "Enter") {
+	                   event.preventDefault();
+	                   myApp.search();
+	               }
+	           });
+	       });
+    </script>
 </head>
 <body>
     <nav class="navibar">
@@ -20,7 +49,7 @@
             
             <div class="left">
                 <input type="text" id="search_text" class="searchbox" placeholder="검색어를 입력해주세요.">
-                <a href="javascript:" onclick="search();">
+                <a href= "javascript:void(0);" onclick="myApp.search();">
                     <img src="${pageContext.request.contextPath}/resources/img/logo/돋보기아이콘.png" class="searchbutton">
                 </a>
             </div>
@@ -51,7 +80,12 @@
                     </c:if>
                 </div>
                 <a href="javascript:" onclick="location.href='event_new.do'" class="new_event">무료행사개설</a>
-                <a href="javascript:" onclick="location.href='hostMain.do'" class="hostpage">호스트센터</a>
+                <c:if test="${empty sessionScope.user}">
+                     <a href="javascript:" onclick="location.href='signinform.do'" class="hostpage">호스트센터</a>
+                </c:if>
+                <c:if test="${not empty sessionScope.user}">
+                   <a href="javascript:" onclick="location.href='hostMain.do'" class="hostpage">호스트센터</a>
+                </c:if>
             </div>
         </div>
     </nav>
