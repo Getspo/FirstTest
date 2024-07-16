@@ -221,6 +221,22 @@ public class MainController {
 
 		return jsonObject.toString();
 	}
+	
+	// 행사 공지/안내 페이지 이동
+		@RequestMapping("/host_event_notice.do")
+		public String host_event_notice(@RequestParam("event_idx") int event_idx, Model model) {
+			EventVO event = event_dao.eventByIdx(event_idx);
+			model.addAttribute("event", event);
+			return Common.Host.VIEW_PATH + "host_event_notice.jsp";
+		}
+	
+	// 행사 공지/안내 작성 페이지 이동
+	@RequestMapping("/host_event_notice_write.do")
+	public String host_event_notice_write(@RequestParam("event_idx") int event_idx, Model model) {
+		EventVO event = event_dao.eventByIdx(event_idx);
+		model.addAttribute("event", event);
+		return Common.Host.VIEW_PATH + "host_event_notice_write.jsp";
+	}
 
 	// 호스트페이지에서 참가자확인페이지 이동(0703 추가)
 	@RequestMapping("/register_list.do")
@@ -243,7 +259,7 @@ public class MainController {
 		return Common.Mypage.VIEW_PATH + "mypage.jsp";
 	}
 
-	// 삭제 후에 보여질 페이지
+	// 탈퇴 후에 보여질 페이지
 	@RequestMapping("withdrawalform.do")
 	public String withdrawalform() {
 		return Common.Mypage.VIEW_PATH + "withdraw_after.jsp";

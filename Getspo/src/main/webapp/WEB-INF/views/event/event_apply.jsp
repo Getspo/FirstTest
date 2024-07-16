@@ -268,6 +268,12 @@
                         <input type="tel" id="tel" name="order_tel" value="${user.user_tel}" required>
                     </div>
                     
+                    <!-- 생년월일 선택 드롭다운 -->
+                    <div class="user_age">
+                        <p id="age">생년월일 <span>*</span></p>
+                        <input type="date" id="user_birth" name="user_birth" value="${user.user_birth}" required>
+                    </div>
+                    
                     <!-- 성별 선택 체크박스 -->
                     <div class="user_gender">
                         <p id="gender">성별 <span>*</span></p>
@@ -275,18 +281,8 @@
                         <label><input type="radio" id="order_gen" name="order_gen" value="female" required> 여성</label>
                     </div>
                 
-                    <!-- 나이 선택 드롭다운 -->
-                    <div class="user_age">
-                        <p id="age">나이 <span>*</span></p>
-                        <select id="age" name="order_age" required>
-                            <option value="">선택하세요</option>
-                            <c:forEach var="i" begin="14" end="100">
-                                <option value="${i}">${i}세</option>
-                            </c:forEach>
-                        </select>
-                    </div>
                 </div>
-            </div>
+            </div>        
             
             <div class="apply_line">
                 <div class="apply_box">

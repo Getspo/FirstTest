@@ -45,7 +45,7 @@
 				    </c:otherwise>
 				</c:choose>
 	            <span class="wall">|</span>
-	            <p>대회/공모전</p>
+	            <p>${event.event_loc}</p>
 	        </div>
 	        <div class="edit_icon_box">
 	            <div class="edit_icon_wrapper">
@@ -60,21 +60,21 @@
 	                </div>
 	            </div>
 	        </div>
-	        <div>
-	            <p class="event_info">
-	                (행사번호 : ${event.event_idx}) ${event.event_name}
-	            </p>
+	        <div  class="event_info">
+	            <a class="title-link" href="event_detail.do?event_idx=${event.event_idx}">
+	            	(행사번호 : ${event.event_idx}) ${event.event_name}
+	            </a>
 	        </div>
 	        <div class="detail_info">
 	            <p class="detail_title">일시</p>
 	            <p class="detail_info_data">${event.getFormattedEventHStart()} ~ ${event.getFormattedEventHEnd() }</p>
 	        </div>
 	        <div class="detail_info">
-	            <p>장소</p>
+	            <p class="detail_title">장소</p>
 	            <p class="detail_info_data">${event.event_addr}${event.event_addrdetail}</p>
 	        </div>
 	        <div class="detail_info">
-	            <p>링크</p>
+	            <p class="detail_title">링크</p>
 	            <p id="event-url" class="detail_info_data">http://localhost:9090/getspo/event_detail.do?event_idx=${event.event_idx}</p>
 	            <div class="clipboard_btn">
 	                <a data-clipboard-target="#event_url" href="#urlModal" class="copy_url">URL 복사</a>

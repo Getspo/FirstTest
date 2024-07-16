@@ -188,12 +188,12 @@
                       <label for="entry_tel">휴대전화번호 *</label>
                   </span>
                   <span>
-                      <input id="entry_gender" name="user_sex" type="checkbox" value="성별" >
-                      <label for="entry_gender">성별</label>
+                      <input id="entry_age" name="user_age" type="checkbox" value="생년월일" checked disabled>
+                      <label for="entry_age">생년월일 *</label>
                   </span>
                   <span>
-                      <input id="entry_age" name="user_age" type="checkbox" value="나이">
-                      <label for="entry_age">나이</label>
+                      <input id="entry_gender" name="user_sex" type="checkbox" value="성별" checked disabled>
+                      <label for="entry_gender">성별 *</label>
                   </span>
             </div>    
             
@@ -322,15 +322,21 @@
 			function uploadSummernoteImageFile(file, el) {
 			    var data = new FormData();
 			    data.append("file", file);
+
+			    // 콘솔에 FormData 출력 (디버깅용)
+			    for (var pair of data.entries()) {
+			        console.log(pair[0]+ ', ' + pair[1]);
+			    }
+
 			    $.ajax({
 			        data: data,
 			        type: "POST",
-			        url: "uploadSummernoteImageFile", // 서버의 이미지 업로드 엔드포인트
+			        url: "uploadSummernoteImageFile",
 			        contentType: false,
 			        enctype: 'multipart/form-data',
 			        processData: false,
 			        success: function(data) {
-			            console.log("서버 응답:", data); // 서버 응답 확인을 위해 로그 출력
+			            console.log("서버 응답:", data);
 			            try {
 			                var jsonResponse;
 			                if (typeof data === "string") {
@@ -338,9 +344,12 @@
 			                } else {
 			                    jsonResponse = data;
 			                }
-			
+
 			                if (jsonResponse.responseCode === "success") {
-			                    $(el).summernote('insertImage', jsonResponse.url);			                    
+			                    var imageUrl = jsonResponse.url;
+			                    $(el).summernote('insertImage', imageUrl, function ($image) {
+			                        $image.css('width', '100%');
+			                    });
 			                } else {
 			                    alert("이미지 업로드에 실패했습니다.");
 			                }
@@ -351,6 +360,7 @@
 			        },
 			        error: function(jqXHR, textStatus, errorThrown) {
 			            console.error("AJAX 오류:", textStatus, errorThrown);
+			            console.error("서버 응답:", jqXHR.responseText);
 			            alert("이미지 업로드 중 오류가 발생했습니다.");
 			        }
 			    });
